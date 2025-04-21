@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Typography, TextField, Button, Link, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const [showSSO, setShowSSO] = useState(false);
+
+  const navigate = useNavigate();
 
   const validateForm = () => {
     const newErrors = {};
@@ -137,6 +140,7 @@ const Login = () => {
                 onClick={() => {
                   // Add your actual SSO redirect logic here
                   console.log("Redirecting to SSO...");
+                  navigate("/dashboard",{state:{email: email}});
                   // window.location.href = "https://your-sso-provider.com/auth";
                 }}
               >
