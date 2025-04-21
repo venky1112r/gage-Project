@@ -14,7 +14,7 @@ const ContractsByCIScoreCard = () => {
   return (
     <Paper elevation={2} sx={{ borderRadius: 4, p: 2 }}>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Typography variant="subtitle2" color="text.secondary">
+        <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
           Contracts by CI Score level
         </Typography>
         <Typography variant="caption" sx={{ color: '#666', cursor: 'pointer' }}>

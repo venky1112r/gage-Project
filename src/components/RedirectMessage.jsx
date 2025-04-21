@@ -7,5 +7,5 @@ const RedirectMessage = () => {
     </Typography>
   );
 };
-
+ 
 export default RedirectMessage;

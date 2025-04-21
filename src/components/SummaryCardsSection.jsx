@@ -6,7 +6,7 @@ const SummaryCardsSection = () => {
   return (
     <div >
     <Box >
-      <Grid container spacing={2} sx={{ padding: 2 , marginBottom: 2 }}>
+      <Grid container spacing={2} sx={{ padding: 2 , marginBottom: 0 }}>
         {/* Contracted CI Score - Full height left */}
         <Grid item xs={12} md={4} size={5} >
           <SummaryCard
@@ -14,6 +14,8 @@ const SummaryCardsSection = () => {
             value="24.83"
             delta="+1.2"
             isPositive={true}
+            labelVariant="subtitle2" 
+            valueVariant="h1"
           >
             {/* Optional line or chart */}
             <div
@@ -22,7 +24,7 @@ const SummaryCardsSection = () => {
                 borderBottom: '2px solid green',
                 marginTop: 8,
               }}
-            >hello</div>
+            >hello</div> 
           </SummaryCard>
         </Grid>
 

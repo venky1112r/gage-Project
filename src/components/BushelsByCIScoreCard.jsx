@@ -53,7 +53,7 @@ const BushelsByCIScoreCard = () => {
 
   return (
     <Paper elevation={3} sx={{ borderRadius: 3, p: 2 }}>
-      <Typography variant="subtitle1" gutterBottom>
+      <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
         Bushels by CI score level
       </Typography>
 
@@ -61,7 +61,7 @@ const BushelsByCIScoreCard = () => {
         <Grid item xs={6}>
           <Typography variant="caption">DELIVERED BUSHELS</Typography>
           <Typography variant="h6" fontWeight="bold">64,124.30</Typography>
-          <Typography variant="caption" color="green">+1.0%</Typography>
+          <Typography variant="caption" color="green">+1.0%</Typography> 
         </Grid>
         <Grid item xs={6}>
           <Typography variant="caption">PENDING BUSHELS</Typography>

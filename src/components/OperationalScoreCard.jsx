@@ -17,7 +17,7 @@ const colorMap = {
 const OperationalScoreCard = () => {
   return (
     <Paper elevation={2} sx={{ borderRadius: 4, p: 2 }}>
-      <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+      <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
         Operational Net CI Score
         <Typography variant="caption" sx={{ float: 'right', color: '#800000', cursor: 'pointer' }}>
           Provide data

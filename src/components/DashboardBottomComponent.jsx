@@ -6,7 +6,7 @@ import ContractsByCIScoreCard from "../components/ContractsByCIScoreCard";
 
 const DashboardBottomComponent = () => {
   return (
-    <Box sx={{marginTop:"2rem",padding:"1rem"}} >
+    <Box sx={{padding:"1rem",marginTop:"0"}} >
        <Grid container spacing={2}>
         <Grid item xs={12} md={6} size={5}>
             <Grid container spacing={1} direction={"column"}  >

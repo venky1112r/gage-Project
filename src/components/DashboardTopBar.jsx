@@ -47,8 +47,10 @@ const DashboardTopBar = () => {
           sx={{ minWidth: 140 }}
         >
           <MenuItem value="all">All Plants</MenuItem>
-          <MenuItem value="north">North Plant</MenuItem>
-          <MenuItem value="south">South Plant</MenuItem>
+          <MenuItem value="northeast">Northeast</MenuItem>
+          <MenuItem value="northwest">Northwest</MenuItem>
+          <MenuItem value="southeast">Southeast</MenuItem>
+          <MenuItem value="southwest">Southwest</MenuItem>
         </Select>
         </Stack>
       </Box>
@@ -72,22 +74,22 @@ const DashboardTopBar = () => {
           color="primary"
         >
        {['day', 'week', 'month', 'year'].map((value) => (
-              <ToggleButton
-                key={value}
-                value={value}
-                sx={{
-                  color: timeRange === value ? '#fff' : '#333',
-                  backgroundColor: timeRange === value ? '#2e7d32' : 'transparent',
-                  borderColor: '#2e7d32',
-                  '&:hover': {
-                    backgroundColor: '#2e7d32',
-                    color: '#fff',
-                  },
-                  textTransform: 'capitalize',
-                }}
-              >
-                {value}
-              </ToggleButton>
+             <ToggleButton
+             key={value}
+             value={value}
+             sx={{
+               color: timeRange === value ? '#fff' : '#1b5e20', // White when selected
+               backgroundColor: timeRange === value ? '#1b5e20' : 'transparent', // Green bg when selected
+               borderColor: '#1b5e20',
+               '&.Mui-selected': {
+                 color: '#fff',
+                 backgroundColor: '#1b5e20',
+               },
+               textTransform: 'capitalize',
+             }}
+           >
+             {value}
+           </ToggleButton>
             ))}
         </ToggleButtonGroup>
       </Box>
