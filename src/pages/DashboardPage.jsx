@@ -9,12 +9,15 @@ const DashboardPage = () => {
   const location = useLocation();
   const email = location.state?.email || "guest@example.com";
   return (
-    <div>
+    <>
+    
       <HeaderComponent email={email} />
+      <div style={{backgroundColor:"#f5f5f5"}}>
       <DashboardTopBar />
       <SummaryCardsSection />
       <DashboardBottomComponent />
     </div>
+    </>
   );
 };
 

@@ -37,14 +37,14 @@ const DashboardTopBar = () => {
   spacing={2}
 >
     
-        <Typography variant="h3"  mr={2}>
+        <Typography variant="h4"  mr={2}>
           Clear Lake Energy
         </Typography>
         <Select
           value={plant}
           onChange={handlePlantChange}
           size="small"
-          sx={{ minWidth: 140 }}
+          sx={{ minWidth: 140, border: '0px' }}
         >
           <MenuItem value="all">All Plants</MenuItem>
           <MenuItem value="northeast">Northeast</MenuItem>

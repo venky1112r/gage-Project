@@ -19,7 +19,7 @@ const HeaderComponent = ({ email }) => {
 
 
   return (
-    <AppBar position="static" color="default" elevation={1}>
+    <AppBar position="static" color="#fff" elevation={1} sx={{ p: 1 }}>
       <Toolbar sx={{ justifyContent: 'space-between' }}>
         {/* Logo */}
         <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#003320' }}>
