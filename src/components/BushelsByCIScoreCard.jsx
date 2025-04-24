@@ -72,7 +72,8 @@ const BushelsByCIScoreCard = () => {
 
       {/* <Divider sx={{ my: 2 }} /> */}
 
-      <Box display="flex" alignItems="center" justifyContent="space-between">
+      <Box display="flex" flexDirection={{ xs: 'row', md: 'row' }} justifyContent="space-between" alignItems="center">
+
         <Box ref={ref} />
         <Box>
           {pieData.map((item, i) => (

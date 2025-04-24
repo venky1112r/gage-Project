@@ -1,16 +1,32 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import * as d3 from 'd3';
 
-const ContractsChart = ({ data, width = 500, height = 300 }) => {
-  const ref = useRef();
+const ContractsChart = ({ data }) => {
+  const containerRef = useRef();
+  const svgRef = useRef();
+  const [size, setSize] = useState({ width: 0, height: 0 });
 
   useEffect(() => {
-    const margin = { top: 20, right: 50, bottom: 40, left: 40 };
+    const observer = new ResizeObserver(([entry]) => {
+      const width = entry.contentRect.width;
+      const height = width * 0.6; // keep responsive ratio (60% of width)
+      setSize({ width, height });
+    });
+
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!size.width || !data.length) return;
+
+    const { width, height } = size;
+    const margin = { top: 20, right: 40, bottom: 40, left: 40 };
     const innerWidth = width - margin.left - margin.right;
     const innerHeight = height - margin.top - margin.bottom;
 
-    const svg = d3.select(ref.current);
-    svg.selectAll('*').remove(); // clean previous
+    const svg = d3.select(svgRef.current);
+    svg.selectAll('*').remove(); // clear before redraw
 
     const g = svg
       .attr('width', width)
@@ -28,10 +44,9 @@ const ContractsChart = ({ data, width = 500, height = 300 }) => {
       .range([innerHeight, 0]);
 
     const yRight = d3.scaleLinear()
-      .domain([0, 40]) // CI Score
+      .domain([0, 40])
       .range([innerHeight, 0]);
 
-    // Bars - Bushels
     g.selectAll('.bar')
       .data(data)
       .enter()
@@ -42,7 +57,6 @@ const ContractsChart = ({ data, width = 500, height = 300 }) => {
       .attr('height', d => innerHeight - yLeft(d.bushels))
       .attr('fill', '#ADC178');
 
-    // Line - CI Score
     const line = d3.line()
       .x(d => x(d.grade) + x.bandwidth() / 2)
       .y(d => yRight(d.ciScore));
@@ -54,7 +68,6 @@ const ContractsChart = ({ data, width = 500, height = 300 }) => {
       .attr('stroke-width', 2)
       .attr('d', line);
 
-    // Dots on line
     g.selectAll('.dot')
       .data(data)
       .enter()
@@ -64,22 +77,21 @@ const ContractsChart = ({ data, width = 500, height = 300 }) => {
       .attr('r', 4)
       .attr('fill', '#7F4F24');
 
-    // X Axis
     g.append('g')
       .attr('transform', `translate(0,${innerHeight})`)
       .call(d3.axisBottom(x));
 
-    // Y Axis Left (Bushels)
     g.append('g').call(d3.axisLeft(yLeft));
-
-    // Y Axis Right (CI Score)
     g.append('g')
       .attr('transform', `translate(${innerWidth},0)`)
       .call(d3.axisRight(yRight));
+  }, [size, data]);
 
-  }, [data, width, height]);
-
-  return <svg ref={ref} />;
+  return (
+    <div ref={containerRef} style={{ width: '100%' }}>
+      <svg ref={svgRef} />
+    </div>
+  );
 };
 
 export default ContractsChart;

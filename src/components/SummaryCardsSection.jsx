@@ -5,10 +5,10 @@ import SummaryCard from './SummaryCard';
 const SummaryCardsSection = () => {
   return (
     <div >
-    <Box >
-      <Grid container spacing={2} sx={{ padding: 2 , marginBottom: 0 }}>
+  <Box sx={{ mt: 0 , mb: 0 ,py:1}}>
+      <Grid container spacing={2} sx={{ padding: 2  }}>
         {/* Contracted CI Score - Full height left */}
-        <Grid item xs={12} md={4} size={5} >
+        <Grid item xs={12} md={5}  >
           <SummaryCard
             label="Contracted CI Score"
             value="24.83"
@@ -29,9 +29,9 @@ const SummaryCardsSection = () => {
         </Grid>
 
         {/* Other 3 cards on the right */}
-        <Grid item xs={12} md={8} size={7}>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={4} size={4}>
+        <Grid item xs={12} md={7} >
+          <Grid container spacing={2} >
+            <Grid item xs={12} sm={4} md={4} >
               <SummaryCard
                 label="Total Bushels"
                 value="73,322"
@@ -39,7 +39,7 @@ const SummaryCardsSection = () => {
                 isPositive={true}
               />
             </Grid>
-            <Grid item xs={12} sm={4} size={4}>
+            <Grid item xs={12} sm={4} md={4}>
               <SummaryCard
                 label="Rebate"
                 value="$62,072"
@@ -47,7 +47,7 @@ const SummaryCardsSection = () => {
                 isPositive={false}
               />
             </Grid>
-            <Grid item xs={12} sm={4} size={4}>
+            <Grid item xs={12} sm={4} md={4}>
               <SummaryCard
                 label="Authorized Growers"
                 value="58%"

@@ -32,7 +32,7 @@ const OperationalScoreCard = () => {
           <Typography variant="caption">CI Score</Typography>
         </Box>
 
-        <Stack spacing={1}>
+        <Stack direction={{ xs: 'column', md: 'column' }} justifyContent="space-between" alignItems="center" spacing={2}>
           {ciData.map(item => (
             <Box key={item.label} display="flex" alignItems="center">
               <Box

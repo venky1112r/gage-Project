@@ -1,11 +1,14 @@
 import React from 'react'
-import Headers from '../components/HeaderComponent';
+import HeaderComponent from '../components/HeaderComponent';
 import DashboardTopBar from '../components/DashboardTopBar';
+import { useLocation } from 'react-router-dom';
 
 const SourcingPage = () => {
+  const location = useLocation();
+  const email = location.state?.email || "guest@example.com";
   return (
     <div>
-        <Headers />
+        <HeaderComponent email={email}/>
         <DashboardTopBar/>
     </div>
   )
