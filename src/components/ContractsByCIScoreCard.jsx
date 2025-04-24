@@ -1,6 +1,7 @@
 import React from 'react';
 import { Paper, Typography, Box, Stack } from '@mui/material';
 import ContractsChart from './ContractsChart';
+import DeliveryTable from './DeliveryTable';
 
 const data = [
   { grade: 'Grower', bushels: 2784, ciScore: 30 },
@@ -24,6 +25,7 @@ const ContractsByCIScoreCard = () => {
 
       <Box mt={2}>
         <ContractsChart data={data} width={500} height={300} />
+        <DeliveryTable />
       </Box>
     </Paper>
   );

@@ -18,6 +18,7 @@ function App() {
       <Route path="/sourcing" element={<Sourcing />} />
       <Route path="/reporting" element={<Reporting />} />
       <Route path="/settings" element={<Settings />} />
+      <Route path="/test" element={<Test />} />
     </Routes>
   </Router>
   );
