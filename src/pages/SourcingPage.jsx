@@ -9,7 +9,9 @@ const SourcingPage = () => {
   return (
     <div>
         <HeaderComponent email={email}/>
+        <div style={{backgroundColor:"#f5f5f5"}}>
         <DashboardTopBar/>
+        </div>
     </div>
   )
 }

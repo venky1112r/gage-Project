@@ -26,7 +26,7 @@ const OperationalScoreCard = () => {
         </Typography>
       </Box>
 
-      <Box display="flex" alignItems="center" gap={4}>
+      <Box display="flex" alignItems="center" gap={5} justifyContent="space-around" flexDirection={{ xs: 'row', md: 'row' } }>
         {/* Left side: Score */}
         <Box>
           <Typography variant="h3" sx={{ color: '#000000' }}>
@@ -53,7 +53,7 @@ const OperationalScoreCard = () => {
           </Stack>
         </Box>
 
-        {/* Right side: Donut Chart and Legend */}
+        {/* Right side: Donut Chart  */}
         <Box display="flex" flexDirection="column" >
           <DonutChart data={ciData} colorMap={colorMap} />
           

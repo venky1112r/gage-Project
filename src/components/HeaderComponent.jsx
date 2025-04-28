@@ -44,7 +44,7 @@ const HeaderComponent = ({ email }) => {
   // };
 
   return (
-    <AppBar position="static" color="#fff" elevation={1} sx={{ p: 1 }}>
+    <AppBar position="static" color="#fff" elevation={1} sx={{ p: 1, bgcolor: "#fff", }}>
       <Toolbar
         sx={{
           display: "flex",

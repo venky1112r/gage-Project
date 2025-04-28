@@ -18,6 +18,7 @@ const SettingComponent = () => {
           m: 2,
           border: "1px solid #ccc",
           borderRadius: 4,
+          bgcolor: "#fff",
         }}
       >
         <Tabs

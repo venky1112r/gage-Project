@@ -4,19 +4,19 @@ import { useLocation } from "react-router-dom";
 import SummaryCardsSection from "../components/SummaryCardsSection";
 import DashboardBottomComponent from "../components/DashboardBottomComponent";
 import DashboardTopBar from "../components/DashboardTopBar";
+import { Box } from "@mui/material";
 
 const DashboardPage = () => {
   const location = useLocation();
   const email = location.state?.email || "guest@example.com";
   return (
     <>
-    
+     <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
       <HeaderComponent email={email} />
-      <div style={{backgroundColor:"#f5f5f5"}}>
       <DashboardTopBar />
       <SummaryCardsSection />
       <DashboardBottomComponent />
-    </div>
+      </Box>
     </>
   );
 };

@@ -54,6 +54,7 @@ import {
               m: 2,
               border: "1px solid #ccc",
               borderRadius: 4,
+              bgcolor:"#fff"
             }}
           >
             <Typography variant="h6" sx={{ mb: 2 }}>
