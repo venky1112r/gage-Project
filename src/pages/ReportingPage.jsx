@@ -2,6 +2,7 @@ import React from 'react';
 import HeaderComponent from '../components/HeaderComponent';
 import DashboardTopBar from '../components/DashboardTopBar';
 import { useLocation } from 'react-router-dom';
+import ReportingComponent from '../components/ReportingComponent';
 
 const ReportingPage = () => {
   const location = useLocation();
@@ -9,7 +10,8 @@ const ReportingPage = () => {
   return (
     <div>
       <HeaderComponent  email={email}/>
-      <DashboardTopBar/>
+      <DashboardTopBar hideTimeRange />
+      <ReportingComponent />
     </div>
   )
 }

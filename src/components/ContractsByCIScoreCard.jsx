@@ -10,7 +10,7 @@ const data = [
   { grade: 'Custom', bushels: 2431, ciScore: 22 },
   { grade: 'No Score', bushels: 2045, ciScore: 18 },
 ];
-
+ 
 const ContractsByCIScoreCard = () => {
   return (
     <Paper elevation={2} sx={{ borderRadius: 4, p: 2 }}>

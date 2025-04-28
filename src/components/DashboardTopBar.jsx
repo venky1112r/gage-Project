@@ -10,7 +10,7 @@ import {
   Divider,
 } from "@mui/material";
 
-const DashboardTopBar = () => {
+const DashboardTopBar = ({ hideTimeRange = false }) => {
   const [plant, setPlant] = useState("all");
   const [timeRange, setTimeRange] = useState("month");
 
@@ -67,6 +67,7 @@ const DashboardTopBar = () => {
       </Stack>
 
       {/* Right side: Time range selector with equal width */}
+      {!hideTimeRange &&(
       <Box mt={{ xs: 2, md: 0 }}>
         <Typography
           variant="caption"
@@ -110,6 +111,7 @@ const DashboardTopBar = () => {
          Applicable Tax Year: 2025
         </Typography>
       </Box>
+      )}
     </Box>
   );
 };

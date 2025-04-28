@@ -53,9 +53,10 @@ const HeaderComponent = ({ email }) => {
           justifyContent: "space-between",
           px: { xs: 1, md: 2 },
           gap: { xs: 2, md: 0 },
+          py: { xs: 1, md: 1 },
         }}
       >
-        <Typography variant="h4" sx={{ fontWeight: "bold", color: "#003320" }}>
+        <Typography variant="h3" sx={{ fontWeight: "bold", color: "#003320" }}>
           G.A.G.E.
         </Typography>
 
@@ -99,6 +100,7 @@ const HeaderComponent = ({ email }) => {
                   fontWeight: currentTab === index ? "bold" : "bold",
                   color: currentTab === index ? "#800000" : "#000",
                   textTransform: "none",
+                  fontSize: "15px",
                 }}
               />
             ))}
