@@ -85,7 +85,7 @@ const ManualInputsComponent = () => {
         <Box mt={1}>
           <TableContainer component={Paper}>
             <Table size="small">
-              <TableHead>
+              <TableHead  sx={{ '& th': { fontWeight: 'bold' } }}>
                 <TableRow>
                   <TableCell>#</TableCell>
                   <TableCell>Plant</TableCell>

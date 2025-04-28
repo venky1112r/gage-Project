@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 
-const DonutChart = ({ data, width = 160, height = 160, innerRadius = 50, outerRadius = 75 }) => {
+const DonutChart = ({ data, width = 160, height = 160, innerRadius = 40, outerRadius = 75 }) => {
   const ref = useRef();
 
   useEffect(() => {

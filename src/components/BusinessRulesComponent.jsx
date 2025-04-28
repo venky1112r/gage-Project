@@ -73,9 +73,9 @@ const BusinessRulesComponent = () => {
         <Box mt={1}>
           <TableContainer component={Paper}>
             <Table size="small">
-              <TableHead>
+              <TableHead  sx={{ '& th': { fontWeight: 'bold' } }}>
                 <TableRow>
-                  <TableCell>Grade Level</TableCell>
+                  <TableCell >Grade Level</TableCell>
                   <TableCell>CI Value</TableCell>
                   <TableCell>last updated on</TableCell>
                   <TableCell>Updated by</TableCell>
