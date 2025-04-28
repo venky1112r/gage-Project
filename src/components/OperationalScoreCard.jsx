@@ -3,53 +3,61 @@ import { Box, Typography, Paper, Stack } from '@mui/material';
 import DonutChart from './DonutChart';
 
 const ciData = [
-  { label: 'Bushes', value: 48 },
+  { label: 'Bushels', value: 48 },
   { label: 'Plant Footprint', value: 27 },
   { label: 'Transportation', value: 25 },
 ];
 
 const colorMap = {
-  'Bushes': '#004225',
-  'Plant Footprint': '#6BA368',
-  'Transportation': '#C4A35A',
+  'Bushels': '#004225', 
+  'Plant Footprint': '#6BA368', 
+  'Transportation': '#C4A35A', 
 };
 
 const OperationalScoreCard = () => {
   return (
-    <Paper elevation={2} sx={{ borderRadius: 4, p: 2 }}>
-      <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
-        Operational Net CI Score
-        <Typography variant="caption" sx={{ float: 'right', color: '#800000', cursor: 'pointer' }}>
+    <Paper elevation={2} sx={{ borderRadius: 4, p: 3 }}>
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+        <Typography variant="subtitle1" fontWeight="bold">
+          Operational Net CI Score
+        </Typography>
+        <Typography variant="caption" sx={{ color: '#800000', cursor: 'pointer' }}>
           Provide data
         </Typography>
-      </Typography>
+      </Box>
 
-      <Box display="flex" justifyContent="space-between" alignItems="center">
-        <DonutChart data={ciData} />
-
-        <Box textAlign="center">
-          <Typography variant="h4" fontWeight="bold" color="#003320">39.11</Typography>
-          <Typography variant="caption">CI Score</Typography>
+      <Box display="flex" alignItems="center" gap={4}>
+        {/* Left side: Score */}
+        <Box>
+          <Typography variant="h3" sx={{ color: '#000000' }}>
+            39.11
+          </Typography>
+          {/* Legend below chart */}
+          <Stack spacing={1} mt={2}>
+            {ciData.map((item) => (
+              <Box key={item.label} display="flex" alignItems="center">
+                <Box
+                  sx={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: '50%',
+                    backgroundColor: colorMap[item.label],
+                    mr: 1,
+                  }}
+                />
+                <Typography variant="caption" color="textSecondary">
+                  {item.label.toUpperCase()}
+                </Typography>
+              </Box>
+            ))}
+          </Stack>
         </Box>
 
-        <Stack direction={{ xs: 'column', md: 'column' }} justifyContent="space-between" alignItems="center" spacing={2}>
-          {ciData.map(item => (
-            <Box key={item.label} display="flex" alignItems="center">
-              <Box
-                sx={{
-                  width: 12,
-                  height: 12,
-                  borderRadius: '50%',
-                  backgroundColor: colorMap[item.label],
-                  mr: 1,
-                }}
-              />
-              <Typography variant="caption">
-                {item.label}: <strong>{item.value}%</strong>
-              </Typography>
-            </Box>
-          ))}
-        </Stack>
+        {/* Right side: Donut Chart and Legend */}
+        <Box display="flex" flexDirection="column" >
+          <DonutChart data={ciData} colorMap={colorMap} />
+          
+        </Box>
       </Box>
     </Paper>
   );
