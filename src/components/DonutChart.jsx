@@ -13,7 +13,7 @@ const DonutChart = ({ data, width = 160, height = 160, innerRadius = 50, outerRa
 
     const color = d3.scaleOrdinal()
       .domain(data.map(d => d.label))
-      .range(['#004225', '#6BA368', '#C4A35A']); // Bushes, Footprint, Transport
+      .range(['#004225', '#6BA368', '#C4A35A']); // Bushels, Footprint, Transport
 
     const arcs = pie(data);
 
@@ -28,15 +28,15 @@ const DonutChart = ({ data, width = 160, height = 160, innerRadius = 50, outerRa
       .attr('fill', d => color(d.data.label));
 
     // Optional: Add labels inside slices
-    // g.selectAll('text')
-    //   .data(arcs)
-    //   .enter()
-    //   .append('text')
-    //   .attr('transform', d => `translate(${arc.centroid(d)})`)
-    //   .attr('text-anchor', 'middle')
-    //   .text(d => `${d.data.value}%`)
-    //   .style('font-size', 10)
-    //   .style('fill', '#fff');
+    g.selectAll('text')
+      .data(arcs)
+      .enter()
+      .append('text')
+      .attr('transform', d => `translate(${arc.centroid(d)})`)
+      .attr('text-anchor', 'middle')
+      .text(d => `${d.data.value}%`)
+      .style('font-size', 11)
+      .style('fill', '#fff');
 
   }, [data, width, height, innerRadius, outerRadius]);
 

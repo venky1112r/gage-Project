@@ -3,8 +3,8 @@ import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, 
 
 const DeliveryTable = () => {
   const rows = [
-    { plant: "Clear Lake Energy Northeast", grower: "28.47%", retailer: "27.75%", national: "4.53%", custom: "-", noScore: "-", total: "60.75%" },
-    { plant: "Clear Lake Energy Northwest", grower: "2.42%", retailer: "3.22%", national: "4.36%", custom: "1.41%", noScore: "-", total: "11.41%" },
+    { plant: "Clear Lake Energy Northeast", grower: "28.47%", retailer: "27.75%", national: "4.53%", custom: "-", noScoreGrower: "-", noScoreRetailer: "-", total: "60.75%" },
+    { plant: "Clear Lake Energy Northwest", grower: "2.42%", retailer: "3.22%", national: "4.36%", custom: "1.41%", noScoreGrower: "-", noScoreRetailer: "-", total: "11.41%" },
     // ... other rows
   ];
 
@@ -19,7 +19,8 @@ const DeliveryTable = () => {
               <TableCell>Retailer</TableCell>
               <TableCell>National</TableCell>
               <TableCell>Custom</TableCell>
-              <TableCell>No Score</TableCell>
+              <TableCell>No Score Grower</TableCell>
+              <TableCell>No Score Retailer</TableCell>
               <TableCell>Total</TableCell>
             </TableRow>
           </TableHead>
@@ -31,7 +32,8 @@ const DeliveryTable = () => {
                 <TableCell>{row.retailer}</TableCell>
                 <TableCell>{row.national}</TableCell>
                 <TableCell>{row.custom}</TableCell>
-                <TableCell>{row.noScore}</TableCell>
+                <TableCell>{row.noScoreGrower}</TableCell>
+                <TableCell>{row.noScoreRetailer}</TableCell>
                 <TableCell>{row.total}</TableCell>
               </TableRow>
             ))}

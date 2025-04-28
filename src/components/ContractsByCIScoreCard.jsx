@@ -8,7 +8,8 @@ const data = [
   { grade: 'Retailer', bushels: 2607, ciScore: 26 },
   { grade: 'National', bushels: 3900, ciScore: 35 },
   { grade: 'Custom', bushels: 2431, ciScore: 22 },
-  { grade: 'No Score', bushels: 2045, ciScore: 18 },
+  { grade: 'No Score Grower', bushels: 2045, ciScore: 18 },
+  { grade: 'No Score Retailer', bushels: 1224, ciScore: 20 },
 ];
  
 const ContractsByCIScoreCard = () => {

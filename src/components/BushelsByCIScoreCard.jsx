@@ -1,6 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
-import { Box, Typography, Paper, Grid, Divider } from '@mui/material';
+import { Box, Typography, Paper, Grid, IconButton } from '@mui/material';
+import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 
 const pieData = [
   { label: 'Grower', value: 10, color: '#8B0000' },
@@ -12,10 +13,11 @@ const pieData = [
 
 const BushelsByCIScoreCard = () => {
   const ref = useRef();
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     drawChart();
-  }, []);
+  }, [currentIndex]);
 
   const drawChart = () => {
     const width = 160;
@@ -40,7 +42,7 @@ const BushelsByCIScoreCard = () => {
 
     arcs.append('path')
       .attr('d', arc)
-      .attr('fill', d => d.data.color);
+      .attr('fill', (d, i) => i === currentIndex ? d.data.color : '#D3D3D3');
 
     // Center text
     svg.append("text")
@@ -48,7 +50,15 @@ const BushelsByCIScoreCard = () => {
       .attr("dy", "0.35em")
       .style("font-size", "20px")
       .style("font-weight", "bold")
-      .text("68%");
+      .text(`${pieData[currentIndex].value}%`);
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % pieData.length);
+  };
+
+  const handlePrevious = () => {
+    setCurrentIndex((prevIndex) => (prevIndex - 1 + pieData.length) % pieData.length);
   };
 
   return (
@@ -70,11 +80,23 @@ const BushelsByCIScoreCard = () => {
         </Grid>
       </Grid>
 
-      {/* <Divider sx={{ my: 2 }} /> */}
-
-      <Box display="flex" flexDirection={{ xs: 'row', md: 'row' }} justifyContent="space-between" alignItems="center">
+      <Box 
+        display="flex" 
+        flexDirection={{ xs: 'row', md: 'row' }} 
+        justifyContent="space-around" 
+        alignItems="center"
+        mt={2}
+      >
+        <IconButton onClick={handlePrevious}>
+          <ArrowBackIos fontSize="small" />
+        </IconButton>
 
         <Box ref={ref} />
+
+        <IconButton onClick={handleNext}>
+          <ArrowForwardIos fontSize="small" />
+        </IconButton>
+
         <Box>
           {pieData.map((item, i) => (
             <Box key={i} display="flex" alignItems="center" mb={1}>
@@ -87,7 +109,12 @@ const BushelsByCIScoreCard = () => {
                   mr: 1,
                 }}
               />
-              <Typography variant="caption">{item.label}</Typography>
+              <Typography 
+                variant="caption" 
+                fontWeight={i === currentIndex ? 'bold' : 'normal'}
+              >
+                {item.label}
+              </Typography>
             </Box>
           ))}
         </Box>
