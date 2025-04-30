@@ -11,7 +11,7 @@ const DashboardPage = () => {
   const email = location.state?.email || "guest@example.com";
   return (
     <>
-     <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
+     <Box sx={{ backgroundColor: "#f5f5f5"}}>
       <HeaderComponent email={email} />
       <DashboardTopBar />
       <SummaryCardsSection />

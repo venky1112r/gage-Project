@@ -24,7 +24,7 @@ const SummaryCardsSection = () => {
                 borderBottom: '2px solid green',
                 marginTop: 8,
               }}
-            >hello</div> 
+            ></div> 
           </SummaryCard>
         </Grid>
 
