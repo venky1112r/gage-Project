@@ -257,7 +257,7 @@ const MySourcesTable = () => {
             </Select>
           </Box>
         </Box>
-
+        <Box sx={{ overflowX: "auto" }}>
         <TableContainer>
           <Table size="small">
             <TableHead sx={{ "& th": { fontWeight: "bold" } }}>
@@ -303,6 +303,7 @@ const MySourcesTable = () => {
             </TableBody>
           </Table>
         </TableContainer>
+        </Box>
       </Paper>
 
       <Dialog open={editOpen} onClose={handleClose} maxWidth="sm" fullWidth>

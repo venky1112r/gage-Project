@@ -14,7 +14,7 @@ const SettingComponent = () => {
     <div>
       <Box
         sx={{
-          p: 3,
+          p:1,
           m: 2,
           border: "1px solid #ccc",
           borderRadius: 4,
