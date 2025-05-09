@@ -62,7 +62,7 @@ const BushelsByCIScoreCard = () => {
   };
 
   return (
-    <Paper elevation={3} sx={{ borderRadius: 3, p: 2 }}>
+    <Paper elevation={3} sx={{ borderRadius: 4, p: 2 }}>
       <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
         Bushels by CI score level
       </Typography>

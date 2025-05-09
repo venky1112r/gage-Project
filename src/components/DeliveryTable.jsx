@@ -12,9 +12,9 @@ const DeliveryTable = () => {
   ];
 
   return (
-    <Box mt={1}>
-      <TableContainer component={Paper}>
-        <Table size="small">
+    <Box mt={1} sx={{ width: "100%", mt:0}}>
+      <TableContainer sx={{maxHeight: 300, width: "100%",}}>
+        <Table size="small" sx={{ '& td, & th': { padding: "4px 10px", fontSize: "0.8rem" } }}>
           <TableHead sx={{ '& th': { fontWeight: 'bold' } }}>
             <TableRow>
               <TableCell>Plant / Grade Level</TableCell>
@@ -25,13 +25,13 @@ const DeliveryTable = () => {
               <TableCell>Custom</TableCell>
               <TableCell>No Score Grower</TableCell>
               <TableCell>No Score Retailer</TableCell>
-              <TableCell>Total</TableCell>
+              <TableCell>Total</TableCell> 
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row, idx) => (
               <TableRow key={idx}>
-                <TableCell sx={{fontWeight: 'bold' }}>{row.plant}</TableCell>
+                <TableCell  sx={{fontWeight: 'bold' }}>{row.plant}</TableCell>
                 <TableCell>{row.totalCapacity}</TableCell>
                 <TableCell>{row.grower}</TableCell>
                 <TableCell>{row.retailer}</TableCell>
