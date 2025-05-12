@@ -41,29 +41,53 @@ const Login = () => {
       <Box
         sx={{
           width: { xs: "100%", md: "50%" },
-          height: { xs: "40vh", md: "100vh" },
+          height: { xs: "50vh", md: "100vh" },
           backgroundColor: "#d3e0d2",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          textAlign: "center",
+         justifyContent: "center",
+          alignItems: "center", 
+          textAlign: "center",  
           px: 2,
+           position: "relative", // Needed for absolute positioning
         }}
       >
+        <Box margin={'auto'}>
+
+   
         <Typography
           variant="h1"
           fontWeight="bold"
-          sx={{ color: "#154734", fontSize: { xs: "3rem", sm: "4rem", md: "5rem" } }}
+          color="primary.main"
+          sx={{ fontSize: { xs: "3rem", sm: "4rem", md: "5rem" } }}
         >
           G.A.G.E.
         </Typography>
         <Typography
           variant="h6"
-          sx={{ mt: 2, color: "#2e5939", fontSize: { xs: "1rem", md: "1.5rem" } }}
+          sx={{ mt: 2, color: "#2e5939", fontSize: { xs: "1rem", md: "1.2rem" } }}
         >
           Grown Above Ground Energy
         </Typography>
+             </Box>
+                {/* Logo in bottom-right */}
+        <Box
+          component="img"
+          src="src/assets/logos/Cultura_Logo_Primary_LightBG.png" // Replace with actual logo filename in /public
+          width={150}          
+          alt="Company Logo"
+          // alignSelf={'end'}
+          // marginTop={'auto'}
+    sx={{
+      position: "absolute",
+      bottom: { xs: 12, md: 24 },
+      right: { xs: 12, md: 24 },
+      width: { xs: 80, sm: 100, md: 140 },
+      maxHeight: { xs: 60, sm: 80, md: 100 },
+      objectFit: "contain",
+    }}
+        />
+      
       </Box>
 
       {/* Right Side - Login Form */}
@@ -89,7 +113,7 @@ const Login = () => {
             // boxShadow: { xs: "none", md: 3 },
           }}
         >
-          <Typography variant="h4" sx={{ mb: 3 }}>
+          <Typography variant="h4" sx={{ mb: 3 }} textAlign={"center"}>
             Log in to continue
           </Typography>
 
@@ -127,11 +151,8 @@ const Login = () => {
                 type="submit"
                 variant="contained"
                 fullWidth
-                sx={{
-                  mt: 3,
-                  backgroundColor: "#154734",
-                  "&:hover": { backgroundColor: "#2e5939" },
-                }}
+            sx={{mt:3}}           
+               
               >
                 LOG IN
               </Button>
