@@ -62,7 +62,7 @@ const Login = () => {
           variant="h6"
           sx={{ mt: 2, color: "#2e5939", fontSize: { xs: "1rem", md: "1.5rem" } }}
         >
-          Grow Above Green Energy
+          Grown Above Ground Energy
         </Typography>
       </Box>
 

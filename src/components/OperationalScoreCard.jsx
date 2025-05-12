@@ -17,7 +17,7 @@ const colorMap = {
 const OperationalScoreCard = () => {
   return (
     <Paper elevation={2} sx={{ borderRadius: 4, p: 3 }}>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={5}>
         <Typography variant="subtitle1" fontWeight="bold">
           Operational Net CI Score
         </Typography>
@@ -26,7 +26,7 @@ const OperationalScoreCard = () => {
         </Typography>
       </Box>
 
-      <Box display="flex" alignItems="center" gap={5} justifyContent="space-around" flexDirection={{ xs: 'row', md: 'row' } }>
+      <Box display="flex" alignItems="center" gap={5} justifyContent="space-between" flexDirection={{ xs: 'row', md: 'row' } }>
         {/* Left side: Score */}
         <Box>
           <Typography variant="h3" sx={{ color: '#000000' }}>
