@@ -6,6 +6,7 @@ import {
   Stack,
   ToggleButton,
   ToggleButtonGroup,
+  Divider,
 } from "@mui/material";
 import ContractsChart from "./ContractsChart";
 import DeliveryTable from "./DeliveryTable";
@@ -56,6 +57,11 @@ const ContractsByCIScoreCard = () => {
 
       <Box mt={2}>
         <ContractsChart data={data} width={500} height={300} view={view} />
+        <Divider
+            orientation="horizontal"
+            flexItem
+            sx={{ borderColor: "#D3D3D3" }}
+          />
         <DeliveryTable />
       </Box>
     </Paper>
