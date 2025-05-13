@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from "@mui/material";
 
 const DeliveryTable = () => {
   const rows = [
@@ -13,6 +13,11 @@ const DeliveryTable = () => {
 
   return (
     <Box mt={1} sx={{ width: "100%", mt:0}}>
+            <Box display="flex" justifyContent="flex-end" mt={2}>
+        <Button variant="outlined" color="White" size="small" sx={{ color: 'red', borderColor: 'black' }}>
+          Add Quantity
+        </Button>
+      </Box>
       <TableContainer sx={{maxHeight: 300, width: "100%",}}>
         <Table size="small" sx={{ '& td, & th': { padding: "4px 10px", fontSize: "0.8rem" } }}>
           <TableHead sx={{ '& th': { fontWeight: 'bold' } }}>

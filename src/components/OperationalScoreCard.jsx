@@ -16,14 +16,14 @@ const colorMap = {
 
 const OperationalScoreCard = () => {
   return (
-    <Paper elevation={2} sx={{ borderRadius: 4, p: 3 }}>
+    <Paper elevation={2} sx={{ borderRadius: 4, pl: 2, pr: 3, pt: 3, pb: 3 }}>
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={5}>
         <Typography variant="subtitle1" fontWeight="bold">
           Operational Net CI Score
         </Typography>
-        <Typography variant="caption" sx={{ color: '#800000', cursor: 'pointer' }}>
+        {/* <Typography variant="caption" sx={{ color: '#800000', cursor: 'pointer' }}>
           Provide data
-        </Typography>
+        </Typography> */}
       </Box>
 
       <Box display="flex" alignItems="center" gap={5} justifyContent="space-between" flexDirection={{ xs: 'row', md: 'row' } }>

@@ -1,30 +1,51 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
-import { Box, Typography, Paper, Grid, IconButton } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Paper,
+  Grid,
+  IconButton,
+} from '@mui/material';
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 
-const pieData = [
+// Delivered and Pending datasets (same color for No Score items)
+const deliveredData = [
   { label: 'Grower', value: 10, color: '#8B0000' },
   { label: 'Retailer', value: 20, color: '#A0522D' },
   { label: 'National', value: 30, color: '#DAA520' },
   { label: 'Custom', value: 15, color: '#D2691E' },
-  { label: 'No Score', value: 25, color: '#D3D3D3' },
+  { label: 'No Score Grower', value: 10, color: '#FF6347 ' },
+  { label: 'No Score Retailer', value: 15, color: '#F4A300 ' },
+];
+
+const pendingData = [
+  { label: 'Grower', value: 12, color: '#8B0000' },
+  { label: 'Retailer', value: 18, color: '#A0522D' },
+  { label: 'National', value: 22, color: '#DAA520' },
+  { label: 'Custom', value: 10, color: '#D2691E' },
+  { label: 'No Score Grower', value: 20, color:'#FF6347 ' },
+  { label: 'No Score Retailer', value: 18, color: '#F4A300 ' },
 ];
 
 const BushelsByCIScoreCard = () => {
   const ref = useRef();
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [view, setView] = useState('delivered'); // 'delivered' | 'pending'
+  const [selectedIndex, setSelectedIndex] = useState(null);
+
+  const data = view === 'delivered' ? deliveredData : pendingData;
 
   useEffect(() => {
     drawChart();
-  }, [currentIndex]);
+  }, [view, selectedIndex]);
 
   const drawChart = () => {
     const width = 160;
     const height = 160;
     const radius = Math.min(width, height) / 2;
 
-    const svg = d3.select(ref.current)
+    const svg = d3
+      .select(ref.current)
       .html('')
       .append('svg')
       .attr('width', width)
@@ -32,33 +53,49 @@ const BushelsByCIScoreCard = () => {
       .append('g')
       .attr('transform', `translate(${width / 2}, ${height / 2})`);
 
-    const pie = d3.pie().value(d => d.value);
+    const pie = d3.pie().value(d => d.value).sort(null); // Disable sorting
     const arc = d3.arc().innerRadius(50).outerRadius(radius);
 
-    const arcs = svg.selectAll('arc')
-      .data(pie(pieData))
-      .enter()
-      .append('g');
+    const pieData = pie(data);
 
-    arcs.append('path')
+    const arcs = svg
+      .selectAll('arc')
+      .data(pieData)
+      .enter()
+      .append('g')
+      .on('click', (_, d) => {
+        setSelectedIndex(d.index === selectedIndex ? null : d.index);
+      });
+
+    arcs
+      .append('path')
       .attr('d', arc)
-      .attr('fill', (d, i) => i === currentIndex ? d.data.color : '#D3D3D3');
+      .attr('fill', d => d.data.color)
+      .attr('opacity', d => selectedIndex === null || selectedIndex === d.index ? 1 : 0.3)
+      .style('cursor', 'pointer');
 
     // Center text
-    svg.append("text")
-      .attr("text-anchor", "middle")
-      .attr("dy", "0.35em")
-      .style("font-size", "20px")
-      .style("font-weight", "bold")
-      .text(`${pieData[currentIndex].value}%`);
+    const total = data.reduce((sum, d) => sum + d.value, 0);
+    let centerText = '100.00%'; // Set default to 100%
+
+    if (selectedIndex !== null) {
+      const selected = data[selectedIndex];
+      const percentage = ((selected.value / total) * 100).toFixed(1);
+      centerText = `${percentage}%`;
+    }
+
+    svg
+      .append('text')
+      .attr('text-anchor', 'middle')
+      .attr('dy', '0.35em')
+      .style('font-size', '20px')
+      .style('font-weight', 'bold')
+      .text(centerText);
   };
 
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % pieData.length);
-  };
-
-  const handlePrevious = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + pieData.length) % pieData.length);
+  const toggleView = () => {
+    setView(prev => (prev === 'delivered' ? 'pending' : 'delivered'));
+    setSelectedIndex(null); // reset selection when switching views
   };
 
   return (
@@ -69,36 +106,56 @@ const BushelsByCIScoreCard = () => {
 
       <Grid container spacing={2}>
         <Grid item xs={6}>
-          <Typography variant="caption">DELIVERED BUSHELS</Typography>
-          <Typography variant="h6" fontWeight="bold">64,124.30</Typography>
-          <Typography variant="caption" color="green">+1.0%</Typography> 
+          <Box
+            sx={{
+              padding: ' 0px 4px 0px 4px',
+              boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.25)',
+              borderRadius: 2,
+              backgroundColor: view === 'delivered' ? '#transparent' : 'transparent',
+              border: view === 'delivered' ? '1px solid #1b5e20' : 'none',
+            }}
+          >
+            <Typography variant="caption">DELIVERED BUSHELS</Typography>
+            <Typography variant="h6" fontWeight="bold">64,124.30</Typography>
+            <Typography variant="caption" color="green">+1.0%</Typography>
+          </Box>
         </Grid>
         <Grid item xs={6}>
-          <Typography variant="caption">PENDING BUSHELS</Typography>
-          <Typography variant="h6" fontWeight="bold">9,124.30</Typography>
-          <Typography variant="caption" color="green">+1.0%</Typography>
+          <Box
+            sx={{
+              padding: ' 0px 4px 0px 4px',
+              boxShadow: '0px 2px 2px rgba(0, 0, 0, 0.25)',
+              borderRadius: 2,
+              backgroundColor: view === 'pending' ? '#transparent' : 'transparent',
+              border: view === 'pending' ? '1px solid #1b5e20' : 'none',
+            }}
+          >
+            <Typography variant="caption">PENDING BUSHELS</Typography>
+            <Typography variant="h6" fontWeight="bold">9,124.30</Typography>
+            <Typography variant="caption" color="green">+1.0%</Typography>
+          </Box>
         </Grid>
       </Grid>
 
-      <Box 
-        display="flex" 
-        flexDirection={{ xs: 'row', md: 'row' }} 
-        justifyContent="space-around" 
+      <Box
+        display="flex"
+        flexDirection={{ xs: 'row', md: 'row' }}
+        justifyContent="space-around"
         alignItems="center"
         mt={2}
       >
-        <IconButton onClick={handlePrevious}>
+        <IconButton onClick={toggleView}>
           <ArrowBackIos fontSize="small" />
         </IconButton>
 
         <Box ref={ref} />
 
-        <IconButton onClick={handleNext}>
+        <IconButton onClick={toggleView}>
           <ArrowForwardIos fontSize="small" />
         </IconButton>
 
         <Box>
-          {pieData.map((item, i) => (
+          {data.map((item, i) => (
             <Box key={i} display="flex" alignItems="center" mb={1}>
               <Box
                 sx={{
@@ -107,11 +164,12 @@ const BushelsByCIScoreCard = () => {
                   borderRadius: '50%',
                   backgroundColor: item.color,
                   mr: 1,
+                  opacity: selectedIndex === null || selectedIndex === i ? 1 : 0.3,
                 }}
               />
-              <Typography 
-                variant="caption" 
-                fontWeight={i === currentIndex ? 'bold' : 'normal'}
+              <Typography
+                variant="caption"
+                fontWeight={selectedIndex === i ? 'bold' : 'normal'}
               >
                 {item.label}
               </Typography>

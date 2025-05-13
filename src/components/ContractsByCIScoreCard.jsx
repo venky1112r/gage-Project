@@ -44,18 +44,18 @@ const ContractsByCIScoreCard = () => {
         >
           <ToggleButton value="delivered">
             Delivered
-            <CheckIcon fontSize="small" sx={{ mr: 0.5 }} />
+            <CheckIcon fontSize="small" sx={{ m: 1 }} />
           </ToggleButton>
           <ToggleButton value="pending">
             Pending
             {view === "pending" && (
-              <CheckIcon fontSize="small" sx={{ mr: 0.5 }} />
+              <CheckIcon fontSize="small" sx={{ m: 1 }} />
             )}
           </ToggleButton>
         </ToggleButtonGroup>
       </Stack>
 
-      <Box mt={2}>
+      <Box mt={1}>
         <ContractsChart data={data} width={500} height={300} view={view} />
         <Divider
             orientation="horizontal"

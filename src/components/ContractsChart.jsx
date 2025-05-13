@@ -238,7 +238,7 @@ const ContractsChart = ({ data, view }) => {
       .append("text")
       .attr(
         "transform",
-        `translate(${margin.left + innerWidth / 2}, ${height - 5})`
+        `translate(${margin.left + innerWidth / 2}, ${height - 20})`
       )
       .attr("text-anchor", "middle")
       .attr("font-size", isMobile ? "10px" : "12px")
@@ -247,7 +247,7 @@ const ContractsChart = ({ data, view }) => {
   }, [size, data, view]);
 
   return (
-    <div ref={containerRef} style={{ width: "100%" }}>
+    <div ref={containerRef} style={{ width: "100%", marginTop: "0px", paddingBottom: "0px" }}>
       <svg ref={svgRef} />
     </div>
   );
