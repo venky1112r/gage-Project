@@ -11,6 +11,7 @@ import {
 import ContractsChart from "./ContractsChart";
 import DeliveryTable from "./DeliveryTable";
 import CheckIcon from "@mui/icons-material/Check";
+import styled from '@emotion/styled';
 
 const data = [
   { grade: "Grower", bushels: 2784,pending: 540, ciScore: 30 },
@@ -30,6 +31,13 @@ const ContractsByCIScoreCard = () => {
     }
     setView(newView);
   };
+
+
+const CustomToggleButton = styled(ToggleButton)`
+ min-width: 120px;
+`;
+
+
   return (
     <Paper elevation={2} sx={{ borderRadius: 4, p: 2 }}>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -42,16 +50,16 @@ const ContractsByCIScoreCard = () => {
           onChange={handleViewChange}
           size="small"
         >
-          <ToggleButton value="delivered">
+          <CustomToggleButton value="delivered">
             Delivered
             <CheckIcon fontSize="small" sx={{ m: 1 }} />
-          </ToggleButton>
-          <ToggleButton value="pending">
+          </CustomToggleButton>
+          <CustomToggleButton value="pending">
             Pending
             {view === "pending" && (
               <CheckIcon fontSize="small" sx={{ m: 1 }} />
             )}
-          </ToggleButton>
+          </CustomToggleButton>
         </ToggleButtonGroup>
       </Stack>
 

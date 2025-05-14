@@ -110,6 +110,7 @@ const ManualInputsComponent = () => {
     bushels_processed: "",
     ethanol_produced: "",
     updatedby: "",
+    conversion_efficiency: "",
   });
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -168,7 +169,7 @@ const ManualInputsComponent = () => {
       field: "ethanol_produced",
       unit: "Million Gallons",
     },
-    { label: "Updated By", field: "updatedby", unit: "" },
+    { label: "Conversion Efficiency", field: "Conversion_Efficiency", unit: "" },
   ];
 
   return (
@@ -230,8 +231,8 @@ const ManualInputsComponent = () => {
           <TableHead>
             <TableRow>
               <TableCell>#</TableCell>
-              <TableCell>From</TableCell>
-              <TableCell>To</TableCell>
+              <TableCell>From Date</TableCell>
+              <TableCell>To Date</TableCell>
               <TableCell>NG</TableCell>
               <TableCell>CL</TableCell>
               <TableCell>GE</TableCell>
