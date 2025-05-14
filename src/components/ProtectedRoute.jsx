@@ -9,7 +9,7 @@ const checkAuth = async () => {
     console.log("Checking authentication...");
   try {
     console.log("Checking start...");
-    const response = await fetch("http://localhost:5000/api/protected", {
+    const response = await fetch("http://127.0.0.1:5000/api/protected", {
       method: "GET",
       credentials: "include", // Include HTTP-only cookie
     });
