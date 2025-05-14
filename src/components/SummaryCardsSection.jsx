@@ -4,9 +4,9 @@ import SummaryCard from './SummaryCard';
 
 const SummaryCardsSection = () => {
   return (
-    <div >
-  <Box sx={{ mt: 0 , mb: 0 ,py:1}}>
-      <Grid container spacing={2} sx={{ padding: 2  }}>
+    < >
+  <Box sx={{ mt: 0 , mb: 0 ,padding:'0px 16px'}}>
+      <Grid container spacing={2} >
         {/* Contracted CI Score - Full height left */}
         <Grid item xs={12} md={5}  >
           <SummaryCard
@@ -59,7 +59,7 @@ const SummaryCardsSection = () => {
         </Grid>
       </Grid>
     </Box>
-    </div>
+    </>
   );
 };
 

@@ -48,7 +48,7 @@ const SummaryCard = ({
         </Box>
 
         <Box display="flex" alignItems="baseline">
-          <Typography variant={valueVariant} color="#003320">
+          <Typography variant={valueVariant} sx={{fontSize:'60px'}} color="primary.main">
             {intPart}
           </Typography>
           {decimalPart && (
