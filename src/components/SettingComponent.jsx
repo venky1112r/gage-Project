@@ -1,14 +1,23 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import { Tabs, Tab, Box } from "@mui/material";
-import ReportingComponent from "./ReportingComponent";
 import BusinessRulesComponent from "./BusinessRulesComponent";
 import ManualInputsComponent from "./ManualInputsComponent";
 
 const SettingComponent = () => {
   const [value, setValue] = useState(0);
 
+   useEffect(() => {
+    const savedTab = localStorage.getItem("settingsTab");
+    console.log(savedTab);
+    if (savedTab !== null) {
+      setValue(parseInt(savedTab, 10));
+    }
+  }, []);
+
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    localStorage.setItem("settingsTab", newValue);
   };
   return (
     <div>
@@ -55,12 +64,12 @@ const SettingComponent = () => {
         </Tabs>
 
         {value === 0 && (
-          <Box sx={{ p: 3 }}>
+          <Box sx={{ p: 1 }}>
             <BusinessRulesComponent />
           </Box>
         )}
         {value === 1 && (
-          <Box sx={{ p: 3 }}>
+          <Box sx={{ p: 1 }}>
             <ManualInputsComponent />
           </Box>
         )}
