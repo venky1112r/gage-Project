@@ -9,10 +9,11 @@ const ReportingPage = () => {
   ProtectedRoute();
   const location = useLocation();
   const email = location.state?.email || "guest@example.com";
+    const userrole = location.state?.userrole || "guest";
   return (
     <>
       <Box sx={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
-        <HeaderComponent email={email} />
+        <HeaderComponent email={email} userrole={userrole} />
         <DashboardTopBar hideTimeRange />
         <ReportingComponent />
       </Box>

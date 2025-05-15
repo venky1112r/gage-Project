@@ -4,6 +4,7 @@ import DashboardPage from "./pages/DashboardPage";
 import SourcingPage from "./pages/SourcingPage";
 import Reporting from "./pages/ReportingPage";
 import Settings from "./pages/SettingsPage";
+import AdminPage from "./pages/AdminPage";
 import Login from "./pages/Loginpage";
 import Test from "./pages/test";
 
@@ -19,6 +20,7 @@ function App() {
       <Route path="/sourcing" element={<SourcingPage />} />
       <Route path="/reporting" element={<Reporting />} />
       <Route path="/settings" element={<Settings />} />
+      <Route path="/AdminPage" element={<AdminPage />} />
       <Route path="/test" element={<Test />} />
     </Routes>
   </Router>
