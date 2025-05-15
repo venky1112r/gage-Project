@@ -4,7 +4,9 @@ import DashboardTopBar from '../components/DashboardTopBar';
 import { useLocation } from 'react-router-dom';
 import SettingComponent from '../components/SettingComponent';
 import { Box } from '@mui/material';
+import ProtectedRoute from "../components/ProtectedRoute";
 const SettingsPage = () => {
+  ProtectedRoute();
     const location = useLocation();
     const email = location.state?.email || "guest@example.com";
   return (

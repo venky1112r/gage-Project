@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -6,27 +6,24 @@ import {
   Avatar,
   Tabs,
   Tab,
-  IconButton,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
+  Menu,
+  MenuItem,
   useMediaQuery,
   Box,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material/styles";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const navItems = ["Dashboard", "Sourcing", "Reporting", "Settings"];
 
-const HeaderComponent = ({ email }) => {
+const HeaderComponent = ({ email, userrole }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
-  // const [drawerOpen, setDrawerOpen] = useState(false);
+  const [menuAnchor, setMenuAnchor] = useState(null);
+  const open = Boolean(menuAnchor);
 
   const currentTab = navItems.findIndex((item) =>
     location.pathname.toLowerCase().includes(item.toLowerCase())
@@ -37,14 +34,43 @@ const HeaderComponent = ({ email }) => {
     navigate(path);
   };
 
-  // const handleDrawerItemClick = (path) => {
-  //   console.log(path);
-  //   navigate(`/${path.toLowerCase()}`);
-  //   setDrawerOpen(false);
-  // };
+  const handleAvatarClick = (event) => {
+    setMenuAnchor(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setMenuAnchor(null);
+  };
+
+  const handleLogout = async () => {
+    console.log("Logging out...");
+
+    try {
+      await fetch("http://localhost:3000/api/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      sessionStorage.clear();
+      handleMenuClose();
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+
+  const handleManageUsers = () => {
+    handleMenuClose();
+    navigate("/manage-users");
+  };
+
+  const handleManageCustomers = () => {
+    handleMenuClose();
+    navigate("/manage-customers");
+  };
 
   return (
-    <AppBar position="static" color="#fff" elevation={1} sx={{ p: 1, bgcolor: "#fff", }}>
+    <AppBar position="static" color="#fff" elevation={1} sx={{ p: 1, bgcolor: "#fff" }}>
       <Toolbar
         sx={{
           display: "flex",
@@ -56,7 +82,11 @@ const HeaderComponent = ({ email }) => {
           py: { xs: 1, md: 1 },
         }}
       >
-        <Typography variant="h3" sx={{ fontWeight: "bold", color: "#003320" }}>
+        <Typography
+          variant="h3"
+          sx={{ fontWeight: "bold", color: "#003320", cursor: "pointer" }}
+          onClick={() => navigate("/dashboard")}
+        >
           G.A.G.E.
         </Typography>
 
@@ -106,12 +136,35 @@ const HeaderComponent = ({ email }) => {
             ))}
           </Tabs>
         )}
+
         <Box sx={{ display: { xs: "block", md: "block" } }}>
           <Avatar
-            sx={{ bgcolor: "#c9d9c4", color: "#000", fontWeight: "bold" }}
+            onClick={handleAvatarClick}
+            sx={{ bgcolor: "#c9d9c4", color: "#000", fontWeight: "bold", cursor: "pointer" }}
           >
             {email.charAt(0).toUpperCase()}
           </Avatar>
+          <Menu
+            anchorEl={menuAnchor}
+            open={open}
+            onClose={handleMenuClose}
+            anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            transformOrigin={{ vertical: "top", horizontal: "right" }}
+          >
+            <MenuItem disabled>{`Logged in as: ${email}`}</MenuItem>
+
+            {userrole === "gadmin" && (
+              <MenuItem onClick={handleManageCustomers}>
+                Manage Customers / Users
+              </MenuItem>
+            )}
+
+            {userrole === "padmin" && (
+              <MenuItem onClick={handleManageUsers}>Manage Users</MenuItem>
+            )}
+
+            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+          </Menu>
         </Box>
       </Toolbar>
     </AppBar>

@@ -4,8 +4,9 @@ import DashboardTopBar from "../components/DashboardTopBar";
 import { useLocation } from "react-router-dom";
 import ReportingComponent from "../components/ReportingComponent";
 import { Box } from "@mui/material";
-
+import ProtectedRoute from "../components/ProtectedRoute";
 const ReportingPage = () => {
+  ProtectedRoute();
   const location = useLocation();
   const email = location.state?.email || "guest@example.com";
   return (
