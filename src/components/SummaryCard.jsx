@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography, Paper } from "@mui/material";
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import TrendingDownIcon from '@mui/icons-material/TrendingDown';
+// import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+// import TrendingDownIcon from '@mui/icons-material/TrendingDown';
 
 const SummaryCard = ({
   label,
@@ -41,7 +41,7 @@ const SummaryCard = ({
             color={isPositive ? "#007f5c" : "#d32f2f"}
             ml={1}
           >
-            {isPositive ? <TrendingUpIcon fontSize="small" /> : <TrendingDownIcon fontSize="small" />}
+            {/* {isPositive ? <TrendingUpIcon fontSize="small" /> : <TrendingDownIcon fontSize="small" />} */}
             <Typography variant="body2" ml={0.5}>
               {delta}
             </Typography>

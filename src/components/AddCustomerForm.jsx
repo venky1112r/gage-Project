@@ -314,8 +314,9 @@ const AddCustomerForm = () => {
                   Back
                 </Button>
                 <Button
+                  sx={{ ml: 1 }}
                   variant="contained"
-                  color="success"
+                  color="primary"
                   onClick={() => {
                     if (isStep2Valid()) {
                       setCompletedSteps([...new Set([...completedSteps, 1])]);

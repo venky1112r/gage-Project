@@ -12,8 +12,8 @@ const SummaryCardsSection = () => {
     <SummaryCard
       label="Contracted CI Score"
       value="24.83"
-      delta="+1.2"
-      isPositive={true}
+      // delta="+1.2"
+      // isPositive={true}
       labelVariant="subtitle2"
       valueVariant="h1"
     />
@@ -26,24 +26,24 @@ const SummaryCardsSection = () => {
         <SummaryCard
           label="Total Bushels"
           value="73,322"
-          delta="+1.2%"
-          isPositive={true}
+          // delta="+1.2%"
+          // isPositive={true}
         />
       </Grid>
       <Grid item xs={12} sm={4} sx={{ display: 'flex' }}>
         <SummaryCard
           label="Rebate"
           value="$62,072"
-          delta="-1.1%"
-          isPositive={false}
+          // delta="-1.1%"
+          // isPositive={false}
         />
       </Grid>
       <Grid item xs={12} sm={4} sx={{ display: 'flex' }}>
         <SummaryCard
           label="Authorized Growers"
           value="58%"
-          delta="-1.1%"
-          isPositive={false}
+          // delta="-1.1%"
+          // isPositive={false}
         />
       </Grid>
     </Grid>

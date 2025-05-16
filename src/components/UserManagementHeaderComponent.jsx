@@ -70,7 +70,7 @@ const navItems = ["Customers", "User Management"];
   };
   const handleDashboard = () => {
     handleMenuClose();
-    navigate("/dashboard");
+    navigate("/dashboard",{ state: { email, userrole } });
   };
 
   return (

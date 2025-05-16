@@ -17,7 +17,7 @@ const AdminPage = () => {
     <Box sx={{ backgroundColor: "#f5f5f5" }}>
       <UserManagementHeaderComponent email={email} userrole={userrole} />
       {/* <DashboardTopBar /> */}
-<CustomersComponent />
+      <CustomersComponent />
     </Box>
   );
 };
