@@ -68,6 +68,10 @@ const navItems = ["Customers", "User Management"];
     handleMenuClose();
     navigate("/manage-customers");
   };
+  const handleDashboard = () => {
+    handleMenuClose();
+    navigate("/dashboard");
+  };
 
   return (
     <AppBar position="static" color="#fff" elevation={1} sx={{ p: 1, bgcolor: "#fff" }}>
@@ -152,7 +156,7 @@ const navItems = ["Customers", "User Management"];
             transformOrigin={{ vertical: "top", horizontal: "right" }}
           >
             <MenuItem disabled>{`Logged in as: ${email}`}</MenuItem>
-
+<MenuItem onClick={handleDashboard}>Dashboard</MenuItem>
             {userrole === "gadmin" && (
               <MenuItem onClick={handleManageCustomers}>
                 Manage Customers / Users

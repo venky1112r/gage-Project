@@ -4,6 +4,7 @@ import { Box } from "@mui/material";
 import UserManagementHeaderComponent from "../components/UserManagementHeaderComponent";
 import DashboardTopBar from "../components/DashboardTopBar";
 import ProtectedRoute from "../components/ProtectedRoute";
+import CustomersComponent from "../components/CustomersComponent";
 
 const AdminPage = () => {
   ProtectedRoute(); // Ensure the route is protected
@@ -15,8 +16,8 @@ const AdminPage = () => {
   return (
     <Box sx={{ backgroundColor: "#f5f5f5" }}>
       <UserManagementHeaderComponent email={email} userrole={userrole} />
-      <DashboardTopBar />
-
+      {/* <DashboardTopBar /> */}
+<CustomersComponent />
     </Box>
   );
 };
