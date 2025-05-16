@@ -1,14 +1,11 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { Box } from "@mui/material";
-
-import HeaderComponent from "../components/HeaderComponent";
-import SummaryCardsSection from "../components/SummaryCardsSection";
-import DashboardBottomComponent from "../components/DashboardBottomComponent";
+import UserManagementHeaderComponent from "../components/UserManagementHeaderComponent";
 import DashboardTopBar from "../components/DashboardTopBar";
 import ProtectedRoute from "../components/ProtectedRoute";
 
-const DashboardPage = () => {
+const AdminPage = () => {
   ProtectedRoute(); // Ensure the route is protected
 
   const location = useLocation();
@@ -17,12 +14,11 @@ const DashboardPage = () => {
 
   return (
     <Box sx={{ backgroundColor: "#f5f5f5" }}>
-      <HeaderComponent email={email} userrole={userrole} />
+      <UserManagementHeaderComponent email={email} userrole={userrole} />
       <DashboardTopBar />
-      <SummaryCardsSection />
-      <DashboardBottomComponent />
+
     </Box>
   );
 };
 
-export default DashboardPage;
+export default AdminPage;

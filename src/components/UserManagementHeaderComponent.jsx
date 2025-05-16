@@ -14,9 +14,9 @@ import {
 import { useTheme } from "@mui/material/styles";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const navItems = ["Dashboard", "Sourcing", "Reporting", "Settings"];
+const navItems = ["Customers", "User Management"];
 
-const HeaderComponent = ({ email, userrole }) => {
+  const UserManagementHeaderComponent = ({ email, userrole }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -31,7 +31,7 @@ const HeaderComponent = ({ email, userrole }) => {
 
   const handleTabChange = (event, newValue) => {
     const path = `/${navItems[newValue].toLowerCase()}`;
-    navigate(path, { state: { email, userrole } });
+    navigate(path);
   };
 
   const handleAvatarClick = (event) => {
@@ -61,12 +61,12 @@ const HeaderComponent = ({ email, userrole }) => {
 
   const handleManageUsers = () => {
     handleMenuClose();
-    navigate("/AdminPage",{ state: { email, userrole } });
+    navigate("/manage-users");
   };
 
   const handleManageCustomers = () => {
     handleMenuClose();
-    navigate("/AdminPage",{ state: { email, userrole } });
+    navigate("/manage-customers");
   };
 
   return (
@@ -171,4 +171,4 @@ const HeaderComponent = ({ email, userrole }) => {
   );
 };
 
-export default HeaderComponent;
+export default UserManagementHeaderComponent;
