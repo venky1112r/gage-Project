@@ -5,7 +5,7 @@
   const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [userrole, setUserrole] = useState("");
+    const [userRole, setUserrole] = useState("");
     const [errors, setErrors] = useState({});
     // const [showSSO, setShowSSO] = useState(false);
     const navigate = useNavigate();
@@ -44,7 +44,7 @@
 
          console.log("Login successful");
         // Successful login, navigate to dashboard
-        navigate("/dashboard", { state: { email, userrole : data.userrole } });
+        navigate("/dashboard", { state: { email, userrole : userRole } });
       } catch (err) {
         console.error("Login error:", err);
         setErrors({ general: "Server error. Please try again." });
