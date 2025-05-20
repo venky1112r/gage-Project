@@ -18,7 +18,7 @@ const OperationalScoreCard = () => {
   return (
     <Paper elevation={2} sx={{ borderRadius: 4, pl: 2, pr: 3, pt: 3, pb: 3 ,flexGrow:1}}>
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={5}>
-        <Typography variant="subtitle1" fontWeight="bold">
+        <Typography variant="subtitle1" fontWeight="bold" sx={{ fontSize: "20px"}}>
           Operational Net CI Score
         </Typography>
         {/* <Typography variant="caption" sx={{ color: '#800000', cursor: 'pointer' }}>

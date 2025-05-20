@@ -13,19 +13,19 @@ import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 const deliveredData = [
   { label: 'Grower', value: 10, color: '#8B0000' },
   { label: 'Retailer', value: 20, color: '#A0522D' },
-  { label: 'National', value: 30, color: '#DAA520' },
-  { label: 'Custom', value: 15, color: '#D2691E' },
-  { label: 'No Score Grower', value: 10, color: '#FF6347 ' },
-  { label: 'No Score Retailer', value: 15, color: '#F4A300 ' },
+  { label: 'National', value: 30, color: '#D2691E' },
+  { label: 'Custom', value: 15, color: '#DAA520' },
+  { label: 'No Score Grower', value: 10, color: '#F4A300' },
+  { label: 'No Score Retailer', value: 15, color: '#FF6347  ' },
 ];
 
 const pendingData = [
   { label: 'Grower', value: 12, color: '#8B0000' },
   { label: 'Retailer', value: 18, color: '#A0522D' },
-  { label: 'National', value: 22, color: '#DAA520' },
-  { label: 'Custom', value: 10, color: '#D2691E' },
-  { label: 'No Score Grower', value: 20, color:'#FF6347 ' },
-  { label: 'No Score Retailer', value: 18, color: '#F4A300 ' },
+  { label: 'National', value: 22, color: '#D2691E' },
+  { label: 'Custom', value: 10, color: '#DAA520' },
+  { label: 'No Score Grower', value: 20, color:'#F4A300 ' },
+  { label: 'No Score Retailer', value: 18, color: '#FF6347 ' },
 ];
 
 const BushelsByCIScoreCard = () => {
@@ -100,7 +100,7 @@ const BushelsByCIScoreCard = () => {
 
   return (
     <Paper elevation={3} sx={{ borderRadius: 4, p: 2,flexGrow: 1 }}>
-      <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+      <Typography variant="subtitle1" fontWeight="bold" gutterBottom sx={{ fontSize: "20px"}}>
         Bushels by CI score level
       </Typography>
 
@@ -169,9 +169,10 @@ const BushelsByCIScoreCard = () => {
               />
               <Typography
                 variant="caption"
+                
                 fontWeight={selectedIndex === i ? 'bold' : 'normal'}
               >
-                {item.label}
+                {item.label.toUpperCase()}
               </Typography>
             </Box>
           ))}
