@@ -42,10 +42,11 @@
         }
          setUserrole(data.userrole);
 
-         console.log("Login successful" , data.userrole);
+         console.log("Login successful" , data.userrole,userRole);
         // Successful login, navigate to dashboard
+
         navigate("/dashboard", { state: { email, userrole : data.userrole } });
-        console.log(userRole,  " userrole");
+       
       } catch (err) {
         console.error("Login error:", err);
         setErrors({ general: "Server error. Please try again." });

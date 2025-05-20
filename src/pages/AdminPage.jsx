@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation, Routes, Route, Navigate } from "react-router-dom";
 import { Box } from "@mui/material";
-import UserManagementHeaderComponent from "../components/UserManagementHeaderComponent";
+import AdminHeaderComponent from "../components/AdminHeaderComponent";
 import DashboardTopBar from "../components/DashboardTopBar";
 import ProtectedRoute from "../components/ProtectedRoute";
 import CustomersComponent from "../components/CustomersComponent";
@@ -13,11 +13,10 @@ const AdminPage = () => {
   const location = useLocation();
   const email = location.state?.email || "guest@example.com";
   const userrole = location.state?.userrole || "guest";
-  console.log(userrole, " userrole, admin page");
-  console.log(email, " email, admin page");
+
   return (
     <Box sx={{ backgroundColor: "#f5f5f5" }}>
-      <UserManagementHeaderComponent email={email} userrole={userrole} />
+      <AdminHeaderComponent email={email} userrole={userrole} />
 
       <Routes>
         {/* Redirect default to /customers */}
