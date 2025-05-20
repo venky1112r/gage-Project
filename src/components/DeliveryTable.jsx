@@ -137,7 +137,7 @@ const handleSave = () => {
 
           <TextField
             fullWidth
-            label="Custom Quantity (%)"
+            label="Total Capacity"
             type="number"
             value={newQuantity}
             onChange={(e) => setNewQuantity(e.target.value)}

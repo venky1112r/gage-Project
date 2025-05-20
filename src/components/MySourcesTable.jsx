@@ -253,7 +253,6 @@ const MySourcesTable = () => {
               }}
             >
               <MenuItem value="Corn">Corn</MenuItem>
-              <MenuItem value="Soybean">Soybean</MenuItem>
             </Select>
           </Box>
         </Box>
@@ -274,7 +273,7 @@ const MySourcesTable = () => {
 
             <TableBody>
               {filteredRows.map((row, idx) => (
-                <TableRow key={idx} hover>
+                <TableRow key={idx} hover >
                   <TableCell>{row.source}</TableCell>
                   <TableCell>{row.type}</TableCell>
                   <TableCell>{row.bushels}</TableCell>

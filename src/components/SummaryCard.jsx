@@ -32,7 +32,7 @@ const SummaryCard = ({
     >
       <Box>
         <Box display="flex" alignItems="center" mb={1}>
-          <Typography variant={labelVariant} fontWeight="bold">
+          <Typography variant={labelVariant} fontWeight="bold" sx={{ fontSize: "20px"}}>
             {label}
           </Typography>
           <Box

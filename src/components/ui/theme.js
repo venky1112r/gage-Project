@@ -19,7 +19,7 @@ const theme = createTheme({
     }
   },
   typography: {
-    fontFamily: 'Gothic A1, Poppins',
+    fontFamily: 'Poppins, Gothic A1',
   },
 });
 export default theme

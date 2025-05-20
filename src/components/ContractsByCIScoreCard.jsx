@@ -34,14 +34,14 @@ const ContractsByCIScoreCard = () => {
 
 
 const CustomToggleButton = styled(ToggleButton)`
- min-width: 120px;
-`;
+ min-width: 120px ;
+ text-transform: none`;
 
 
   return (
     <Paper elevation={2} sx={{ borderRadius: 4, p: 2 }}>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Typography variant="subtitle1" fontWeight="bold" gutterBottom>
+        <Typography variant="subtitle1" fontWeight="bold" gutterBottom sx={{ fontSize: "20px"}}>
           Contracts by CI Score level
         </Typography>
         <ToggleButtonGroup
