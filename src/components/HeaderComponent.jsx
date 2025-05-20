@@ -78,7 +78,7 @@ const handleLogout = () => {
         <Typography
           variant="h3"
           sx={{ fontWeight: "bold", color: "#003320", cursor: "pointer" }}
-          onClick={() => navigate("/dashboard")}
+          onClick={() => navigate("/dashboard", { state: { email, userrole } })}
         >
           G.A.G.E.
         </Typography>
