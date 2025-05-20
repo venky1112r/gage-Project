@@ -22,7 +22,7 @@ function App() {
       <Route path="/sourcing" element={<SourcingPage />} />
       <Route path="/reporting" element={<Reporting />} />
       <Route path="/settings" element={<Settings />} />
-      <Route path="/AdminPage" element={<AdminPage />} />
+      <Route path="/AdminPage/*" element={<AdminPage />} />
       <Route path="/test" element={<Test />} />
     </Routes>
   </Router>
