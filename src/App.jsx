@@ -7,6 +7,7 @@ import Settings from "./pages/SettingsPage";
 import AdminPage from "./pages/AdminPage";
 import Login from "./pages/Loginpage";
 import Test from "./pages/test";
+import GageLoginPage from "./pages/GageLoginpage";
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
     <Router>
     <Routes>
       <Route path="/" element={<Navigate to="/login" />} />
+      <Route path="/gageAdminLogin" element={<GageLoginPage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/dashboard" element={<DashboardPage />} />
       <Route path="/sourcing" element={<SourcingPage />} />

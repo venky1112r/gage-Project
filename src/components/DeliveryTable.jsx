@@ -63,7 +63,7 @@ const handleSave = () => {
           onClick={handleAddClick}
           sx={{
             cursor: "pointer",
-            color: "black",
+            color: "#800000",
             fontSize: "0.875rem",
             textDecoration: "underline",
             "&:hover": { opacity: 0.8 },

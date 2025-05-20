@@ -117,7 +117,7 @@ const BushelsByCIScoreCard = () => {
           >
             <Typography variant="caption">DELIVERED BUSHELS</Typography>
             <Typography variant="h6" fontWeight="bold">64,124.30</Typography>
-            <Typography variant="caption" color="green">+1.0%</Typography>
+            {/* <Typography variant="caption" color="green">+1.0%</Typography> */}
           </Box>
         </Grid>
         <Grid item xs={6}>
@@ -132,7 +132,7 @@ const BushelsByCIScoreCard = () => {
           >
             <Typography variant="caption">PENDING BUSHELS</Typography>
             <Typography variant="h6" fontWeight="bold">9,124.30</Typography>
-            <Typography variant="caption" color="green">+1.0%</Typography>
+            {/* <Typography variant="caption" color="green">+1.0%</Typography> */}
           </Box>
         </Grid>
       </Grid>
