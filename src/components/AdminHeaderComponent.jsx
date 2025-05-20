@@ -16,7 +16,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const navItems = ["customers", "user-management"];
 
-const UserManagementHeaderComponent = ({ email: propEmail, userrole: propUserrole }) => {
+const AdminHeaderComponent = ({ email: propEmail, userrole: propUserrole }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -26,8 +26,7 @@ const UserManagementHeaderComponent = ({ email: propEmail, userrole: propUserrol
   // Use state from location if available, fallback to props
   const email = location.state?.email || propEmail || "guest@example.com";
   const userrole = location.state?.userrole || propUserrole || "guest";
-console.log(propUserrole, " userrole, admin hea page");
-console.log(propEmail, " email, admin hea page");
+
   const currentTab = navItems.findIndex((item) =>
     location.pathname.toLowerCase().includes(item.toLowerCase())
   );
@@ -138,4 +137,4 @@ const handleLogout = () => {
   );
 };
 
-export default UserManagementHeaderComponent;
+export default AdminHeaderComponent;

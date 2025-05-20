@@ -71,18 +71,12 @@ const initialUsers = [
   },
 ];
 
-// 🎯 Props-based version: accepts logged-in user info
-const UserManagementComponent = ({ userrole, customer }) => {
-const location = useLocation();
-     const email = location.state?.email || "guest@example.com";
-  const userroles = location.state?.userrole || "guest";
-console.log(email, userroles," userrole, user management component");
+const UserManagementComponent = (props) => {
+  const location = useLocation();
+  const userrole = location.state?.userrole || props.userrole || "guest";
+  const userCustomer = location.state?.customer || props.customer || "";
 
-// console.log(customer, " customer, user management component");
-// console.log(propsemail, " propsemail, user management component");
-
-
-  const isGageAdmin = userrole === "gadmin";
+  const isGadmin = userrole === "gadmin";
 
   const [showForm, setShowForm] = useState(false);
   const [page, setPage] = useState(0);
@@ -93,13 +87,14 @@ console.log(email, userroles," userrole, user management component");
   const [anchorEl, setAnchorEl] = useState(null);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
 
+  // Filter logic based on role
   const filteredUsers = initialUsers
-    .filter((user) => (isGageAdmin ? true : user.customer === customer))
+    .filter((user) => (isGadmin ? true : user.customer === userCustomer))
     .filter(
       (u) =>
         (u.name.toLowerCase().includes(search.toLowerCase()) ||
           u.id.includes(search)) &&
-        (typeFilter ? u.customer === typeFilter : true) &&
+        (isGadmin && typeFilter ? u.customer === typeFilter : true) &&
         (sourceFilter ? u.role === sourceFilter : true)
     );
 
@@ -153,7 +148,7 @@ console.log(email, userroles," userrole, user management component");
                   onChange={(e) => setSearch(e.target.value)}
                 />
               </Grid>
-              {isGageAdmin && (
+              {isGadmin && (
                 <Grid item xs={6} sm={3}>
                   <Select
                     fullWidth
@@ -164,6 +159,8 @@ console.log(email, userroles," userrole, user management component");
                     <MenuItem value="">Filter by customer</MenuItem>
                     <MenuItem value="New Energy">New Energy</MenuItem>
                     <MenuItem value="Clear Lake Energy">Clear Lake Energy</MenuItem>
+                    <MenuItem value="Ethanol Pro">Ethanol Pro</MenuItem>
+                    <MenuItem value="EnergoOne">EnergoOne</MenuItem>
                     <MenuItem value="Energo">Energo</MenuItem>
                   </Select>
                 </Grid>
@@ -190,7 +187,7 @@ console.log(email, userroles," userrole, user management component");
                     <TableCell>ID</TableCell>
                     <TableCell>Name</TableCell>
                     <TableCell>Email</TableCell>
-                    {isGageAdmin && <TableCell>Customer</TableCell>}
+                    {isGadmin && <TableCell>Customer</TableCell>}
                     <TableCell>Role</TableCell>
                     <TableCell>Created</TableCell>
                     <TableCell>Last Modified</TableCell>
@@ -206,7 +203,7 @@ console.log(email, userroles," userrole, user management component");
                           <TableCell>{user.id}</TableCell>
                           <TableCell>{user.name}</TableCell>
                           <TableCell>{user.email}</TableCell>
-                          {isGageAdmin && <TableCell>{user.customer}</TableCell>}
+                          {isGadmin && <TableCell>{user.customer}</TableCell>}
                           <TableCell>{user.role}</TableCell>
                           <TableCell>{user.createdOn}</TableCell>
                           <TableCell>{user.lastModified}</TableCell>
@@ -219,7 +216,7 @@ console.log(email, userroles," userrole, user management component");
                       ))
                   ) : (
                     <TableRow>
-                      <TableCell colSpan={isGageAdmin ? 8 : 7} align="center">
+                      <TableCell colSpan={isGadmin ? 8 : 7} align="center">
                         No users found
                       </TableCell>
                     </TableRow>
