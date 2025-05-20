@@ -16,7 +16,7 @@ function App() {
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/gageAdminLogin" element={<GageLoginPage />} />
+        <Route path="/login-admin" element={<GageLoginPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/test" element={<Test />} />
 
@@ -26,7 +26,7 @@ function App() {
           <Route path="/sourcing" element={<SourcingPage />} />
           <Route path="/reporting" element={<Reporting />} />
           <Route path="/settings" element={<Settings />} />
-          <Route path="/AdminPage/*" element={<AdminPage />} />
+          <Route path="/admin/*" element={<AdminPage />} />
         </Route>
       </Routes>
     </Router>

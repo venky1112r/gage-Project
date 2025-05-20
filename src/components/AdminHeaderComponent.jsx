@@ -32,7 +32,7 @@ const AdminHeaderComponent = ({ email: propEmail, userrole: propUserrole }) => {
   );
 
   const handleTabChange = (event, newValue) => {
-    const path = `/AdminPage/${navItems[newValue].toLowerCase()}`;
+    const path = `/admin/${navItems[newValue].toLowerCase()}`;
     navigate(path, { state: { email, userrole } });
   };
 

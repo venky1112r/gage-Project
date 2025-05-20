@@ -54,12 +54,12 @@ const handleLogout = () => {
 
   const handleManageUsers = () => {
     handleMenuClose();
-    navigate("/AdminPage/user-management",{ state: { email, userrole } });
+    navigate("/admin/user-management",{ state: { email, userrole } });
   };
 
   const handleManageCustomers = () => {
     handleMenuClose();
-    navigate("/AdminPage/customers",{ state: { email, userrole } });
+    navigate("/admin/customers",{ state: { email, userrole } });
   };
 
   return (
