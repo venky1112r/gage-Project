@@ -22,35 +22,42 @@
     };
 
     // Handle login logic
-    const handleLogin = async (e) => {
-      e.preventDefault();
-      if (!validateForm()) return;
+const handleLogin = async (e) => {
+  e.preventDefault();
+  if (!validateForm()) return;
 
-      try {
-        const response = await fetch("http://localhost:3000/api/login", {
-          method: "POST",
-          credentials: "include", // Ensure cookies (JWT) are included in requests
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        });
+  try {
+    const response = await fetch("http://localhost:3000/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
 
-        const data = await response.json();
-        
-        if (!response.ok) {
-          setErrors({ general: data.message || "Login failed" });
-          return;
-        }
-         setUserrole(data.userrole);
+    const data = await response.json();
 
-         console.log("Login successful" , data.userrole);
-        // Successful login, navigate to dashboard
-        navigate("/dashboard", { state: { email, userrole : data.userrole } });
-        console.log(userRole,  " userrole");
-      } catch (err) {
-        console.error("Login error:", err);
-        setErrors({ general: "Server error. Please try again." });
-      }
-    };
+    if (!response.ok) {
+      setErrors({ general: data.message || "Login failed" });
+      return;
+    }
+
+    const { token, userrole } = data;
+
+    // ✅ Store the token in session storage
+    sessionStorage.setItem("token", token);
+
+    // ✅ Save user role
+    setUserrole(userrole);
+
+    console.log("Login successful", userrole);
+
+    // ✅ Navigate to dashboard
+    navigate("/dashboard", { state: { email, userrole } });
+
+  } catch (err) {
+    console.error("Login error:", err);
+    setErrors({ general: "Server error. Please try again." });
+  }
+};
 
     return (
       <Box

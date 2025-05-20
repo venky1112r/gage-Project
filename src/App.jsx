@@ -8,24 +8,28 @@ import AdminPage from "./pages/AdminPage";
 import Login from "./pages/Loginpage";
 import Test from "./pages/test";
 import GageLoginPage from "./pages/GageLoginpage";
-
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
-  
   return (
     <Router>
-    <Routes>
-      <Route path="/" element={<Navigate to="/login" />} />
-      <Route path="/gageAdminLogin" element={<GageLoginPage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/dashboard" element={<DashboardPage />} />
-      <Route path="/sourcing" element={<SourcingPage />} />
-      <Route path="/reporting" element={<Reporting />} />
-      <Route path="/settings" element={<Settings />} />
-      <Route path="/AdminPage/*" element={<AdminPage />} />
-      <Route path="/test" element={<Test />} />
-    </Routes>
-  </Router>
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/gageAdminLogin" element={<GageLoginPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/test" element={<Test />} />
+
+        {/* Protected Routes */}
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/sourcing" element={<SourcingPage />} />
+          <Route path="/reporting" element={<Reporting />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/AdminPage/*" element={<AdminPage />} />
+        </Route>
+      </Routes>
+    </Router>
   );
 }
 

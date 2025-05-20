@@ -45,22 +45,15 @@ console.log(propEmail, " email, admin hea page");
     setMenuAnchor(null);
   };
 
-  const handleLogout = async () => {
-    console.log("Logging out...");
+const handleLogout = () => {
+  console.log("Logging out...");
 
-    try {
-      await fetch("http://localhost:3000/api/logout", {
-        method: "POST",
-        credentials: "include",
-      });
+  sessionStorage.removeItem("token");
+  handleMenuClose();
+  navigate("/login");
+};
 
-      sessionStorage.clear();
-      handleMenuClose();
-      navigate("/login");
-    } catch (error) {
-      console.error("Logout failed:", error);
-    }
-  };
+
 
   
 

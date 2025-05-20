@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 const ProtectedRoute = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(null); // null = loading
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
 
   useEffect(() => {
     const checkAuth = async () => {
+      const token = sessionStorage.getItem("token");
+      if (!token) {
+        setIsAuthenticated(false);
+        return;
+      }
       try {
         const response = await fetch("http://localhost:3000/api/protected", {
           method: "GET",
-          credentials: "include", // Send HttpOnly cookie
+          headers: { Authorization: `Bearer ${token}` },
+          credentials: "include",
         });
-
-        if (response.ok) {
-          setIsAuthenticated(true);
-        } else {
-      console.error("Failed to authenticate:", await response.text());
-          setIsAuthenticated(false);
-        }
-      } catch (error) {
-        console.error("Authentication check failed:", error);
+        setIsAuthenticated(response.ok);
+      } catch {
         setIsAuthenticated(false);
       }
     };
@@ -28,10 +27,14 @@ const ProtectedRoute = () => {
   }, []);
 
   if (isAuthenticated === null) {
-    return <div>Loading authentication...</div>; // Show loading state
+    return <div>Loading authentication...</div>;
   }
 
-  return isAuthenticated ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />;
+  if (!isAuthenticated) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <Outlet />; // Render child routes here
 };
 
 export default ProtectedRoute;
