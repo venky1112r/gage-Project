@@ -61,12 +61,12 @@ const HeaderComponent = ({ email, userrole }) => {
 
   const handleManageUsers = () => {
     handleMenuClose();
-    navigate("/AdminPage",{ state: { email, userrole } });
+    navigate("/AdminPage/user-management",{ state: { email, userrole } });
   };
 
   const handleManageCustomers = () => {
     handleMenuClose();
-    navigate("/AdminPage",{ state: { email, userrole } });
+    navigate("/AdminPage/customers",{ state: { email, userrole } });
   };
 
   return (
@@ -137,7 +137,8 @@ const HeaderComponent = ({ email, userrole }) => {
           </Tabs>
         )}
 
-        <Box sx={{ display: { xs: "block", md: "block" } }}>
+        <Box sx={{ display: { xs: "block", md: "flex" } , flexDirection: "row", alignItems: "center", gap: 2}}>
+          <Typography sx={{ fontWeight: "bold", color: "primary.main" , fontSize: "15px",  }}>{email}</Typography>
           <Avatar
             onClick={handleAvatarClick}
             sx={{ bgcolor: "#c9d9c4", color: "#000", fontWeight: "bold", cursor: "pointer" }}

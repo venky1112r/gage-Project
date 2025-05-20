@@ -14,24 +14,27 @@ import {
 import { useTheme } from "@mui/material/styles";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const navItems = ["Customers", "User Management"];
+const navItems = ["customers", "user-management"];
 
-  const UserManagementHeaderComponent = ({ email, userrole }) => {
+const UserManagementHeaderComponent = ({ email: propEmail, userrole: propUserrole }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
   const [menuAnchor, setMenuAnchor] = useState(null);
-  const open = Boolean(menuAnchor);
 
+  // Use state from location if available, fallback to props
+  const email = location.state?.email || propEmail || "guest@example.com";
+  const userrole = location.state?.userrole || propUserrole || "guest";
+console.log(propUserrole, " userrole, admin hea page");
+console.log(propEmail, " email, admin hea page");
   const currentTab = navItems.findIndex((item) =>
     location.pathname.toLowerCase().includes(item.toLowerCase())
   );
 
   const handleTabChange = (event, newValue) => {
-    const path = `/${navItems[newValue].toLowerCase()}`;
-    navigate(path);
+    const path = `/AdminPage/${navItems[newValue].toLowerCase()}`;
+    navigate(path, { state: { email, userrole } });
   };
 
   const handleAvatarClick = (event) => {
@@ -59,114 +62,81 @@ const navItems = ["Customers", "User Management"];
     }
   };
 
-  const handleManageUsers = () => {
-    handleMenuClose();
-    navigate("/manage-users");
-  };
+  
 
-  const handleManageCustomers = () => {
-    handleMenuClose();
-    navigate("/manage-customers");
-  };
   const handleDashboard = () => {
     handleMenuClose();
-    navigate("/dashboard",{ state: { email, userrole } });
+    navigate("/dashboard", { state: { email, userrole } });
   };
 
   return (
-    <AppBar position="static" color="#fff" elevation={1} sx={{ p: 1, bgcolor: "#fff" }}>
+    <AppBar position="static" elevation={1} sx={{ p: 1, bgcolor: "#fff" }}>
       <Toolbar
         sx={{
           display: "flex",
-          flexDirection: { xs: "row", sm: "row" },
-          alignItems: { xs: "stretch", sm: "center" },
+          flexDirection: "row",
+          alignItems: "center",
           justifyContent: "space-between",
           px: { xs: 1, md: 2 },
-          gap: { xs: 2, md: 0 },
           py: { xs: 1, md: 1 },
         }}
       >
         <Typography
           variant="h3"
           sx={{ fontWeight: "bold", color: "#003320", cursor: "pointer" }}
-          onClick={() => navigate("/dashboard")}
+          onClick={() => navigate("/dashboard", { state: { email, userrole } })}
         >
           G.A.G.E.
         </Typography>
 
-        {isMobile ? (
-          <>
-            <Tabs
-              value={currentTab === -1 ? 0 : currentTab}
-              onChange={handleTabChange}
-              variant="scrollable"
-              scrollButtons="auto"
-              textColor="inherit"
-              indicatorColor="secondary"
-              TabIndicatorProps={{ style: { backgroundColor: "#800000" } }}
-            >
-              {navItems.map((label, index) => (
-                <Tab
-                  key={label}
-                  label={label.toUpperCase()}
-                  sx={{
-                    fontWeight: currentTab === index ? "bold" : "normal",
-                    color: currentTab === index ? "#800000" : "#000",
-                    textTransform: "none",
-                  }}
-                />
-              ))}
-            </Tabs>
-          </>
-        ) : (
-          <Tabs
-            value={currentTab === -1 ? 0 : currentTab}
-            onChange={handleTabChange}
-            textColor="inherit"
-            indicatorColor="secondary"
-            TabIndicatorProps={{ style: { backgroundColor: "#800000" } }}
-          >
-            {navItems.map((label, index) => (
-              <Tab
-                key={label}
-                label={label.toUpperCase()}
-                sx={{
-                  fontWeight: currentTab === index ? "bold" : "bold",
-                  color: currentTab === index ? "#800000" : "#000",
-                  textTransform: "none",
-                  fontSize: "15px",
-                }}
-              />
-            ))}
-          </Tabs>
-        )}
+        <Tabs
+          value={currentTab === -1 ? 0 : currentTab}
+          onChange={handleTabChange}
+          textColor="inherit"
+          indicatorColor="secondary"
+          variant={isMobile ? "scrollable" : "standard"}
+          scrollButtons={isMobile ? "auto" : undefined}
+          TabIndicatorProps={{ style: { backgroundColor: "#800000" } }}
+        >
+          {navItems.map((label, index) => (
+            <Tab
+              key={label}
+              label={label.replace("-", " ").toUpperCase()}
+              sx={{
+                fontWeight: currentTab === index ? "bold" : "normal",
+                color: currentTab === index ? "#800000" : "#000",
+                textTransform: "none",
+                fontSize: "15px",
+              }}
+            />
+          ))}
+        </Tabs>
 
-        <Box sx={{ display: { xs: "block", md: "block" } }}>
+    <Box sx={{ display: { xs: "block", md: "flex" } , flexDirection: "row", alignItems: "center", gap: 2}}>
+           <Typography sx={{ fontWeight: "bold", color: "primary.main" , fontSize: "15px",  }}>{email}</Typography>
           <Avatar
             onClick={handleAvatarClick}
-            sx={{ bgcolor: "#c9d9c4", color: "#000", fontWeight: "bold", cursor: "pointer" }}
+            sx={{
+              bgcolor: "#c9d9c4",
+              color: "#000",
+              fontWeight: "bold",
+              cursor: "pointer",
+            }}
           >
             {email.charAt(0).toUpperCase()}
           </Avatar>
+
           <Menu
             anchorEl={menuAnchor}
-            open={open}
+            open={Boolean(menuAnchor)}
             onClose={handleMenuClose}
             anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
             transformOrigin={{ vertical: "top", horizontal: "right" }}
           >
             <MenuItem disabled>{`Logged in as: ${email}`}</MenuItem>
-<MenuItem onClick={handleDashboard}>Dashboard</MenuItem>
-            {userrole === "gadmin" && (
-              <MenuItem onClick={handleManageCustomers}>
-                Manage Customers / Users
-              </MenuItem>
-            )}
+            <MenuItem onClick={handleDashboard}>Dashboard</MenuItem>
 
-            {userrole === "padmin" && (
-              <MenuItem onClick={handleManageUsers}>Manage Users</MenuItem>
-            )}
-
+           
             <MenuItem onClick={handleLogout}>Logout</MenuItem>
           </Menu>
         </Box>

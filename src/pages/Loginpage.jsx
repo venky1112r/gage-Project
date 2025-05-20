@@ -42,7 +42,7 @@
         }
          setUserrole(data.userrole);
 
-         console.log("Login successful");
+         console.log("Login successful" , data.userrole);
         // Successful login, navigate to dashboard
         navigate("/dashboard", { state: { email, userrole : data.userrole } });
         console.log(userRole,  " userrole");
