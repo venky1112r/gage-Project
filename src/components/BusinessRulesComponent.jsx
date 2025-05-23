@@ -26,19 +26,19 @@ const BusinessRulesComponent = () => {
       actions:"Edit"
     },
     {
-        gradelevel:"Retailer",
+        gradelevel:"Retailer1",
         civalue:"12.6",
         lastupdatedon:"01/01/2023",
         updatedby:"John Doe",
         actions:"Edit"
     },{
-        gradelevel:"Grower",
+        gradelevel:"Retailer2",
         civalue:"10.6",
         lastupdatedon:"01/01/2023",
         updatedby:"John Doe",
         actions:"Edit"
     },{
-        gradelevel:"Custom",
+        gradelevel:"Retailer3",
         civalue:"8.6",
         lastupdatedon:"01/01/2023",
         updatedby:"John Doe",

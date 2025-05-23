@@ -20,8 +20,7 @@ import {
   IconButton,
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import AddCustomerForm from "./AddCustomerForm";
-
+import AddUserForm from "./AddUserForm";
 // Mock data
 const initialUsers = [
   {
@@ -127,12 +126,12 @@ const UserManagementComponent = (props) => {
   return (
     <Box p={3}>
       {showForm ? (
-        <AddCustomerForm onBack={() => setShowForm(false)} />
+        <AddUserForm onBack={() => setShowForm(false)} />
       ) : (
         <>
           <Box sx={{ display: "flex", justifyContent: "space-between" }}>
             <Typography variant="h4">User Management</Typography>
-            <Button variant="contained" color="success" onClick={() => setShowForm(true)}>
+            <Button variant="contained" color="primary" onClick={() => setShowForm(true)}>
               Add New User
             </Button>
           </Box>

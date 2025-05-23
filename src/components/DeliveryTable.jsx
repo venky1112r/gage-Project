@@ -66,6 +66,7 @@ const handleSave = () => {
             color: "#800000",
             fontSize: "0.875rem",
             textDecoration: "underline",
+            fontWeight: "bold",
             "&:hover": { opacity: 0.8 },
           }}
         >

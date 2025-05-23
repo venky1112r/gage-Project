@@ -12,7 +12,7 @@ const SummaryCard = ({
   labelVariant = "subtitle2",
   valueVariant = "h3",
 }) => {
-  const [intPart, decimalPart] = value.toString().split(".");
+  const [intPart, decimalPart] = Number(value).toFixed(2).split(".");
   const isContractedCIScore = label === "Contracted CI Score";
 
   return (
@@ -32,7 +32,7 @@ const SummaryCard = ({
     >
       <Box>
         <Box display="flex" alignItems="center" mb={1}>
-          <Typography variant={labelVariant} fontWeight="bold" sx={{ fontSize: "20px"}}>
+          <Typography variant={labelVariant} fontWeight="bold" sx={{ fontSize: "18px"}}>
             {label}
           </Typography>
           <Box
@@ -66,6 +66,7 @@ const SummaryCard = ({
                     fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" },
                     color: "#003320",
                     lineHeight: 1,
+                    paddingBottom:"5px",
                   }}
                 >
                   .{decimalPart}

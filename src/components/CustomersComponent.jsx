@@ -120,7 +120,7 @@ const CustomersComponent = () => {
             <Typography variant="h4" gutterBottom>
               Customer Accounts
             </Typography>
-            <Button variant="contained" color="success" onClick={() => setShowForm(true)}>
+            <Button variant="contained" color="primary" onClick={() => setShowForm(true)}>
               Add New Customer
             </Button>
           </Box>

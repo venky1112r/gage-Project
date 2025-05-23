@@ -22,10 +22,11 @@ import {
   FormControl,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 // const steps = ["Customer Details", "Customer Administrator"];
 
-const AddCustomerForm = () => {
+const AddCustomerForm = ({onBack}) => {
   const [activeStep, setActiveStep] = useState(0);
   const [completedSteps, setCompletedSteps] = useState([]);
   // const [isEditingStep1, setIsEditingStep1] = useState(false);
@@ -116,10 +117,14 @@ const AddCustomerForm = () => {
 
   return (
     <Paper sx={{ p: 3, m: 2, borderRadius: 2 }}>
-      <Typography variant="h5" gutterBottom>
+      <Box display="flex" alignItems="center" mb={2}>
+         <IconButton onClick={onBack}>
+          <ArrowBackIcon />
+        </IconButton>
+      <Typography variant="h6" ml={1} >
         New Customer Account
       </Typography>
-
+</Box>
       <Stepper
         orientation="vertical"
         nonLinear
@@ -320,6 +325,7 @@ const AddCustomerForm = () => {
                   onClick={() => {
                     if (isStep2Valid()) {
                       setCompletedSteps([...new Set([...completedSteps, 1])]);
+                      onBack();
                       alert("Form Submitted");
                     } else {
                       alert("Please complete Step 2.");

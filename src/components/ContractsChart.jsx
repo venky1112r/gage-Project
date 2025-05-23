@@ -79,28 +79,28 @@ const ContractsChart = ({ data, view }) => {
     }
 
     // CI Score Legend
-    legend
-      .append("line")
-      .attr("x1", isMobile ? 0 : 370)
-      .attr("y1", isMobile ? 50 : 8)
-      .attr("x2", isMobile ? 20 : 390)
-      .attr("y2", isMobile ? 50 : 8)
-      .attr("stroke", "#7F4F24")
-      .attr("stroke-width", 2);
+    // legend
+    //   .append("line")
+    //   .attr("x1", isMobile ? 0 : 370)
+    //   .attr("y1", isMobile ? 50 : 8)
+    //   .attr("x2", isMobile ? 20 : 390)
+    //   .attr("y2", isMobile ? 50 : 8)
+    //   .attr("stroke", "#7F4F24")
+    //   .attr("stroke-width", 2);
 
-    legend
-      .append("circle")
-      .attr("cx", isMobile ? 10 : 380)
-      .attr("cy", isMobile ? 50 : 8)
-      .attr("r", 3)
-      .attr("fill", "#7F4F24");
+    // legend
+    //   .append("circle")
+    //   .attr("cx", isMobile ? 10 : 380)
+    //   .attr("cy", isMobile ? 50 : 8)
+    //   .attr("r", 3)
+    //   .attr("fill", "#7F4F24");
 
-    legend
-      .append("text")
-      .attr("x", isMobile ? 30 : 400)
-      .attr("y", isMobile ? 55 : 13)
-      .attr("font-size", isMobile ? "10px" : "12px")
-      .text("AVERAGE CI SCORE");
+    // legend
+    //   .append("text")
+    //   .attr("x", isMobile ? 30 : 400)
+    //   .attr("y", isMobile ? 55 : 13)
+    //   .attr("font-size", isMobile ? "10px" : "12px")
+    //   .text("AVERAGE CI SCORE");
 
     const g = svg
       .append("g")
@@ -119,28 +119,31 @@ const ContractsChart = ({ data, view }) => {
     const yLeft = d3.scaleLinear().domain([0, maxTotal + 500]).range([innerHeight, 0]);
     const yRight = d3.scaleLinear().domain([0, 40]).range([innerHeight, 0]);
 
-    // Bars - Delivered
-    g.selectAll(".delivered-bar")
-      .data(data)
-      .enter()
-      .append("rect")
-      .attr("x", (d) => x(d.grade))
-      .attr("y", (d) => yLeft(d.bushels))
-      .attr("width", x.bandwidth())
-      .attr("height", (d) => innerHeight - yLeft(d.bushels))
-      .attr("fill", "#ADC178");
 
-    // Delivered Labels
-    g.selectAll(".delivered-label")
-      .data(data)
-      .enter()
-      .append("text")
-      .text((d) => d.bushels)
-      .attr("x", (d) => x(d.grade) + x.bandwidth() / 2)
-      .attr("y", (d) => yLeft(d.bushels) - 5)
-      .attr("text-anchor", "middle")
-      .attr("font-size", isMobile ? "10px" : "12px")
-      .attr("font-weight", "bold");
+  // Bars - Delivered (ONLY if not pending view)
+  g.selectAll(".delivered-bar")
+    .data(data)
+    .enter()
+    .append("rect")
+    .attr("x", (d) => x(d.grade))
+    .attr("y", (d) => yLeft(d.bushels))
+    .attr("width", x.bandwidth())
+    .attr("height", (d) => innerHeight - yLeft(d.bushels))
+    .attr("fill", "#ADC178");
+if (!showPending) {
+  // Delivered Labels
+  g.selectAll(".delivered-label")
+    .data(data)
+    .enter()
+    .append("text")
+    .text((d) => d.bushels)
+    .attr("x", (d) => x(d.grade) + x.bandwidth() / 2)
+    .attr("y", (d) => yLeft(d.bushels) - 5)
+    .attr("text-anchor", "middle")
+    .attr("font-size", isMobile ? "10px" : "12px")
+    .attr("font-weight", "bold");
+}
+
 
     // Bars - Pending
     if (showPending) {
@@ -168,26 +171,26 @@ const ContractsChart = ({ data, view }) => {
     }
 
     // CI Score Line
-    const line = d3
-      .line()
-      .x((d) => x(d.grade) + x.bandwidth() / 2)
-      .y((d) => yRight(d.ciScore));
+    // const line = d3
+    //   .line()
+    //   .x((d) => x(d.grade) + x.bandwidth() / 2)
+    //   .y((d) => yRight(d.ciScore));
 
-    g.append("path")
-      .datum(data)
-      .attr("fill", "none")
-      .attr("stroke", "#7F4F24")
-      .attr("stroke-width", 2)
-      .attr("d", line);
+    // g.append("path")
+    //   .datum(data)
+    //   .attr("fill", "none")
+    //   .attr("stroke", "#7F4F24")
+    //   .attr("stroke-width", 2)
+    //   .attr("d", line);
 
-    g.selectAll(".dot")
-      .data(data)
-      .enter()
-      .append("circle")
-      .attr("cx", (d) => x(d.grade) + x.bandwidth() / 2)
-      .attr("cy", (d) => yRight(d.ciScore))
-      .attr("r", 4)
-      .attr("fill", "#7F4F24");
+    // g.selectAll(".dot")
+    //   .data(data)
+    //   .enter()
+    //   .append("circle")
+    //   .attr("cx", (d) => x(d.grade) + x.bandwidth() / 2)
+    //   .attr("cy", (d) => yRight(d.ciScore))
+    //   .attr("r", 4)
+    //   .attr("fill", "#7F4F24");
 
     // Axes
     g.append("g")

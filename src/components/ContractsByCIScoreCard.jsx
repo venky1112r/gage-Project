@@ -13,16 +13,52 @@ import DeliveryTable from "./DeliveryTable";
 import CheckIcon from "@mui/icons-material/Check";
 import styled from '@emotion/styled';
 
-const data = [
-  { grade: "Grower", bushels: 2784,pending: 540, ciScore: 30 },
-  { grade: "Retailer", bushels: 2607,pending: 0, ciScore: 26 },
-  { grade: "National", bushels: 3900,pending: 200, ciScore: 35 },
-  { grade: "Custom", bushels: 2431,pending: 120, ciScore: 22 },
-  { grade: "No Score Grower", bushels: 2045,pending: 1294, ciScore: 18 },
-  { grade: "No Score Retailer", bushels: 1224,pending: 296, ciScore: 20 },
-];
+// const data = [
+//   { grade: "Grower", bushels: 2784,pending: 540, ciScore: 30 },
+//   { grade: "Retailer", bushels: 2607,pending: 0, ciScore: 26 },
+//   { grade: "National", bushels: 3900,pending: 200, ciScore: 35 },
+//   { grade: "Custom", bushels: 2431,pending: 120, ciScore: 22 },
+//   { grade: "No Score Grower", bushels: 2045,pending: 1294, ciScore: 18 },
+//   { grade: "No Score Retailer", bushels: 1224,pending: 296, ciScore: 20 },
+// ];
 
-const ContractsByCIScoreCard = () => {
+const ContractsByCIScoreCard = ( {deliveredData, pendingData}) => {
+  console.log(deliveredData, "deliveredData", pendingData, "pendingData");
+//   const ciScores = {
+//   "Grower": 30,
+//   "Retailer": 26,
+//   "National": 35,
+//   "Custom": 22,
+//   "No Score Grower": 18,
+//   "No Score Retailer": 20,
+// };
+
+const combinedDataMap = {};
+
+deliveredData.forEach(item => {
+  combinedDataMap[item.label] = {
+    grade: item.label,
+    bushels: item.value,
+    pending: 0,
+    // ciScore: ciScores[item.label] || null
+  };
+});
+
+pendingData.forEach(item => {
+  if (combinedDataMap[item.label]) {
+    combinedDataMap[item.label].pending = item.value;
+  } else {
+    combinedDataMap[item.label] = {
+      grade: item.label,
+      bushels: 0,
+      pending: item.value,
+      // ciScore: ciScores[item.label] || null
+    };
+  }
+});
+
+const data = Object.values(combinedDataMap);
+
   const [view, setView] = useState("delivered");
 
   const handleViewChange = (event, newView) => {
@@ -41,7 +77,7 @@ const CustomToggleButton = styled(ToggleButton)`
   return (
     <Paper elevation={2} sx={{ borderRadius: 4, p: 2 }}>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Typography variant="subtitle1" fontWeight="bold" gutterBottom sx={{ fontSize: "20px"}}>
+        <Typography variant="subtitle1" fontWeight="bold" gutterBottom sx={{ fontSize: "18px"}}>
           Contracts by CI Score level
         </Typography>
         <ToggleButtonGroup

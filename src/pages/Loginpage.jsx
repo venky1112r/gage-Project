@@ -1,6 +1,8 @@
   import React, { useState } from "react";
   import { Typography, TextField, Button, Box } from "@mui/material";
   import { useNavigate } from "react-router-dom";
+  import { loginUser } from "../services/api";
+  import logo from "../assets/logos/Cultura_Logo_Primary_LightBG.png";
 
   const Login = () => {
     const [email, setEmail] = useState("");
@@ -27,18 +29,19 @@ const handleLogin = async (e) => {
   if (!validateForm()) return;
 
   try {
-    const response = await fetch("http://localhost:3000/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+   const data = await loginUser({ email, password });
+    // const response = await fetch("http://localhost:3000/api/login", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({ email, password }),
+    // });
 
-    const data = await response.json();
+    // const data = await response.json();
 
-    if (!response.ok) {
-      setErrors({ general: data.message || "Login failed" });
-      return;
-    }
+    // if (!response.ok) {
+    //   setErrors({ general: data.message || "Login failed" });
+    //   return;
+    // }
 
     const { token, userrole } = data;
 
@@ -106,7 +109,7 @@ const handleLogin = async (e) => {
           </Box>
           <Box
             component="img"
-            src="src/assets/logos/Cultura_Logo_Primary_LightBG.png"
+            src={logo}
             alt="Company Logo"
             sx={{
               position: "absolute",

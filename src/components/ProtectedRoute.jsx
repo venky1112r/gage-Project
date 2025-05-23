@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { Box, CircularProgress, Typography } from "@mui/material";
+import { checkAuth } from "../services/api";
 
 const ProtectedRoute = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true); // Separate loading flag
 
+
   useEffect(() => {
-    const checkAuth = async () => {
+    const verifyToken = async () => {
       setIsLoading(true); // start loading
 
       const token = sessionStorage.getItem("token");
@@ -18,21 +20,24 @@ const ProtectedRoute = () => {
       }
 
       try {
-        const response = await fetch("http://localhost:3000/api/protected", {
-          method: "GET",
-          headers: { Authorization: `Bearer ${token}` },
-          credentials: "include",
-        });
+        // const response = await fetch("http://localhost:3000/api/protected", {
+        //   method: "GET",
+        //   headers: { Authorization: `Bearer ${token}` },
+        //   credentials: "include",
+        // });
 
-        setIsAuthenticated(response.ok);
+        // setIsAuthenticated(response.ok);
+        const isValid = await checkAuth(token); // ✅ Call service
+        setIsAuthenticated(isValid);
       } catch (error) {
+        console.error("Auth check failed:", error);
         setIsAuthenticated(false);
       } finally {
         setIsLoading(false); // stop loading
       }
     };
 
-    checkAuth();
+    verifyToken();
   }, []);
 
   if (isLoading) {

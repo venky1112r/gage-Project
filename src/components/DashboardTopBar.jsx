@@ -42,7 +42,7 @@ const DashboardTopBar = ({ hideTimeRange = false }) => {
           />
         }
       >
-        <Typography variant="h4">Clear Lake Energy</Typography>
+       <Typography variant="h4" fontSize={{ xs: 20, md: 24,lg:32 }}>Clear Lake Energy</Typography>
         <Typography sx={{ fontSize: 18 }}>All Plants</Typography>
         {/* <Select
           value={plant}
@@ -69,11 +69,11 @@ fontSize: 18,
 
       {/* Right side: Time range selector with equal width */}
       {!hideTimeRange && (
-        <Box mt={{ xs: 2, md: 0 }}>
+       <Box mt={{ xs: 2, md: 0 }} alignSelf={{ xs: "flex-start", md: "flex-end" }}>
           <Typography
             variant="caption"
             display="block"
-            textAlign="right"
+            textAlign={{xs:'left',md:'right'}}
             sx={{ mb: 0.5 }}
           >
             Last updated: January 31, 2025

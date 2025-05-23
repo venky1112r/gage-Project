@@ -222,12 +222,12 @@ const SourcingOpportunitiesMap = () => {
 
   const renderLegend = () => {
     const scale = [
-      { label: "0–5", color: "#f5f5dc" },
-      { label: "6–15", color: "#e0cab2" },
-      { label: "16–25", color: "#d7a97b" },
-      { label: "26–50", color: "#c1814a" },
-      { label: "51–100", color: "#a15c2f" },
-      { label: "100+", color: "#7b2d26" },
+      { label: "0-30", color: "#f5f5dc" },
+      { label: "31-70", color: "#e0cab2" },
+      { label: "71-100+", color: "#d7a97b" },
+      // { label: "0-30", color: "#c1814a" },
+      // { label: "31-70", color: "#a15c2f" },
+      // { label: "71-100+", color: "#7b2d26" },
     ];
     const gradeLegend = [
       { label: "SOURCE", color: "#7D8F69" },
@@ -319,14 +319,14 @@ const SourcingOpportunitiesMap = () => {
     newView && setView(newView)
   }
   return (
-    <Paper elevation={2} sx={{ borderRadius: 4, p: 2 }}>
+    <Paper elevation={2} sx={{ borderRadius: 4, p: 2 ,height: "100%"}}>
       <Box
         display="flex"
         justifyContent="space-between"
         alignItems="center"
         mb={2}
       >
-        <Typography variant="h6" fontWeight="bold">
+        <Typography variant="h6" fontWeight="bold" sx={{ fontSize: "18px" }}>
           Sourcing Opportunities
         </Typography>
         <ToggleButtonGroup
@@ -352,7 +352,7 @@ const SourcingOpportunitiesMap = () => {
         <Typography sx={{ fontSize: 14, mb: 1 }}>
           No heat map information is available.{" "}
           <span
-            style={{ color: "#800000", cursor: "pointer", marginLeft: "20px" }}
+            style={{ color: "#800000", cursor: "pointer", marginLeft: "20px" , fontWeight: "bold" }}
           >
             Upload DTN file
           </span>

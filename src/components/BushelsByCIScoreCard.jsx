@@ -10,34 +10,38 @@ import {
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 
 // Delivered and Pending datasets (same color for No Score items)
-const deliveredData = [
-  { label: 'Grower', value: 10, color: '#8B0000' },
-  { label: 'Retailer', value: 20, color: '#A0522D' },
-  { label: 'National', value: 30, color: '#D2691E' },
-  { label: 'Custom', value: 15, color: '#DAA520' },
-  { label: 'No Score Grower', value: 10, color: '#F4A300' },
-  { label: 'No Score Retailer', value: 15, color: '#FF6347  ' },
-];
 
-const pendingData = [
-  { label: 'Grower', value: 12, color: '#8B0000' },
-  { label: 'Retailer', value: 18, color: '#A0522D' },
-  { label: 'National', value: 22, color: '#D2691E' },
-  { label: 'Custom', value: 10, color: '#DAA520' },
-  { label: 'No Score Grower', value: 20, color:'#F4A300 ' },
-  { label: 'No Score Retailer', value: 18, color: '#FF6347 ' },
-];
+const BushelsByCIScoreCard = ({deliveredData, pendingData}) => {
+//   console.log(deliveredData, "deliveredData" ,pendingData, "pendingData");
+//   const deliveredData1 = [
+//   { label: deliveredData?.label, value: 10, color: '#8B0000' },
+//   { label: 'Retailer', value: 20, color: '#A0522D' },
+//   { label: 'National', value: 30, color: '#D2691E' },
+//   { label: 'Custom', value: 15, color: '#DAA520' },
+//   { label: 'No Score Grower', value: 10, color: '#F4A300' },
+//   { label: 'No Score Retailer', value: 15, color: '#FF6347  ' },
+// ];
 
-const BushelsByCIScoreCard = () => {
+// const pendingData1 = [
+//   { label: 'Grower', value: 12, color: '#8B0000' },
+//   { label: 'Retailer', value: 18, color: '#A0522D' },
+//   { label: 'National', value: 22, color: '#D2691E' },
+//   { label: 'Custom', value: 10, color: '#DAA520' },
+//   { label: 'No Score Grower', value: 20, color:'#F4A300 ' },
+//   { label: 'No Score Retailer', value: 18, color: '#FF6347 ' },
+// ];
+
   const ref = useRef();
   const [view, setView] = useState('delivered'); // 'delivered' | 'pending'
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const data = view === 'delivered' ? deliveredData : pendingData;
+  const chartData = view === 'delivered' ? deliveredData : pendingData;
+const totalDelivered = deliveredData?.reduce((sum, d) => sum + d.value, 0).toFixed(2);
+const totalPending = pendingData?.reduce((sum, d) => sum + d.value, 0).toFixed(2);
 
   useEffect(() => {
     drawChart();
-  }, [view, selectedIndex]);
+  }, [view, selectedIndex, deliveredData, pendingData ]);
 
   const drawChart = () => {
     const width = 160;
@@ -56,7 +60,7 @@ const BushelsByCIScoreCard = () => {
     const pie = d3.pie().value(d => d.value).sort(null); // Disable sorting
     const arc = d3.arc().innerRadius(50).outerRadius(radius);
 
-    const pieData = pie(data);
+    const pieData = pie(chartData);
 
     const arcs = svg
       .selectAll('arc')
@@ -75,11 +79,11 @@ const BushelsByCIScoreCard = () => {
       .style('cursor', 'pointer');
 
     // Center text
-    const total = data.reduce((sum, d) => sum + d.value, 0);
+    const total = chartData.reduce((sum, d) => sum + d.value, 0);
     let centerText = '100.00%'; // Set default to 100%
 
     if (selectedIndex !== null) {
-      const selected = data[selectedIndex];
+      const selected = chartData[selectedIndex];
       const percentage = ((selected.value / total) * 100).toFixed(1);
       centerText = `${percentage}%`;
     }
@@ -100,7 +104,7 @@ const BushelsByCIScoreCard = () => {
 
   return (
     <Paper elevation={3} sx={{ borderRadius: 4, p: 2,flexGrow: 1 }}>
-      <Typography variant="subtitle1" fontWeight="bold" gutterBottom sx={{ fontSize: "20px"}}>
+      <Typography variant="subtitle1" fontWeight="bold" gutterBottom sx={{ fontSize: "18px"}}>
         Bushels by CI score level
       </Typography>
 
@@ -116,7 +120,7 @@ const BushelsByCIScoreCard = () => {
             }}
           >
             <Typography variant="caption">DELIVERED BUSHELS</Typography>
-            <Typography variant="h6" fontWeight="bold">64,124.30</Typography>
+            <Typography variant="h6" fontWeight="bold">{totalDelivered}</Typography>
             {/* <Typography variant="caption" color="green">+1.0%</Typography> */}
           </Box>
         </Grid>
@@ -131,7 +135,7 @@ const BushelsByCIScoreCard = () => {
             }}
           >
             <Typography variant="caption">PENDING BUSHELS</Typography>
-            <Typography variant="h6" fontWeight="bold">9,124.30</Typography>
+            <Typography variant="h6" fontWeight="bold">{totalPending}</Typography>
             {/* <Typography variant="caption" color="green">+1.0%</Typography> */}
           </Box>
         </Grid>
@@ -155,7 +159,7 @@ const BushelsByCIScoreCard = () => {
         </IconButton>
 
         <Box>
-          {data.map((item, i) => (
+          {chartData.map((item, i) => (
             <Box key={i} display="flex" alignItems="center" mb={1}>
               <Box
                 sx={{

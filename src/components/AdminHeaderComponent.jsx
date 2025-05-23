@@ -14,7 +14,7 @@ import {
 import { useTheme } from "@mui/material/styles";
 import { useLocation, useNavigate } from "react-router-dom";
 
-const navItems = ["customers", "user-management"];
+// const navItems = ["customers", "user-management"];
 
 const AdminHeaderComponent = ({ email: propEmail, userrole: propUserrole }) => {
   const location = useLocation();
@@ -26,6 +26,12 @@ const AdminHeaderComponent = ({ email: propEmail, userrole: propUserrole }) => {
   // Use state from location if available, fallback to props
   const email = location.state?.email || propEmail || "guest@example.com";
   const userrole = location.state?.userrole || propUserrole || "guest";
+
+    // Conditionally define nav items based on user role
+  const allNavItems = ["customers", "user-management"];
+  const navItems = userrole === "padmin"
+    ? allNavItems.filter((item) => item !== "customers") // Hide "customers" for padmin
+    : allNavItems;
 
   const currentTab = navItems.findIndex((item) =>
     location.pathname.toLowerCase().includes(item.toLowerCase())

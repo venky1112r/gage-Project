@@ -2,7 +2,8 @@ import React from 'react';
 import { Grid, Container, Box } from '@mui/material';
 import SummaryCard from './SummaryCard';
 
-const SummaryCardsSection = () => {
+const SummaryCardsSection = ( { data } ) => {
+  console.log(data, "ss");
   return (
     < >
   <Box sx={{ mt: 0 , mb: 0 ,padding:'0px 16px'}}>
@@ -11,7 +12,7 @@ const SummaryCardsSection = () => {
   <Grid item xs={12} md={5} sx={{ display: 'flex' }}>
     <SummaryCard
       label="Contracted CI Score"
-      value="24.83"
+      value={data?.contracted_ci_score}
       // delta="+1.2"
       // isPositive={true}
       labelVariant="subtitle2"
@@ -25,7 +26,7 @@ const SummaryCardsSection = () => {
       <Grid item xs={12} sm={4} sx={{ display: 'flex' }}>
         <SummaryCard
           label="Total Bushels"
-          value="73,322"
+          value={data?.total_bushels}
           // delta="+1.2%"
           // isPositive={true}
         />
@@ -41,7 +42,7 @@ const SummaryCardsSection = () => {
       <Grid item xs={12} sm={4} sx={{ display: 'flex' }}>
         <SummaryCard
           label="Authorized Growers"
-          value="58%"
+          value={data?.authorized_grower_percentage}
           // delta="-1.1%"
           // isPositive={false}
         />

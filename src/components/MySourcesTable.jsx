@@ -138,7 +138,6 @@ const MySourcesTable = () => {
     },
   ];
 
-  // Expand/collapse search field
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -173,7 +172,6 @@ const MySourcesTable = () => {
     handleClose();
   };
 
-  // Filtering rows based on search term and source filter
   const filteredRows = rows.filter((row) => {
     const matchesSearch = row.source.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesSource = sourceFilter === "All Sources" || row.source === sourceFilter;
@@ -182,9 +180,9 @@ const MySourcesTable = () => {
 
   return (
     <>
-      <Paper elevation={2} sx={{ borderRadius: 4, p: 2 }}>
+      <Paper elevation={2} sx={{ borderRadius: 4, p: 2 , height: "100%"}}>
         <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
-          <Typography variant="h6" fontWeight="bold">
+          <Typography variant="h6" fontWeight="bold" sx={{ fontSize: "18px" }}>
             My Sources
           </Typography>
 
@@ -257,51 +255,53 @@ const MySourcesTable = () => {
           </Box>
         </Box>
         <Box sx={{ overflowX: "auto" }}>
-        <TableContainer>
-          <Table size="small">
-            <TableHead sx={{ "& th": { fontWeight: "bold" } }}>
-              <TableRow>
-                <TableCell>Source</TableCell>
-                <TableCell>Type</TableCell>
-                <TableCell>Bushels</TableCell>
-                <TableCell>% of Total</TableCell>
-                <TableCell>Auth Contracts</TableCell>
-                <TableCell>CI Score</TableCell>
-                <TableCell></TableCell>
-              </TableRow>
-            </TableHead>
-
-            <TableBody>
-              {filteredRows.map((row, idx) => (
-                <TableRow key={idx} hover >
-                  <TableCell>{row.source}</TableCell>
-                  <TableCell>{row.type}</TableCell>
-                  <TableCell>{row.bushels}</TableCell>
-                  <TableCell>{row.percentTotal}</TableCell>
-                  <TableCell>{row.authContracts}</TableCell>
-                  <TableCell>
-                    <Box display="flex" alignItems="center" gap={1}>
-                      <Box
-                        sx={{
-                          width: 10,
-                          height: 10,
-                          bgcolor: row.color,
-                          borderRadius: "2px",
-                        }}
-                      />
-                      <Typography variant="body2">{row.ciScore}</Typography>
-                    </Box>
-                  </TableCell>
-                  <TableCell align="center">
-                    <IconButton onClick={() => handleEditClick(row)} size="small">
-                      <EditIcon fontSize="small" />
-                    </IconButton>
-                  </TableCell>
+          <TableContainer>
+            <Table size="small">
+              <TableHead sx={{ "& th": { fontWeight: "bold" } }}>
+                <TableRow>
+                  <TableCell sx={{ fontSize: { xs: "10px", sm: "10px", md: "12px" } }}>Source</TableCell>
+                  <TableCell sx={{ fontSize: { xs: "10px", sm: "10px", md: "12px" } }}>Type</TableCell>
+                  <TableCell sx={{ fontSize: { xs: "10px", sm: "10px", md: "12px" } }}>Bushels</TableCell>
+                  <TableCell sx={{ fontSize: { xs: "10px", sm: "10px", md: "12px" } }}>% of Total</TableCell>
+                  <TableCell sx={{ fontSize: { xs: "10px", sm: "10px", md: "12px" } }}>Auth Contracts</TableCell>
+                  <TableCell sx={{ fontSize: { xs: "10px", sm: "10px", md: "12px" } }}>CI Score</TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+              </TableHead>
+
+              <TableBody>
+                {filteredRows.map((row, idx) => (
+                  <TableRow key={idx} hover>
+                    <TableCell sx={{ fontSize: { xs: "10px", sm: "10px", md: "12px" } }}>{row.source}</TableCell>
+                    <TableCell sx={{ fontSize: { xs: "10px", sm: "10px", md: "12px" } }}>{row.type}</TableCell>
+                    <TableCell sx={{ fontSize: { xs: "10px", sm: "10px", md: "12px" } }}>{row.bushels}</TableCell>
+                    <TableCell sx={{ fontSize: { xs: "10px", sm: "10px", md: "12px" } }}>{row.percentTotal}</TableCell>
+                    <TableCell sx={{ fontSize: { xs: "10px", sm: "10px", md: "12px" } }}>{row.authContracts}</TableCell>
+                    <TableCell sx={{ fontSize: { xs: "10px", sm: "10px", md: "12px" } }}>
+                      <Box display="flex" alignItems="center" gap={1}>
+                        <Box
+                          sx={{
+                            width: 10,
+                            height: 10,
+                            bgcolor: row.color,
+                            borderRadius: "2px",
+                          }}
+                        />
+                        <Typography sx={{ fontSize: { xs: "10px", sm: "10px", md: "12px" } }}>
+                          {row.ciScore}
+                        </Typography>
+                      </Box>
+                    </TableCell>
+                    <TableCell align="center">
+                      <IconButton onClick={() => handleEditClick(row)} size="small">
+                        <EditIcon fontSize="small" />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </Box>
       </Paper>
 

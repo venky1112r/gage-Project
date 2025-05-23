@@ -9,9 +9,11 @@ import Login from "./pages/Loginpage";
 import Test from "./pages/test";
 import GageLoginPage from "./pages/GageLoginpage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { DashboardProvider } from "./context/DashboardContext.jsx";
 
 function App() {
   return (
+    <DashboardProvider>
     <Router>
       <Routes>
         {/* Public Routes */}
@@ -30,6 +32,7 @@ function App() {
         </Route>
       </Routes>
     </Router>
+    </DashboardProvider>
   );
 }
 

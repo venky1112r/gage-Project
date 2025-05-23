@@ -79,6 +79,7 @@ const handleLogout = () => {
           variant="h3"
           sx={{ fontWeight: "bold", color: "#003320", cursor: "pointer" }}
           onClick={() => navigate("/dashboard", { state: { email, userrole } })}
+          fontSize={{ xs: "2rem", md: "2.5rem" }}
         >
           G.A.G.E.
         </Typography>
@@ -93,6 +94,7 @@ const handleLogout = () => {
               textColor="inherit"
               indicatorColor="secondary"
               TabIndicatorProps={{ style: { backgroundColor: "#800000" } }}
+              sx={{ display: { xs: "none", lg: "block" } }}
             >
               {navItems.map((label, index) => (
                 <Tab
@@ -130,7 +132,7 @@ const handleLogout = () => {
           </Tabs>
         )}
 
-        <Box sx={{ display: { xs: "block", md: "flex" } , flexDirection: "row", alignItems: "center", gap: 2}}>
+        <Box sx={{ display: { xs: "flex", md: "flex" } , flexDirection: "row", alignItems: "center", gap: 2}}>
           <Typography sx={{ fontWeight: "bold", color: "primary.main" , fontSize: "15px",  }}>{email}</Typography>
           <Avatar
             onClick={handleAvatarClick}

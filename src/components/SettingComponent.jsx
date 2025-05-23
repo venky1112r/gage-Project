@@ -49,7 +49,7 @@ const SettingComponent = () => {
                 color: "#000000", // This changes the underline color
               },
             }}
-            label="Bussiness Rules"
+            label="Business Rules"
           />
           <Tab
             sx={{
