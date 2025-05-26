@@ -106,49 +106,61 @@ const ContractsChart = ({ data, view }) => {
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
+    // Fixed grade order
+    const gradeOrder = [
+      "Grower",
+      "Retailer",
+      "Other",
+      "No Score Grower",
+      "No Score Retailer"
+    ];
+
+    const orderedData = gradeOrder
+      .map(grade => data.find(d => d.grade === grade))
+      .filter(Boolean); // skip grades not present in data
+
     const x = d3
       .scaleBand()
-      .domain(data.map((d) => d.grade))
+      .domain(gradeOrder)
       .range([0, innerWidth])
       .padding(0.3);
 
     const maxTotal = d3.max(
-      data,
+      orderedData,
       (d) => d.bushels + (showPending ? d.pending || 0 : 0)
     );
     const yLeft = d3.scaleLinear().domain([0, maxTotal + 500]).range([innerHeight, 0]);
     const yRight = d3.scaleLinear().domain([0, 40]).range([innerHeight, 0]);
 
+    // Bars - Delivered (ONLY if not pending view)
+    g.selectAll(".delivered-bar")
+      .data(orderedData)
+      .enter()
+      .append("rect")
+      .attr("x", (d) => x(d.grade))
+      .attr("y", (d) => yLeft(d.bushels))
+      .attr("width", x.bandwidth())
+      .attr("height", (d) => innerHeight - yLeft(d.bushels))
+      .attr("fill", "#ADC178");
 
-  // Bars - Delivered (ONLY if not pending view)
-  g.selectAll(".delivered-bar")
-    .data(data)
-    .enter()
-    .append("rect")
-    .attr("x", (d) => x(d.grade))
-    .attr("y", (d) => yLeft(d.bushels))
-    .attr("width", x.bandwidth())
-    .attr("height", (d) => innerHeight - yLeft(d.bushels))
-    .attr("fill", "#ADC178");
-if (!showPending) {
-  // Delivered Labels
-  g.selectAll(".delivered-label")
-    .data(data)
-    .enter()
-    .append("text")
-    .text((d) => d.bushels)
-    .attr("x", (d) => x(d.grade) + x.bandwidth() / 2)
-    .attr("y", (d) => yLeft(d.bushels) - 5)
-    .attr("text-anchor", "middle")
-    .attr("font-size", isMobile ? "10px" : "12px")
-    .attr("font-weight", "bold");
-}
-
+    if (!showPending) {
+      // Delivered Labels
+      g.selectAll(".delivered-label")
+        .data(orderedData)
+        .enter()
+        .append("text")
+        .text((d) => `${(d.bushels / 1_000_000).toFixed(1)}M`)
+        .attr("x", (d) => x(d.grade) + x.bandwidth() / 2)
+        .attr("y", (d) => yLeft(d.bushels) - 5)
+        .attr("text-anchor", "middle")
+        .attr("font-size", isMobile ? "10px" : "12px")
+        .attr("font-weight", "bold");
+    }
 
     // Bars - Pending
     if (showPending) {
       g.selectAll(".pending-bar")
-        .data(data)
+        .data(orderedData)
         .enter()
         .append("rect")
         .attr("x", (d) => x(d.grade))
@@ -158,10 +170,10 @@ if (!showPending) {
         .attr("fill", "#ccc");
 
       g.selectAll(".pending-label")
-        .data(data)
+        .data(orderedData)
         .enter()
         .append("text")
-        .text((d) => d.pending || "")
+        .text((d) => d.pending ? `${(d.pending / 1_000_000).toFixed(1)}M` : "")
         .attr("x", (d) => x(d.grade) + x.bandwidth() / 2)
         .attr("y", (d) => yLeft(d.bushels + (d.pending || 0)) - 5)
         .attr("text-anchor", "middle")
@@ -177,14 +189,14 @@ if (!showPending) {
     //   .y((d) => yRight(d.ciScore));
 
     // g.append("path")
-    //   .datum(data)
+    //   .datum(orderedData)
     //   .attr("fill", "none")
     //   .attr("stroke", "#7F4F24")
     //   .attr("stroke-width", 2)
     //   .attr("d", line);
 
     // g.selectAll(".dot")
-    //   .data(data)
+    //   .data(orderedData)
     //   .enter()
     //   .append("circle")
     //   .attr("cx", (d) => x(d.grade) + x.bandwidth() / 2)
@@ -203,7 +215,13 @@ if (!showPending) {
       .selectAll("text")
       .style("font-size", isMobile ? "10px" : "12px");
 
-    g.append("g").call(d3.axisLeft(yLeft).ticks(isMobile ? 4 : 6));
+    g.append("g")
+      .call(
+        d3.axisLeft(yLeft)
+          .ticks(isMobile ? 4 : 6)
+          .tickFormat((d) => `${(d / 1_000_000).toFixed(1)}M`)
+      );
+
     g.append("g")
       .attr("transform", `translate(${innerWidth},0)`)
       .call(d3.axisRight(yRight).ticks(isMobile ? 4 : 6));

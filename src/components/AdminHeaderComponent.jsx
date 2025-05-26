@@ -55,7 +55,7 @@ const handleLogout = () => {
 
   sessionStorage.removeItem("token");
   handleMenuClose();
-  navigate("/login");
+  userrole === "gadmin"? navigate("/login-admin"):navigate("/login");
 };
 
 

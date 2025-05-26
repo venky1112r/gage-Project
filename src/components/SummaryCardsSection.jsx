@@ -25,8 +25,9 @@ const SummaryCardsSection = ( { data } ) => {
     <Grid container spacing={2} alignItems="stretch">
       <Grid item xs={12} sm={4} sx={{ display: 'flex' }}>
         <SummaryCard
-          label="Total Bushels"
-          value={data?.total_bushels}
+          label="Contracted Bushels"
+         value={data?.total_bushels?.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
+
           // delta="+1.2%"
           // isPositive={true}
         />
@@ -42,7 +43,7 @@ const SummaryCardsSection = ( { data } ) => {
       <Grid item xs={12} sm={4} sx={{ display: 'flex' }}>
         <SummaryCard
           label="Authorized Growers"
-          value={data?.authorized_grower_percentage}
+          value={`${data?.authorized_grower_percentage}%`}
           // delta="-1.1%"
           // isPositive={false}
         />

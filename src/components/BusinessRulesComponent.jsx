@@ -129,7 +129,7 @@ const BusinessRulesComponent = () => {
            Heat Maps Averages (Country/State)
             </Typography>
             <Button variant="outlined" sx={{ mt: 2, color: '#000000', borderColor: '#000000' }} >Upload DTN File</Button>
-            <Typography variant="body2" sx={{ mt: 2, color: "text.secondary" }}>File format: .xlsx or .csv file (5MB max)</Typography>
+            <Typography variant="body2" sx={{ mt: 2, color: "text.secondary" }}>File format: .csv file (5MB max)</Typography>
         </Box>
       </Box>
     </div>

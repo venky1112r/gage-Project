@@ -10,7 +10,7 @@ const SummaryCard = ({
   isPositive,
   subLabel,
   labelVariant = "subtitle2",
-  valueVariant = "h3",
+  valueVariant = "h4",
 }) => {
   const [intPart, decimalPart] = Number(value).toFixed(2).split(".");
   const isContractedCIScore = label === "Contracted CI Score";
@@ -53,7 +53,7 @@ const SummaryCard = ({
             <>
               <Typography
                 sx={{
-                  fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4.5rem" },
+                  fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4rem" },
                   lineHeight: 1,
                   color: "primary.main",
                 }}
@@ -63,7 +63,7 @@ const SummaryCard = ({
               {decimalPart && (
                 <Typography
                   sx={{
-                    fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" },
+                    fontSize: { xs: "1.5rem", sm: "2rem", md: "2rem" },
                     color: "#003320",
                     lineHeight: 1,
                     paddingBottom:"5px",
@@ -74,18 +74,18 @@ const SummaryCard = ({
               )}
             </>
           ) : (
-            <Typography variant={valueVariant} color="primary.main">
+            <Typography  color="primary.main" sx={{ fontSize: { xs: "1.5rem", sm: "2rem", md: "2rem"}, paddingTop:"5px" }}>
               {value}
             </Typography>
           )}
         </Box>
       </Box>
 
-      {subLabel && (
-        <Typography variant="caption" color="text.secondary" mt={1}>
+      {/* {subLabel && (
+        <Typography variant="caption" color="red" mt={1}>
           {subLabel}
         </Typography>
-      )}
+      )} */}
     </Paper>
   );
 };

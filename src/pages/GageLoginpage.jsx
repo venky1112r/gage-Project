@@ -136,13 +136,13 @@ const GageLoginPage = () => {
           onSubmit={handleLogin}
           sx={{
             width: "100%",
-            maxWidth: 400,
+            maxWidth: 500,
             backgroundColor: "#fff",
             p: 4,
           }}
         >
           <Typography variant="h4" sx={{ mb: 3 }} textAlign={"center"}>
-            Log in as Gage Admin
+            Log in as G.A.G.E Admin
           </Typography>
 
           {errors.general && (

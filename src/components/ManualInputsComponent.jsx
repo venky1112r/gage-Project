@@ -29,6 +29,7 @@ const ManualInputsComponent = () => {
       coal_Usage: "3.2",
       grid_Electricity_Usage: "4.1",
       renewable_Electricity_Usage: "1.3",
+      natural_gas_renewable: "1.3",
       bushels_processed: "1350000",
       ethanol_produced: "42.8",
       lastupdatedon: "05/10/2025",
@@ -41,6 +42,7 @@ const ManualInputsComponent = () => {
       coal_Usage: "2.8",
       grid_Electricity_Usage: "3.9",
       renewable_Electricity_Usage: "1.1",
+       natural_gas_renewable: "1.3",
       bushels_processed: "1280000",
       ethanol_produced: "40.2",
       lastupdatedon: "04/09/2025",
@@ -53,6 +55,7 @@ const ManualInputsComponent = () => {
       coal_Usage: "3.5",
       grid_Electricity_Usage: "4.3",
       renewable_Electricity_Usage: "1.4",
+       natural_gas_renewable: "1.3",
       bushels_processed: "1400000",
       ethanol_produced: "44.0",
       lastupdatedon: "03/07/2025",
@@ -65,6 +68,7 @@ const ManualInputsComponent = () => {
       coal_Usage: "3.5",
       grid_Electricity_Usage: "4.3",
       renewable_Electricity_Usage: "1.4",
+       natural_gas_renewable: "1.3",
       bushels_processed: "1400000",
       ethanol_produced: "44.0",
       lastupdatedon: "03/07/2025",
@@ -77,6 +81,7 @@ const ManualInputsComponent = () => {
       coal_Usage: "2.8",
       grid_Electricity_Usage: "3.9",
       renewable_Electricity_Usage: "1.1",
+       natural_gas_renewable: "1.3",
       bushels_processed: "1280000",
       ethanol_produced: "40.2",
       lastupdatedon: "04/09/2025",
@@ -89,6 +94,7 @@ const ManualInputsComponent = () => {
       coal_Usage: "2.8",
       grid_Electricity_Usage: "3.9",
       renewable_Electricity_Usage: "1.1",
+       natural_gas_renewable: "1.3",
       bushels_processed: "1280000",
       ethanol_produced: "40.2",
       lastupdatedon: "04/09/2025",
@@ -101,6 +107,7 @@ const ManualInputsComponent = () => {
       coal_Usage: "3.5",
       grid_Electricity_Usage: "4.3",
       renewable_Electricity_Usage: "1.4",
+       natural_gas_renewable: "1.3",
       bushels_processed: "1400000",
       ethanol_produced: "44.0",
       lastupdatedon: "03/07/2025",
@@ -115,6 +122,7 @@ const ManualInputsComponent = () => {
     coal_Usage: "",
     grid_Electricity_Usage: "",
     renewable_Electricity_Usage: "",
+    natural_gas_renewable: "",
     bushels_processed: "",
     ethanol_produced: "",
     conversion_efficiency: "",
@@ -136,6 +144,7 @@ const ManualInputsComponent = () => {
     "coal_Usage",
     "grid_Electricity_Usage",
     "renewable_Electricity_Usage",
+    "natural_gas_renewable",
     "bushels_processed",
     "ethanol_produced",
   ];
@@ -145,6 +154,7 @@ const ManualInputsComponent = () => {
     "coal_Usage",
     "grid_Electricity_Usage",
     "renewable_Electricity_Usage",
+    "natural_gas_renewable",
     "bushels_processed",
     "ethanol_produced",
     "conversion_efficiency",
@@ -187,6 +197,7 @@ const ManualInputsComponent = () => {
       coal_Usage: "",
       grid_Electricity_Usage: "",
       renewable_Electricity_Usage: "",
+      natural_gas_renewable: "",
       bushels_processed: "",
       ethanol_produced: "",
       conversion_efficiency: "",
@@ -207,6 +218,7 @@ const ManualInputsComponent = () => {
     { label: "Coal Usage (CL)", field: "coal_Usage", type: "number", unit: "Short tons" },
     { label: "Grid Electricity Usage (GE)", field: "grid_Electricity_Usage", type: "number", unit: "Million kWh" },
     { label: "Renewable Electricity Usage (RE)", field: "renewable_Electricity_Usage", type: "number", unit: "Million kWh" },
+    { label: "Natural Gas Renewable - 45z", field: "natural_gas_renewable", type: "number", unit: "MMBtu" },
     { label: "Total Bushels Processed", field: "bushels_processed", type: "number", unit: "BU" },
     { label: "Total Ethanol Produced", field: "ethanol_produced", type: "number", unit: "Million Gallons" },
     { label: "Conversion Efficiency", field: "conversion_efficiency", type: "number", unit: "" },
@@ -275,6 +287,7 @@ const ManualInputsComponent = () => {
               <TableCell>Coal Usage</TableCell>
               <TableCell>Grid Electricity Usage</TableCell>
               <TableCell>Renewable Electricity Usage</TableCell>
+              <TableCell>Natural Gas Renewable - 45z</TableCell>
               <TableCell>Bushels Processed</TableCell>
               <TableCell>Total Ethanol Produced</TableCell>
               <TableCell>Updated On</TableCell>
@@ -293,6 +306,7 @@ const ManualInputsComponent = () => {
                   <TableCell>{row.coal_Usage}</TableCell>
                   <TableCell>{row.grid_Electricity_Usage}</TableCell>
                   <TableCell>{row.renewable_Electricity_Usage}</TableCell>
+                  <TableCell>{row.natural_gas_renewable}</TableCell>
                   <TableCell>{row.bushels_processed}</TableCell>
                   <TableCell>{row.ethanol_produced}</TableCell>
                   <TableCell>{row.lastupdatedon}</TableCell>
@@ -331,6 +345,13 @@ const ManualInputsComponent = () => {
           }`;
         }}
       />
+        <Box mt={4}>
+                <Typography variant="h6" sx={{ mt: 2 }} >
+                 Operational Net CI Score 
+                  </Typography>
+                  <Button variant="outlined" sx={{ mt: 2, color: '#000000', borderColor: '#000000' }} >Upload Operational CI Score File</Button>
+                  <Typography variant="body2" sx={{ mt: 2, color: "text.secondary" }}>File format: .csv file (5MB max)</Typography>
+              </Box>
     </Box>
   );
 };

@@ -35,9 +35,26 @@ const BushelsByCIScoreCard = ({deliveredData, pendingData}) => {
   const [view, setView] = useState('delivered'); // 'delivered' | 'pending'
   const [selectedIndex, setSelectedIndex] = useState(null);
 
-  const chartData = view === 'delivered' ? deliveredData : pendingData;
-const totalDelivered = deliveredData?.reduce((sum, d) => sum + d.value, 0).toFixed(2);
-const totalPending = pendingData?.reduce((sum, d) => sum + d.value, 0).toFixed(2);
+  const customOrder = [
+  'Grower',
+  'Retailer',
+  'Other',
+  'National',
+  'Custom',
+  'No Score Grower',
+  'No Score Retailer',
+];
+ const chartData = [...(view === 'delivered' ? deliveredData : pendingData || [])].sort(
+  (a, b) => customOrder.indexOf(a.label) - customOrder.indexOf(b.label)
+);
+
+const totalDelivered = deliveredData
+  ?.reduce((sum, d) => sum + d.value, 0)
+  .toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+const totalPending = pendingData
+  ?.reduce((sum, d) => sum + d.value, 0)
+  .toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   useEffect(() => {
     drawChart();

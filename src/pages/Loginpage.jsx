@@ -138,7 +138,7 @@ const handleLogin = async (e) => {
             onSubmit={handleLogin}
             sx={{
               width: "100%",
-              maxWidth: 400,
+              maxWidth: 500,
               backgroundColor: "#fff",
               p: 4,
             }}

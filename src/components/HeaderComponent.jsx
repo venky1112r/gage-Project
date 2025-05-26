@@ -44,10 +44,10 @@ const HeaderComponent = ({ email, userrole }) => {
 
 const handleLogout = () => {
   console.log("Logging out...");
-
   sessionStorage.removeItem("token");
   handleMenuClose();
-  navigate("/login");
+  userrole === "gadmin"? navigate("/login-admin"):navigate("/login");
+
 };
 
 
@@ -159,7 +159,7 @@ const handleLogout = () => {
               <MenuItem onClick={handleManageUsers}>Manage Users</MenuItem>
             )}
 
-            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+            <MenuItem onClick={handleLogout}>Logout</MenuItem> 
           </Menu>
         </Box>
       </Toolbar>
