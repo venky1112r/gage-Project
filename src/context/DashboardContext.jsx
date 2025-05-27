@@ -6,9 +6,10 @@ const DashboardContext = createContext();
 
 export const DashboardProvider = ({ children }) => {
   const [dashboardData, setDashboardData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
    const loadDashboardData = async () => {
+    setLoading(true);
     try {
       const data = await fetchDashboardAPI(); // Use shared API logic
       setDashboardData(data);
@@ -19,13 +20,11 @@ export const DashboardProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    loadDashboardData();
-  }, []);
+  
  
 
   return (
-    <DashboardContext.Provider value={{ dashboardData, loading }}>
+    <DashboardContext.Provider value={{ dashboardData, loading,loadDashboardData }}>
       {children}
     </DashboardContext.Provider>
   );
