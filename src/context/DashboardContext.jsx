@@ -1,5 +1,5 @@
 // context/DashboardContext.js
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, { createContext, useState, useContext } from "react";
 import { fetchDashboardData as fetchDashboardAPI } from "../services/api";
 
 const DashboardContext = createContext();

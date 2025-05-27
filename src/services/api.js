@@ -46,7 +46,6 @@ export async function fetchDashboardData() {
   if (!response.ok) {
     throw new Error("Failed to load dashboard data");
   }
-
   return response.json();
 }
 

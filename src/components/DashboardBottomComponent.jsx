@@ -14,7 +14,6 @@ const DashboardBottomComponent = ({data}) => {
   'No Score Retailer': '#FF6347',
 };
 
-  console.log( "DB component data", data?.ci_score_level_delivered);
 const deliveredData = (data?.ci_score_level_delivered || []).map(item => ({
     label: item.role,
     value: item.delivered || 0,
@@ -26,7 +25,6 @@ const deliveredData = (data?.ci_score_level_delivered || []).map(item => ({
     value: item.pending || 0,
     color: levelColors[item.role] || '#ccc',
   }));
-  console.log(deliveredData, "deliveredData", pendingData, "pendingData");
   return (
     <Box sx={{ p: { xs: 2, sm: 2 }, mt: 0 }}>
       <Grid container spacing={2}>

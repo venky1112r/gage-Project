@@ -27,7 +27,6 @@ const AddUserForm = ({ onBack }) => {
   };
 
   const handleSubmit = () => {
-    console.log("New User Submitted:", formData);
     // Add real logic here (e.g., API call)
     onBack(); // Return to table after submission
   };

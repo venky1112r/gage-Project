@@ -3,7 +3,7 @@ import { Grid, Container, Box } from '@mui/material';
 import SummaryCard from './SummaryCard';
 
 const SummaryCardsSection = ( { data } ) => {
-  console.log(data, "ss");
+  // console.log(data, "ss");
   return (
     < >
   <Box sx={{ mt: 0 , mb: 0 ,padding:'0px 16px'}}>
@@ -12,7 +12,7 @@ const SummaryCardsSection = ( { data } ) => {
   <Grid item xs={12} md={5} sx={{ display: 'flex' }}>
     <SummaryCard
       label="Contracted CI Score"
-      value={data?.contracted_ci_score}
+      value={data?.summary[0]?.contracted_ci_score}
       // delta="+1.2"
       // isPositive={true}
       labelVariant="subtitle2"
@@ -26,7 +26,7 @@ const SummaryCardsSection = ( { data } ) => {
       <Grid item xs={12} sm={4} sx={{ display: 'flex' }}>
         <SummaryCard
           label="Contracted Bushels"
-         value={data?.total_bushels?.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
+         value={data?.summary[0]?.contracted_bushels?.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}
 
           // delta="+1.2%"
           // isPositive={true}
@@ -35,7 +35,7 @@ const SummaryCardsSection = ( { data } ) => {
       <Grid item xs={12} sm={4} sx={{ display: 'flex' }}>
         <SummaryCard
           label="Rebate"
-          value="$62,072"
+          value={`$${data?.summary[0]?.rebate?.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`}
           // delta="-1.1%"
           // isPositive={false}
         />
@@ -43,7 +43,7 @@ const SummaryCardsSection = ( { data } ) => {
       <Grid item xs={12} sm={4} sx={{ display: 'flex' }}>
         <SummaryCard
           label="Authorized Growers"
-          value={`${data?.authorized_grower_percentage}%`}
+          value={`${data?.summary[0]?.authorized_growers}%`}
           // delta="-1.1%"
           // isPositive={false}
         />

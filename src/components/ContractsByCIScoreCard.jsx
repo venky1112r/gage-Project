@@ -23,7 +23,6 @@ import styled from '@emotion/styled';
 // ];
 
 const ContractsByCIScoreCard = ( {deliveredData, pendingData}) => {
-  console.log(deliveredData, "deliveredData", pendingData, "pendingData");
 //   const ciScores = {
 //   "Grower": 30,
 //   "Retailer": 26,

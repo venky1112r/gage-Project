@@ -37,7 +37,7 @@ import {
     };
   
     const handleGenarateReport = () => {
-      console.log("Generating report:", report, "for", period, "Dates:", customDates);
+      // console.log("Generating report:", report, "for", period, "Dates:", customDates);
       setOpenSnackbar(true);
     };
   
