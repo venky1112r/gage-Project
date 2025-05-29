@@ -14,17 +14,21 @@ const DashboardBottomComponent = ({data}) => {
   'No Score Retailer': '#FF6347',
 };
 
-const deliveredData = (data?.ci_score_level_delivered || []).map(item => ({
-    label: item.role,
-    value: item.delivered || 0,
-    color: levelColors[item.role] || '#ccc', // fallback color
+const deliveredData = (data?.contract_ci_score_level_delivered || []).map(item => ({
+    label: item.nameidtype,
+    value: item.total_delivered || 0,
+    ciscore: item.ci_score || 0,
+    color: levelColors[item.nameidtype] || '#ccc', // fallback color
   }));
 
-  const pendingData = (data?.ci_score_level_pending || []).map(item => ({
-    label: item.role,
-    value: item.pending || 0,
-    color: levelColors[item.role] || '#ccc',
+  const pendingData = (data?.contract_ci_score_level_pending || []).map(item => ({
+    label: item.nameidtype,
+    value: item.total_pending || 0,
+    ciscore: item.ci_score || 0,
+    color: levelColors[item.nameidtype] || '#ccc',
   }));
+
+  // console.log(deliveredData , "deliveredData");
   return (
     <Box sx={{ p: { xs: 2, sm: 2 }, mt: 0 }}>
       <Grid container spacing={2}>

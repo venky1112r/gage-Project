@@ -39,7 +39,7 @@ deliveredData.forEach(item => {
     grade: item.label,
     bushels: item.value,
     pending: 0,
-    // ciScore: ciScores[item.label] || null
+    ciScore: item.ciscore || 0
   };
 });
 
@@ -51,12 +51,13 @@ pendingData.forEach(item => {
       grade: item.label,
       bushels: 0,
       pending: item.value,
-      // ciScore: ciScores[item.label] || null
+      ciScore: item.ciscore || 0
     };
   }
 });
 
 const data = Object.values(combinedDataMap);
+// console.log(data);
 
   const [view, setView] = useState("delivered");
 
