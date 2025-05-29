@@ -121,60 +121,60 @@ const ContractsChart = ({ data, view }) => {
       .map((grade) => data.find((d) => d.grade === grade))
       .filter(Boolean); // skip grades not present in data
 
-    const x = d3
+    const x0 = d3
       .scaleBand()
       .domain(gradeOrder)
       .range([0, innerWidth])
       .padding(0.3);
 
-    const maxTotal = d3.max(
-      orderedData,
-      (d) => d.bushels + (showPending ? d.pending || 0 : 0)
+    const x1 = d3
+      .scaleBand()
+      .domain(["delivered", "pending"])
+      .range([0, x0.bandwidth()])
+      .padding(0.2);
+
+    const maxTotal = d3.max(orderedData, (d) =>
+      Math.max(d.bushels || 0, showPending ? d.pending || 0 : 0)
     );
-    const yLeft = d3
-      .scaleLinear()
-      .domain([0, maxTotal + 500])
-      .range([innerHeight, 0]);
+
+    const yMax = Math.ceil((maxTotal + 5_000_000) / 1_000_000) * 1_000_000;
+
+    const yLeft = d3.scaleLinear().domain([0, yMax]).range([innerHeight, 0]);
     const yRight = d3.scaleLinear().domain([0, 40]).range([innerHeight, 0]);
 
-    // Bars - Delivered (ONLY if not pending view)
+    // Bars - Delivered
     g.selectAll(".delivered-bar")
       .data(orderedData)
       .enter()
       .append("rect")
-      .attr("x", (d) => x(d.grade))
+      .attr("x", (d) => x0(d.grade) + x1("delivered"))
       .attr("y", (d) => yLeft(d.bushels))
-      .attr("width", x.bandwidth())
+      .attr("width", x1.bandwidth())
       .attr("height", (d) => innerHeight - yLeft(d.bushels))
       .attr("fill", "#ADC178");
 
-    if (!showPending) {
-      // Delivered Labels
-      g.selectAll(".delivered-label")
-        .data(orderedData)
-        .enter()
-        .append("text")
-        .text((d) => `${(d.bushels / 1_000_000).toFixed(1)}M`)
-        .attr("x", (d) => x(d.grade) + x.bandwidth() / 2)
-        .attr("y", (d) => yLeft(d.bushels) - 5)
-        .attr("text-anchor", "middle")
-        .attr("font-size", isMobile ? "10px" : "12px")
-        .attr("font-weight", "bold");
-    }
+    // Delivered Labels
+    g.selectAll(".delivered-label")
+      .data(orderedData)
+      .enter()
+      .append("text")
+      .text((d) => `${(d.bushels / 1_000_000).toFixed(1)}M`)
+      .attr("x", (d) => x0(d.grade) + x1("delivered") + x1.bandwidth() / 2)
+      .attr("y", (d) => yLeft(d.bushels) - 5)
+      .attr("text-anchor", "middle")
+      .attr("font-size", isMobile ? "10px" : "12px")
+      .attr("font-weight", "bold");
 
-    // Bars - Pending
+    // Bars - Pending (if applicable)
     if (showPending) {
       g.selectAll(".pending-bar")
         .data(orderedData)
         .enter()
         .append("rect")
-        .attr("x", (d) => x(d.grade))
-        .attr("y", (d) => yLeft(d.bushels + (d.pending || 0)))
-        .attr("width", x.bandwidth())
-        .attr(
-          "height",
-          (d) => yLeft(d.bushels) - yLeft(d.bushels + (d.pending || 0))
-        )
+        .attr("x", (d) => x0(d.grade) + x1("pending"))
+        .attr("y", (d) => yLeft(d.pending || 0))
+        .attr("width", x1.bandwidth())
+        .attr("height", (d) => innerHeight - yLeft(d.pending || 0))
         .attr("fill", "#ccc");
 
       g.selectAll(".pending-label")
@@ -182,10 +182,10 @@ const ContractsChart = ({ data, view }) => {
         .enter()
         .append("text")
         .text((d) =>
-          d.pending ? `${(d.pending / 1_000_000).toFixed(1)}M` : ""
+          d.pending && d.pending > 0 ? `${(d.pending / 1_000_000).toFixed(1)}M` : ""
         )
-        .attr("x", (d) => x(d.grade) + x.bandwidth() / 2)
-        .attr("y", (d) => yLeft(d.bushels + (d.pending || 0)) - 5)
+        .attr("x", (d) => x0(d.grade) + x1("pending") + x1.bandwidth() / 2)
+        .attr("y", (d) => yLeft(d.pending || 0) - 5)
         .attr("text-anchor", "middle")
         .attr("font-size", isMobile ? "10px" : "12px")
         .attr("fill", "#333")
@@ -195,7 +195,7 @@ const ContractsChart = ({ data, view }) => {
     // CI Score Line
     const line = d3
       .line()
-      .x((d) => x(d.grade) + x.bandwidth() / 2)
+      .x((d) => x0(d.grade) + x0.bandwidth() / 2)
       .y((d) => yRight(d.ciScore));
 
     g.append("path")
@@ -209,7 +209,7 @@ const ContractsChart = ({ data, view }) => {
       .data(orderedData)
       .enter()
       .append("circle")
-      .attr("cx", (d) => x(d.grade) + x.bandwidth() / 2)
+      .attr("cx", (d) => x0(d.grade) + x0.bandwidth() / 2)
       .attr("cy", (d) => yRight(d.ciScore))
       .attr("r", 4)
       .attr("fill", "#7F4F24")
@@ -232,7 +232,7 @@ const ContractsChart = ({ data, view }) => {
     g.append("g")
       .attr("transform", `translate(0,${innerHeight})`)
       .call(
-        d3.axisBottom(x).tickFormat((d) =>
+        d3.axisBottom(x0).tickFormat((d) =>
           isMobile && d.length > 10
             ? d
                 .split(" ")
@@ -298,30 +298,30 @@ const ContractsChart = ({ data, view }) => {
 
   return (
     <div
-    ref={containerRef}
-    style={{
-      width: "100%",
-      position: "relative",
-      marginTop: "0px",
-      paddingBottom: "0px",
-    }}
-  >
-    <svg ref={svgRef} />
-    <div
-      ref={tooltipRef}
+      ref={containerRef}
       style={{
-        position: "absolute",
-        pointerEvents: "none",
-        backgroundColor: "rgba(0, 0, 0, 0.7)",
-        color: "#fff",
-        padding: "5px 8px",
-        borderRadius: "4px",
-        fontSize: "12px",
-        visibility: "hidden",
-        zIndex: 10,
+        width: "100%",
+        position: "relative",
+        marginTop: "0px",
+        paddingBottom: "0px",
       }}
-    />
-  </div>
+    >
+      <svg ref={svgRef} />
+      <div
+        ref={tooltipRef}
+        style={{
+          position: "absolute",
+          pointerEvents: "none",
+          backgroundColor: "rgba(0, 0, 0, 0.7)",
+          color: "#fff",
+          padding: "5px 8px",
+          borderRadius: "4px",
+          fontSize: "12px",
+          visibility: "hidden",
+          zIndex: 10,
+        }}
+      />
+    </div>
   );
 };
 

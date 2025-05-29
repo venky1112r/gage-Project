@@ -52,7 +52,7 @@ const AdminHeaderComponent = ({ email: propEmail, userrole: propUserrole }) => {
 
 const handleLogout = () => {
   console.log("Logging out...");
-
+  sessionStorage.removeItem("settingsTab");
   sessionStorage.removeItem("token");
   handleMenuClose();
   userrole === "gadmin"? navigate("/login-admin"):navigate("/login");
