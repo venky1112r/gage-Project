@@ -37,7 +37,7 @@ const sources = [
     name: "Adams",
     type: "Retailer",
     ciScore: 14.9,
-    grade: "CUSTOM",
+    grade: "NATIONAL",
     lat: 44.1,
     lon: -99.1,
     color: "#DC6B19", // orange ring
@@ -100,7 +100,7 @@ const stateAbbr = {
 
 const SourcingOpportunitiesMap = () => {
   const svgRef = useRef();
-  const [view, setView] = useState("heatmap");   
+  const [view, setView] = useState("heatmap");
   const [zoomLevel, setZoomLevel] = useState(1);
 
   useEffect(() => {
@@ -187,25 +187,71 @@ const SourcingOpportunitiesMap = () => {
           .attr("font-size", "10px")
           .attr("fill", "#333")
           .style("pointer-events", "none");
-
         if (view === "mysources") {
-          g.selectAll("circle")
+          g.selectAll("g.pin")
             .data(sources)
             .enter()
-            .append("circle")
-            .attr("cx", (d) => projection([d.lon, d.lat])?.[0])
-            .attr("cy", (d) => projection([d.lon, d.lat])?.[1])
-            .attr("r", 10)
-            .attr("fill", "none")
-            .attr("stroke", (d) => d.color)
-            .attr("stroke-width", 3)
+            .append("g")
+            .attr("class", "pin")
+            .attr("transform", (d) => {
+              const coords = projection([d.lon, d.lat]);
+              return coords ? `translate(${coords[0]}, ${coords[1]})` : null;
+            })
+.each(function (d) {
+  const group = d3.select(this);
+  // Find color for grade inline:
+  const gradeColor = [
+    { label: "SOURCE", color: "#7D8F69" },
+    { label: "CUSTOM", color: "#F4C430" },
+    { label: "NATIONAL", color: "#DC6B19" },
+    { label: "NO SCORE", color: "#ccc" },
+  ].find((g) => g.label === d.grade)?.color || "#ccc";
+
+  if (d.type === "Grower") {
+    group
+      .append("circle")
+      .attr("r", 6)
+      .attr("fill", "#fff")
+      .attr("stroke", gradeColor)
+      .attr("stroke-width", 2);
+  } else if (d.type === "Retailer") {
+    const size = 24;
+    group
+      .append("foreignObject")
+      .attr("x", -size / 2)
+      .attr("y", -size / 2)
+      .attr("width", size)
+      .attr("height", size)
+      .html(() => {
+        return `
+          <div xmlns="http://www.w3.org/1999/xhtml" style="width:${size}px; height:${size}px; display:flex; align-items:center; justify-content:center;">
+            <svg viewBox="0 0 100 100" width="20" height="20">
+              <circle cx="50" cy="50" r="36" fill="#fff" stroke="${gradeColor}" stroke-width="8"/>
+              ${Array.from({ length: 16 })
+                .map((_, i) => {
+                  const angle = (i * 360) / 16;
+                  const rad = (angle * Math.PI) / 180;
+                  const x1 = 50 + Math.cos(rad) * 42;
+                  const y1 = 50 + Math.sin(rad) * 42;
+                  const x2 = 50 + Math.cos(rad) * 50;
+                  const y2 = 50 + Math.sin(rad) * 50;
+                  return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${gradeColor}" stroke-width="6" stroke-linecap="round" />`;
+                })
+                .join("")}
+            </svg>
+          </div>
+        `;
+      });
+  }
+})
+
             .on("mouseover", (event, d) => {
               tooltip.transition().duration(200).style("opacity", 1);
               tooltip
                 .html(
                   `<strong>Source:</strong> ${d.name}<br/>
-                 <strong>Type:</strong> ${d.type}<br/>
-                 <strong>CI Score:</strong> ${d.ciScore} (${d.grade})`
+           <strong>Type:</strong> ${d.type}<br/>
+           <strong>CI Score:</strong> ${d.ciScore} (${d.grade})`
                 )
                 .style("left", event.pageX + 10 + "px")
                 .style("top", event.pageY - 40 + "px");
@@ -236,9 +282,79 @@ const SourcingOpportunitiesMap = () => {
       { label: "NO SCORE", color: "#ccc" },
     ];
     const source = [
-      { label: "Grower", color: "#8B0000" },
-      { label: "Retailer", color: "#A0522D" },
+      {
+        label: "Grower",
+        customIcon: (
+          <Box
+            sx={{
+              width: 16,
+              height: 16,
+              bgcolor: "#fff",
+              borderRadius: "50%",
+              border: "2px solid #808080",
+              mr: 0.5,
+            }}
+          />
+        ),
+      },
+      {
+        label: "Retailer",
+        customIcon: (
+          <Box
+            sx={{
+              width: 16,
+              height: 16,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              mr: 0.5,
+            }}
+          >
+            <svg
+              viewBox="0 0 100 100"
+              width="16"
+              height="16"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              {/* Outer circle (grey stroke), white fill */}
+              <circle
+                cx="50"
+                cy="50"
+                r="36"
+                fill="#fff"
+                stroke="#808080"
+                strokeWidth="10"
+              />
+
+              {/* Evenly spaced gear-like edges using short radial lines */}
+              {Array.from({ length: 16 }).map((_, i) => {
+                const angle = (i * 360) / 16;
+                const rad = (angle * Math.PI) / 180;
+                const innerRadius = 44;
+                const outerRadius = 50;
+                const x1 = 50 + Math.cos(rad) * 45;
+                const y1 = 50 + Math.sin(rad) * 45;
+                const x2 = 50 + Math.cos(rad) * 50;
+                const y2 = 50 + Math.sin(rad) * 50;
+                return (
+                  <line
+                    key={i}
+                    x1={x1}
+                    y1={y1}
+                    x2={x2}
+                    y2={y2}
+                    stroke="#808080"
+                    strokeWidth="10"
+                    strokeLinecap="round"
+                  />
+                );
+              })}
+            </svg>
+          </Box>
+        ),
+      },
     ];
+
     return (
       <>
         <Stack
@@ -252,7 +368,14 @@ const SourcingOpportunitiesMap = () => {
         >
           <Box display="flex" flexDirection="row" gap={1} p={2} mt={1}>
             {scale.map((s, idx) => (
-              <Box key={idx} sx={{ display: "flex",flexDirection: "column", alignItems: "center" }}>
+              <Box
+                key={idx}
+                sx={{
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
                 <Box
                   sx={{
                     width: 42,
@@ -266,23 +389,23 @@ const SourcingOpportunitiesMap = () => {
               </Box>
             ))}
           </Box>
-          
+
           <Box display="flex" flexDirection="column" p={2}>
-            <Box sx={{ display: "flex", alignItems: "center"}}>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
               <Typography variant="caption" fontWeight="bold" mb={0.5}>
                 Source :
               </Typography>
               {source.map((s, idx) => (
-                <Box key={idx} sx={{ display: "flex", alignItems: "center", marginLeft: 1 ,mb:0.5 }}>
-                  <Box
-                    sx={{
-                      width: 16,
-                      height: 16,
-                      bgcolor: s.color,
-                      borderRadius: 1,
-                      mr: 0.5,
-                    }}
-                  />
+                <Box
+                  key={idx}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    marginLeft: 1,
+                    mb: 0.5,
+                  }}
+                >
+                  {s.customIcon}
                   <Typography variant="caption">{s.label}</Typography>
                 </Box>
               ))}
@@ -292,7 +415,13 @@ const SourcingOpportunitiesMap = () => {
                 Grade Level:
               </Typography>
               {gradeLegend.map((item) => (
-                <Box key={item.label} display="flex" alignItems="center" marginLeft={1} mb={0.5}>
+                <Box
+                  key={item.label}
+                  display="flex"
+                  alignItems="center"
+                  marginLeft={1}
+                  mb={0.5}
+                >
                   <Box
                     sx={{
                       width: 14,
@@ -312,14 +441,14 @@ const SourcingOpportunitiesMap = () => {
     );
   };
 
-  const handleViewChange =(e, newView)=>{
-    if(newView === null){
-      newView = "heatmap"
+  const handleViewChange = (e, newView) => {
+    if (newView === null) {
+      newView = "heatmap";
     }
-    newView && setView(newView)
-  }
+    newView && setView(newView);
+  };
   return (
-    <Paper elevation={2} sx={{ borderRadius: 4, p: 2 ,height: "100%"}}>
+    <Paper elevation={2} sx={{ borderRadius: 4, p: 2, height: "100%" }}>
       <Box
         display="flex"
         justifyContent="space-between"
@@ -336,8 +465,7 @@ const SourcingOpportunitiesMap = () => {
           size="small"
         >
           <ToggleButton value="heatmap">
-            Heat Map{" "}
-              <CheckIcon fontSize="small" sx={{ ml: 1 }} />
+            Heat Map <CheckIcon fontSize="small" sx={{ ml: 1 }} />
           </ToggleButton>
           <ToggleButton value="mysources">
             My sources{" "}
@@ -352,7 +480,12 @@ const SourcingOpportunitiesMap = () => {
         <Typography sx={{ fontSize: 14, mb: 1 }}>
           No heat map information is available.{" "}
           <span
-            style={{ color: "#800000", cursor: "pointer", marginLeft: "20px" , fontWeight: "bold" }}
+            style={{
+              color: "#800000",
+              cursor: "pointer",
+              marginLeft: "20px",
+              fontWeight: "bold",
+            }}
           >
             Upload DTN file
           </span>
