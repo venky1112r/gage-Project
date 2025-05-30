@@ -42,19 +42,19 @@ const BushelsByCIScoreCard = ({ deliveredData, pendingData }) => {
     ...(view === "delivered" ? deliveredData : pendingData || []),
   ].sort((a, b) => customOrder.indexOf(a.label) - customOrder.indexOf(b.label));
 
-  const totalDelivered = deliveredData
-    ?.reduce((sum, d) => sum + d.value, 0)
-    .toLocaleString(undefined, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
+ const totalDelivered = (deliveredData
+  ?.reduce((sum, d) => sum + d.value, 0) / 1_000_000)
+  .toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 
-  const totalPending = pendingData
-    ?.reduce((sum, d) => sum + d.value, 0)
-    .toLocaleString(undefined, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
+  const totalPending = (pendingData
+  ?.reduce((sum, d) => sum + d.value, 0) / 1_000_000)
+  .toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 
   useEffect(() => {
     drawChart();
@@ -130,7 +130,7 @@ const BushelsByCIScoreCard = ({ deliveredData, pendingData }) => {
         variant="subtitle1"
         fontWeight="bold"
         gutterBottom
-        sx={{ fontSize: "18px" }}
+        sx={{ fontSize: "16px" }}
       >
         Bushels by CI score level
       </Typography>
@@ -152,7 +152,9 @@ const BushelsByCIScoreCard = ({ deliveredData, pendingData }) => {
               border: view === "delivered" ? "1px solid #1b5e20" : "none",
             }}
           >
-            <Typography variant="caption">DELIVERED BUSHELS</Typography>
+            <Typography variant="caption">DELIVERED BUSHELS   <Typography component="span" variant="caption" sx={{ fontSize: '0.75rem' }}>
+        (in Millions)
+      </Typography></Typography>
             <Typography variant="h6" fontWeight="bold">
               {totalDelivered}
             </Typography>
@@ -175,7 +177,9 @@ const BushelsByCIScoreCard = ({ deliveredData, pendingData }) => {
               border: view === "pending" ? "1px solid #1b5e20" : "none",
             }}
           >
-            <Typography variant="caption">PENDING BUSHELS</Typography>
+            <Typography variant="caption">PENDING BUSHELS   <Typography component="span" variant="caption" sx={{ fontSize: '0.75rem' }}>
+        (in Millions)
+      </Typography></Typography>
             <Typography variant="h6" fontWeight="bold">
               {totalPending}
             </Typography>

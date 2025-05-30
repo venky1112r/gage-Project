@@ -77,7 +77,7 @@ const CustomToggleButton = styled(ToggleButton)`
   return (
     <Paper elevation={2} sx={{ borderRadius: 4, p: 2 }}>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
-        <Typography variant="subtitle1" fontWeight="bold" gutterBottom sx={{ fontSize: "18px"}}>
+        <Typography variant="subtitle1" fontWeight="bold" gutterBottom sx={{ fontSize: "16px"}}>
           Contracts by CI Score level
         </Typography>
         <ToggleButtonGroup

@@ -12,8 +12,16 @@ const SummaryCard = ({
   labelVariant = "subtitle2",
   valueVariant = "h4",
 }) => {
-  const [intPart, decimalPart] = Number(value).toFixed(2).split(".");
-  const isContractedCIScore = label === "Contracted CI Score";
+  // const [intPart, decimalPart] = Number(value).toFixed(2).split(".");
+  // const isContractedCIScore = label === "Contracted CI Score";
+let intPart = value;
+  let decimalPart = null;
+
+  if (!isNaN(Number(value))) {
+    [intPart, decimalPart] = Number(value).toFixed(2).split('.');
+  }
+
+  const isContractedCIScore = typeof label === 'string' && label.includes('Contracted CI Score');
 
   return (
     <Paper
@@ -21,9 +29,8 @@ const SummaryCard = ({
       sx={{
         borderRadius: 4,
         p: 2,
-        mb: 0,
          width: "100%", 
-        minWidth: 200,
+        // minWidth: 200,
         height: { xs: "auto", md: "100%" },
         display: "flex",
         flexDirection: "column",
@@ -32,7 +39,7 @@ const SummaryCard = ({
     >
       <Box>
         <Box display="flex" alignItems="center" mb={1}>
-          <Typography variant={labelVariant} fontWeight="bold" sx={{ fontSize: "18px"}}>
+          <Typography variant={labelVariant} fontWeight="bold" sx={{ fontSize: "16px"}}>
             {label}
           </Typography>
           <Box
@@ -74,9 +81,20 @@ const SummaryCard = ({
               )}
             </>
           ) : (
-            <Typography  color="primary.main" sx={{ fontSize: { xs: "1.5rem", sm: "2rem", md: "2rem"}, paddingTop:"5px" }}>
-              {value}
-            </Typography>
+            <Typography
+  color="primary.main"
+  sx={{
+    fontSize: { xs: '1.2rem', sm: '1.5rem', md: '1.8rem', lg: '2rem' },
+    paddingTop: '5px',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
+    // wordBreak: 'keep-all',
+  }}
+>
+  {value}
+</Typography>
+
           )}
         </Box>
       </Box>
