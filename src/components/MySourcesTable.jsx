@@ -231,7 +231,7 @@ const MySourcesTable = () => {
               value={sourceFilter}
               onChange={(e) => setSourceFilter(e.target.value)}
               sx={{
-                width: 160,
+                width: { xs: 80, sm: 130 ,md:130},
                 height: 32,
                 border: "1px solid #9EA9A3",
                 borderRadius: "6px",
@@ -251,7 +251,7 @@ const MySourcesTable = () => {
               value={cropFilter}
               onChange={(e) => setCropFilter(e.target.value)}
               sx={{
-                width: 100,
+                width: { xs: 80, sm: 80, md: 80 },
                 height: 32,
                 border: "1px solid #9EA9A3",
                 borderRadius: "6px",
