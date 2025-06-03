@@ -70,7 +70,7 @@ const data = Object.values(combinedDataMap);
 
 
 const CustomToggleButton = styled(ToggleButton)`
- min-width: 120px ;
+ min-width: 90px ;
  text-transform: none`;
 
 
@@ -81,22 +81,35 @@ const CustomToggleButton = styled(ToggleButton)`
           Contracts by CI Score level
         </Typography>
         <ToggleButtonGroup
-          value={view}
-          exclusive
-          onChange={handleViewChange}
-          size="small"
-        >
-          <CustomToggleButton value="delivered">
-            Delivered
-            <CheckIcon fontSize="small" sx={{ m: 1 }} />
-          </CustomToggleButton>
-          <CustomToggleButton value="pending">
-            Pending
-            {view === "pending" && (
-              <CheckIcon fontSize="small" sx={{ m: 1 }} />
-            )}
-          </CustomToggleButton>
-        </ToggleButtonGroup>
+  value={view}
+  exclusive
+  onChange={handleViewChange}
+  size="small"
+  sx={{
+    "& .MuiToggleButton-root": {
+      px: { xs: 1, sm: 2, md: 3 },          // Padding X changes with screen size
+      py: { xs: 0.5, sm: 1, md: 1 },               // Padding Y for height adjustment
+      fontSize: { xs: "0.7rem", sm: "0.8rem", md: "0.9rem" }, // Font size responsive
+    },
+  }}
+>
+  <CustomToggleButton value="delivered">
+    Delivered
+    <CheckIcon
+      fontSize="inherit"
+      sx={{ ml: 1, fontSize: { xs: "12px", sm: "14px", md: "14px" } }}
+    />
+  </CustomToggleButton>
+  <CustomToggleButton value="pending">
+    Pending
+    {view === "pending" && (
+      <CheckIcon
+        fontSize="inherit"
+        sx={{ ml: 1, fontSize: { xs: "12px", sm: "14px", md: "14px" } }}
+      />
+    )}
+  </CustomToggleButton>
+</ToggleButtonGroup>
       </Stack>
 
       <Box mt={1}>

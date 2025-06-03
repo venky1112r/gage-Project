@@ -19,34 +19,32 @@ import { useLocation } from "react-router-dom";
 import { useDashboard } from "../context/DashboardContext";
 import { saveManualInput } from "../services/api.js";
 
-
 const ManualInputsComponent = () => {
   const { manualInputs, loadManualInputs } = useDashboard();
-console.log("manualInputs", manualInputs);
-useEffect(() => {
-  const loadData = async () => {
-    if (!manualInputs || manualInputs.length === 0) {
-      await loadManualInputs();
-    } else {
-      const formatted = manualInputs.map((row) => ({
-        ...row,
-        createdate: row.createdate
-          ? new Date(row.createdate).toISOString().split("T")[0]
-          : "",
-        updateddate: row.updateddate
-          ? new Date(row.updateddate).toISOString().split("T")[0]
-          : "",
-      }));
-      console.log("Formatted rows", formatted);
+  console.log("manualInputs", manualInputs);
+  useEffect(() => {
+    const loadData = async () => {
+      if (!manualInputs || manualInputs.length === 0) {
+        await loadManualInputs();
+      } else {
+        const formatted = manualInputs.map((row) => ({
+          ...row,
+          createdate: row.createdate
+            ? new Date(row.createdate).toISOString().split("T")[0]
+            : "",
+          updateddate: row.updateddate
+            ? new Date(row.updateddate).toISOString().split("T")[0]
+            : "",
+        }));
+        console.log("Formatted rows", formatted);
 
-      setRows(formatted);
-      // setRows(manualInputs);
-    }
-  };
+        setRows(formatted);
+        // setRows(manualInputs);
+      }
+    };
 
-  loadData();
-}, [manualInputs, loadManualInputs]);
-
+    loadData();
+  }, [manualInputs, loadManualInputs]);
 
   const location = useLocation();
   const email = location.state?.email || "guest@example.com"; // ✅ use email for updatedby
@@ -211,34 +209,33 @@ useEffect(() => {
     }
 
     const newRow = {
-    ...formData,
-     plantid: 1001, // <-- You need to pass a valid plant ID
-    fossilgasused: Number(formData.fossilgasused),
-    coalusage: Number(formData.coalusage),
-    gridelectricusage: Number(formData.gridelectricusage),
-    renewablelectricusage: Number(formData.renewablelectricusage),
-    naturalgasrenewable45z: Number(formData.naturalgasrenewable45z),
-    totalbushelsprocessed: Number(formData.totalbushelsprocessed),
-    totalethanolproduced: Number(formData.totalethanolproduced),
-    convefficiency: formData.convefficiency
-      ? Number(formData.convefficiency)
-      : undefined,
+      ...formData,
+      plantid: 1001, // <-- You need to pass a valid plant ID
+      fossilgasused: Number(formData.fossilgasused),
+      coalusage: Number(formData.coalusage),
+      gridelectricusage: Number(formData.gridelectricusage),
+      renewablelectricusage: Number(formData.renewablelectricusage),
+      naturalgasrenewable45z: Number(formData.naturalgasrenewable45z),
+      totalbushelsprocessed: Number(formData.totalbushelsprocessed),
+      totalethanolproduced: Number(formData.totalethanolproduced),
+      convefficiency: formData.convefficiency
+        ? Number(formData.convefficiency)
+        : undefined,
 
-    updatedby: email,
- updatedon: new Date().toISOString().split("T")[0], // "2025-06-02T09:30:00.000Z"
+      updatedby: email,
+      updatedon: new Date().toISOString().split("T")[0], // "2025-06-02T09:30:00.000Z"
+    };
+    console.log("newRow", newRow);
+    console.log("Sending to API:", JSON.stringify(newRow, null, 2));
 
-  };
-console.log("newRow", newRow);
-console.log("Sending to API:", JSON.stringify(newRow, null, 2));
-
-   try {
-    await saveManualInput(newRow); // ✅ API call
-    setRows((prev) => [newRow, ...prev]);
-    clearForm();
-  } catch (err) {
-    console.error("Error saving data:", err.message);
-    alert("Failed to save data: " + err.message);
-  }
+    try {
+      await saveManualInput(newRow); // ✅ API call
+      setRows((prev) => [newRow, ...prev]);
+      clearForm();
+    } catch (err) {
+      console.error("Error saving data:", err.message);
+      alert("Failed to save data: " + err.message);
+    }
   };
 
   const clearForm = () => {
@@ -315,7 +312,20 @@ console.log("Sending to API:", JSON.stringify(newRow, null, 2));
       unit: "",
     },
   ];
+ const handledownloadtemplate = () => {
+    const csvContent = `producer_id,verdova_org_id,fmid_co_name,fmid_first_name,fmid_middle_name,fmid_last_name,fmid_addr_1,fmid_addr_2,fmid_city,fmid_ste_cd,fmid_zip_cd,fmid_ein_cd,fmid_county,latitude,longitude,crop_year,ci_score_provisional_gc02e_per_MJ,ci_score_provisional_gc02e_per_bu,ci_score_provisional_reduction_percent,ci_score_provisional_date,ci_score_final_gc02e_per_MJ,ci_score_final_gc02e_per_bu,ci_score_final_reduction_percent,ci_score_final_date,ci_score_parameter,ci_score_parameter_units,status,error`;
 
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "template.csv";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h6" sx={{ mb: 2 }}>
@@ -446,6 +456,18 @@ console.log("Sending to API:", JSON.stringify(newRow, null, 2));
         >
           Upload Operational CI Score File
         </Button>
+        <Typography
+          variant="body2"
+          onClick={handledownloadtemplate}
+          sx={{
+            mt: 1,
+            color: "text.link",
+            cursor: "pointer",
+            textDecoration: "underline",
+          }}
+        >
+          Download Template
+        </Typography>
         <Typography variant="body2" sx={{ mt: 2, color: "text.secondary" }}>
           File format: .csv file (5MB max)
         </Typography>

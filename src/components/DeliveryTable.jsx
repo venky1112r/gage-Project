@@ -17,6 +17,7 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  Typography,
 } from "@mui/material";
 
 const DeliveryTable = () => {
@@ -51,14 +52,16 @@ const handleSave = () => {
     }
     return row;
   });
-
-  setRows(updatedRows);
+alert("Capacity added successfully!");
+  // setRows(updatedRows);
   handleClose();
 };
 
   return (
     <Box mt={1} sx={{ width: "100%", mt: 0 }}>
-      <Box display="flex" justifyContent="flex-end" mt={2}>
+     
+      <Box display="flex" justifyContent="space-between" mt={2}>
+         <Typography variant="subtitle1" fontWeight="bold" fontSize={"16px"}>Plant by CI Score Level</Typography>
         <Box
           onClick={handleAddClick}
           sx={{
@@ -74,7 +77,7 @@ const handleSave = () => {
         </Box>
       </Box>
 
-      <TableContainer sx={{ maxHeight: 300, width: "100%" }}>
+      <TableContainer sx={{mt:2, maxHeight: 300, width: "100%" }}>
         <Table
           size="small"
           sx={{ "& td, & th": { padding: "4px 10px", fontSize: "0.8rem" } }}

@@ -16,7 +16,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const navItems = ["Dashboard", "Sourcing", "Reporting", "Settings"];
 
-const HeaderComponent = ({ email, userrole }) => {
+const HeaderComponent = ({ email, userrole, plantid }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -31,7 +31,7 @@ const HeaderComponent = ({ email, userrole }) => {
 
   const handleTabChange = (event, newValue) => {
     const path = `/${navItems[newValue].toLowerCase()}`;
-    navigate(path, { state: { email, userrole } });
+    navigate(path, { state: { email, userrole, plantid } });
   };
 
   const handleAvatarClick = (event) => {
@@ -89,9 +89,9 @@ const HeaderComponent = ({ email, userrole }) => {
               cursor: "pointer",
             }}
             onClick={() =>
-              navigate("/dashboard", { state: { email, userrole } })
+              navigate("/dashboard", { state: { email, userrole, plantid } })
             }
-            fontSize={{ xs: "2rem", md: "2.5rem" }}
+            fontSize={{ xs: "1.5rem",sm: "1.8rem", md: "2.5rem" }}
           >
             G.A.G.E.
           </Typography>
@@ -112,7 +112,7 @@ const HeaderComponent = ({ email, userrole }) => {
                     fontWeight: currentTab === index ? "bold" : "bold",
                     color: currentTab === index ? "#800000" : "#000",
                     textTransform: "none",
-                    fontSize: "15px",
+                    fontSize: "14px",
                   }}
                 />
               ))}
@@ -131,7 +131,7 @@ const HeaderComponent = ({ email, userrole }) => {
               sx={{
                 fontWeight: "bold",
                 color: "primary.main",
-                fontSize: "15px",
+                fontSize: "14px",
               }}
             >
               {email}
@@ -203,7 +203,7 @@ const HeaderComponent = ({ email, userrole }) => {
                     fontWeight: currentTab === index ? "bold" : "normal",
                     color: currentTab === index ? "#800000" : "#000",
                     textTransform: "none",
-                    fontSize: "14px",
+                    fontSize: "12px",
                     minHeight: "40px",
                     py: 0,
                     my: 0,

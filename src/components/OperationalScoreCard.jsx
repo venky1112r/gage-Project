@@ -33,7 +33,9 @@ const OperationalScoreCard = () => {
             39.11
           </Typography>
           {/* Legend below chart */}
+        
           <Stack spacing={1} mt={2}>
+              <Typography variant="body2" color="#000000" > CI Factors:</Typography>
             {ciData.map((item) => (
               <Box key={item.label} display="flex" alignItems="center">
                 <Box

@@ -58,7 +58,7 @@ import {
             }}
           >
             <Typography variant="h6" sx={{ mb: 2 }}>
-              Generate & download GAGE reports
+              Generate & Download GAGE reports
             </Typography>
             <Box
               sx={{

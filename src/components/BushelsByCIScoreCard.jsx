@@ -102,11 +102,12 @@ const BushelsByCIScoreCard = ({ deliveredData, pendingData }) => {
 
     // Center text
     const total = chartData.reduce((sum, d) => sum + d.value, 0);
-    let centerText = "100.00%"; // Set default to 100%
+    let centerText = "0%"; // Set default to 100%
 
     if (selectedIndex !== null) {
       const selected = chartData[selectedIndex];
       const percentage = ((selected.value / total) * 100).toFixed(1);
+      console.log("Check center circle percentage",percentage);
       centerText = `${percentage}%`;
     }
 

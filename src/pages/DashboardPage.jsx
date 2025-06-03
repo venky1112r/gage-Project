@@ -15,7 +15,7 @@ const DashboardPage = () => {
   const location = useLocation();
   const email = location.state?.email || "guest@example.com";
   const userrole = location.state?.userrole || "guest";
-   const plantid = location.state?.plantid ;
+   const plantid = location.state?.plantid;
    console.log("Plant ID:", plantid);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const DashboardPage = () => {
           pointerEvents: loading ? "none" : "auto",
         }}
       >
-        <HeaderComponent email={email} userrole={userrole} />
+        <HeaderComponent email={email} userrole={userrole} plantid={plantid} />
         <DashboardTopBar />
         <SummaryCardsSection data={dashboardData} loading={loading} />
         <DashboardBottomComponent data={dashboardData} />

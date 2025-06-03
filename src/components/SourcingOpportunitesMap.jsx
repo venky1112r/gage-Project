@@ -10,6 +10,7 @@ import {
   ToggleButton,
   IconButton,
 } from "@mui/material";
+import theme from "./ui/theme";
 import CheckIcon from "@mui/icons-material/Check";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
@@ -132,7 +133,7 @@ const SourcingOpportunitiesMap = () => {
       .attr("class", "tooltip")
       .style("position", "absolute")
       .style("padding", "6px 10px")
-      .style("background", "#2d2d2d")
+      .style("background", theme.palette.primary.main)
       .style("color", "#fff")
       .style("border-radius", "4px")
       .style("font-size", "13px")
@@ -265,6 +266,21 @@ const SourcingOpportunitiesMap = () => {
 
     return () => tooltip.remove();
   }, [view, zoomLevel]);
+
+  const handledownloadtemplate = () => {
+    const csvContent = `producer_id,verdova_org_id,fmid_co_name,fmid_first_name,fmid_middle_name,fmid_last_name,fmid_addr_1,fmid_addr_2,fmid_city,fmid_ste_cd,fmid_zip_cd,fmid_ein_cd,fmid_county,latitude,longitude,crop_year,ci_score_provisional_gc02e_per_MJ,ci_score_provisional_gc02e_per_bu,ci_score_provisional_reduction_percent,ci_score_provisional_date,ci_score_final_gc02e_per_MJ,ci_score_final_gc02e_per_bu,ci_score_final_reduction_percent,ci_score_final_date,ci_score_parameter,ci_score_parameter_units,status,error`;
+
+    const blob = new Blob([csvContent], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "template.csv";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
 
   const renderLegend = () => {
     const scale = [
@@ -478,17 +494,32 @@ const SourcingOpportunitiesMap = () => {
 
       {view === "heatmap" && (
         <Typography sx={{ fontSize: 14, mb: 1 }}>
-          No heat map information is available.{" "}
-          <span
+          No heat map information is available.
+          <Typography component="span"
             style={{
               color: "#800000",
               cursor: "pointer",
               marginLeft: "20px",
               fontWeight: "bold",
+              textDecoration: "underline"
             }}
           >
             Upload DTN file
-          </span>
+          </Typography>
+           <Typography component="span"
+                  
+                    onClick={handledownloadtemplate} 
+                    sx={{
+                      mt: 1,
+                      ml: 1,
+                      fontSize: 12,
+                      color: "text.link",
+                      cursor: "pointer",
+                      textDecoration: "underline",
+                    }}
+                  >
+                    (Download Template)
+                  </Typography>
         </Typography>
       )}
 
