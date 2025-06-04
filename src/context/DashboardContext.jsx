@@ -1,24 +1,94 @@
-// context/DashboardContext.js
 import React, { createContext, useState, useContext } from "react";
 import {
-  fetchDashboardData as fetchDashboardAPI,
+  fetchDashboardData,
+  fetchDashboardSummaryMetrics,
+  fetchDashboardContractsCi,
+  fetchDashboardPlantsCi,
+  fetchSourcingMysources,
+  fetchSourcingOpportunitesMap,
   fetchManualInputs,
 } from "../services/api";
 
 const DashboardContext = createContext();
 
 export const DashboardProvider = ({ children }) => {
-  const [dashboardData, setDashboardData] = useState(null);
+  // const [dashboardData, setDashboardData] = useState(null);
+  const [summaryMetrics, setSummaryMetrics] = useState(null);
+  const [contractsCi, setContractsCi] = useState(null);
+  const [plantsCi, setPlantsCi] = useState(null);
+  const [mySources, setMySources] = useState(null);
+  const [opportunitiesMap, setOpportunitiesMap] = useState(null);
   const [manualInputs, setManualInputs] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const loadDashboardData = async () => {
+  // const loadDashboardData = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const data = await fetchDashboardData();
+  //     setDashboardData(data);
+  //   } catch (err) {
+  //     console.error("Error fetching dashboard data:", err);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const loadSummaryMetrics = async () => {
     setLoading(true);
     try {
-      const data = await fetchDashboardAPI();
-      setDashboardData(data);
+      const data = await fetchDashboardSummaryMetrics();
+      setSummaryMetrics(data);
     } catch (err) {
-      console.error("Error fetching dashboard data:", err);
+      console.error("Error fetching summary metrics:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadContractsCi = async () => {
+    setLoading(true);
+    try {
+      const data = await fetchDashboardContractsCi();
+      setContractsCi(data);
+    } catch (err) {
+      console.error("Error fetching contract CI:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadPlantsCi = async () => {
+    setLoading(true);
+    try {
+      const data = await fetchDashboardPlantsCi();
+      setPlantsCi(data);
+    } catch (err) {
+      console.error("Error fetching plant CI:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadMySources = async () => {
+    setLoading(true);
+    try {
+      const data = await fetchSourcingMysources();
+      setMySources(data);
+      console.log("data",data);
+    } catch (err) {
+      console.error("Error fetching my sources:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadOpportunitiesMap = async () => {
+    setLoading(true);
+    try {
+      const data = await fetchSourcingOpportunitesMap();
+      setOpportunitiesMap(data);
+    } catch (err) {
+      console.error("Error fetching opportunities map:", err);
     } finally {
       setLoading(false);
     }
@@ -39,10 +109,18 @@ export const DashboardProvider = ({ children }) => {
   return (
     <DashboardContext.Provider
       value={{
-        dashboardData,
+        summaryMetrics,
+        contractsCi,
+        plantsCi,
+        mySources,
+        opportunitiesMap,
         manualInputs,
         loading,
-        loadDashboardData,
+        loadSummaryMetrics,
+        loadContractsCi,
+        loadPlantsCi,
+        loadMySources,
+        loadOpportunitiesMap,
         loadManualInputs,
       }}
     >

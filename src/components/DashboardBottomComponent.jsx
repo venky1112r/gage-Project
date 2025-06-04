@@ -5,6 +5,7 @@ import BushelsByCIScoreCard from "../components/BushelsByCIScoreCard";
 import ContractsByCIScoreCard from "../components/ContractsByCIScoreCard";
 
 const DashboardBottomComponent = ({data}) => {
+   console.log(data);
   const levelColors = {
   'Grower': '#8B0000',
   'Retailer': '#A0522D',
@@ -14,14 +15,14 @@ const DashboardBottomComponent = ({data}) => {
   'No Score Retailer': '#FF6347',
 };
 
-const deliveredData = (data?.contract_ci_score_level_delivered || []).map(item => ({
+const deliveredData = (data?.contractsCi?.contract_ci_score_level_delivered || []).map(item => ({
     label: item.nameidtype,
     value: item.total_delivered || 0,
     ciscore: item.ci_score || 0,
     color: levelColors[item.nameidtype] || '#ccc', // fallback color
   }));
 
-  const pendingData = (data?.contract_ci_score_level_pending || []).map(item => ({
+  const pendingData = (data?.contractsCi?.contract_ci_score_level_pending || []).map(item => ({
     label: item.nameidtype,
     value: item.total_pending || 0,
     ciscore: item.ci_score || 0,

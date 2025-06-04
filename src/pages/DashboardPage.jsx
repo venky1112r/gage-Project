@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Box, CircularProgress } from "@mui/material";
 import HeaderComponent from "../components/HeaderComponent";
@@ -11,19 +11,26 @@ import { useDashboard } from "../context/DashboardContext.jsx";
 const DashboardPage = () => {
   ProtectedRoute(); // Ensure the route is protected
 
-  const { dashboardData, loading, loadDashboardData } = useDashboard();
+  const {  loading,  summaryMetrics,contractsCi, plantsCi, loadSummaryMetrics,  loadContractsCi, loadPlantsCi, } = useDashboard();
   const location = useLocation();
   const email = location.state?.email || "guest@example.com";
   const userrole = location.state?.userrole || "guest";
    const plantid = location.state?.plantid;
+   const [dashboardData, setDashboardData]= useState({});
    console.log("Plant ID:", plantid);
 
   useEffect(() => {
-    if (!dashboardData) {
-      loadDashboardData();
+    if (!summaryMetrics && !contractsCi && !plantsCi) {
+      // loadDashboardData();
+      loadSummaryMetrics();
+      loadContractsCi();
+      loadPlantsCi();
     }
-  }, [dashboardData]);
-
+    setDashboardData({summaryMetrics,contractsCi,plantsCi});
+  }, [summaryMetrics,contractsCi, plantsCi]);
+  
+console.log("sun=mmary",summaryMetrics,"contract ",contractsCi,"plant ",plantsCi);
+console.log("dash", dashboardData);
   // const [dashboardData, setDashboardData] = useState(null);
   // const [loading, setLoading] = useState(true);
 

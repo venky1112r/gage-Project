@@ -3,7 +3,8 @@ import { Grid, Box, Typography } from '@mui/material';
 import SummaryCard from './SummaryCard';
 
 const SummaryCardsSection = ({ data }) => {
-  const summary = data?.summary?.[0] || {};
+ 
+  const summary = data?.summaryMetrics?.[0] || {};
 
   return (
     <Box sx={{ mt: 0, mb: 0, padding:'0px 16px'}}>
