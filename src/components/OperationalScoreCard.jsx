@@ -16,8 +16,8 @@ const colorMap = {
 
 const OperationalScoreCard = () => {
   return (
-    <Paper elevation={2} sx={{ borderRadius: 4, pl: 2, pr: 3, pt: 3, pb: 3 ,flexGrow:1}}>
-      <Box display="flex" justifyContent="space-between" alignItems="center" mb={5}>
+    <Paper elevation={2} sx={{ borderRadius: 4, pl: 2, pr: 3, pt: 3, pb: 3 ,flexGrow:1,height:'100%'}}>
+      <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
         <Typography variant="subtitle1" fontWeight="bold" sx={{ fontSize: "16px"}}>
           Operational Net CI Score
         </Typography>
@@ -26,9 +26,9 @@ const OperationalScoreCard = () => {
         </Typography> */}
       </Box>
 
-      <Box display="flex" alignItems="center" gap={5} justifyContent="space-between" flexDirection={{ xs: 'row', md: 'row' } }>
+      <Box display="flex" alignItems="center" gap={5} justifyContent={{xs:'center',md:'space-between'}} flexWrap={'wrap'} flexDirection={{ xs: 'row', md: 'row' } }>
         {/* Left side: Score */}
-        <Box>
+        <Box display={{xs:'flex',md:'block'}} width={{xs:'100%',md:'auto'}} justifyContent={{xs:'space-between'}}>
           <Typography variant="h3" sx={{ color: '#000000' }}>
             39.11
           </Typography>

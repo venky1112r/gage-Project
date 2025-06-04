@@ -61,7 +61,7 @@ alert("Capacity added successfully!");
     <Box mt={1} sx={{ width: "100%", mt: 0 }}>
      
       <Box display="flex" justifyContent="space-between" mt={2}>
-         <Typography variant="subtitle1" fontWeight="bold" fontSize={"16px"}>Plant by CI Score Level</Typography>
+         <Typography variant="subtitle1" fontWeight="bold" fontSize={"16px"}>Plants by CI Score Level</Typography>
         <Box
           onClick={handleAddClick}
           sx={{

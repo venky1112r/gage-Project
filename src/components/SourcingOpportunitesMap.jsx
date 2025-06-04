@@ -188,6 +188,7 @@ const SourcingOpportunitiesMap = () => {
           .attr("font-size", "10px")
           .attr("fill", "#333")
           .style("pointer-events", "none");
+
         if (view === "mysources") {
           g.selectAll("g.pin")
             .data(sources)
@@ -198,33 +199,34 @@ const SourcingOpportunitiesMap = () => {
               const coords = projection([d.lon, d.lat]);
               return coords ? `translate(${coords[0]}, ${coords[1]})` : null;
             })
-.each(function (d) {
-  const group = d3.select(this);
-  // Find color for grade inline:
-  const gradeColor = [
-    { label: "SOURCE", color: "#7D8F69" },
-    { label: "CUSTOM", color: "#F4C430" },
-    { label: "NATIONAL", color: "#DC6B19" },
-    { label: "NO SCORE", color: "#ccc" },
-  ].find((g) => g.label === d.grade)?.color || "#ccc";
+            .each(function (d) {
+              const group = d3.select(this);
+              // Find color for grade inline:
+              const gradeColor =
+                [
+                  { label: "SOURCE", color: "#7D8F69" },
+                  { label: "CUSTOM", color: "#F4C430" },
+                  { label: "NATIONAL", color: "#DC6B19" },
+                  { label: "NO SCORE", color: "#ccc" },
+                ].find((g) => g.label === d.grade)?.color || "#ccc";
 
-  if (d.type === "Grower") {
-    group
-      .append("circle")
-      .attr("r", 6)
-      .attr("fill", "#fff")
-      .attr("stroke", gradeColor)
-      .attr("stroke-width", 2);
-  } else if (d.type === "Retailer") {
-    const size = 24;
-    group
-      .append("foreignObject")
-      .attr("x", -size / 2)
-      .attr("y", -size / 2)
-      .attr("width", size)
-      .attr("height", size)
-      .html(() => {
-        return `
+              if (d.type === "Grower") {
+                group
+                  .append("circle")
+                  .attr("r", 6)
+                  .attr("fill", "#fff")
+                  .attr("stroke", gradeColor)
+                  .attr("stroke-width", 2);
+              } else if (d.type === "Retailer") {
+                const size = 24;
+                group
+                  .append("foreignObject")
+                  .attr("x", -size / 2)
+                  .attr("y", -size / 2)
+                  .attr("width", size)
+                  .attr("height", size)
+                  .html(() => {
+                    return `
           <div xmlns="http://www.w3.org/1999/xhtml" style="width:${size}px; height:${size}px; display:flex; align-items:center; justify-content:center;">
             <svg viewBox="0 0 100 100" width="20" height="20">
               <circle cx="50" cy="50" r="36" fill="#fff" stroke="${gradeColor}" stroke-width="8"/>
@@ -242,9 +244,9 @@ const SourcingOpportunitiesMap = () => {
             </svg>
           </div>
         `;
-      });
-  }
-})
+                  });
+              }
+            })
 
             .on("mouseover", (event, d) => {
               tooltip.transition().duration(200).style("opacity", 1);
@@ -376,9 +378,9 @@ const SourcingOpportunitiesMap = () => {
         <Stack
           direction="row"
           spacing={1}
-          mt={2}
+          mt={{ xs: 0, md: 1 }}
           flexWrap="wrap"
-          display={{ xs: "none", md: "flex" }}
+          display={{ xs: "block", md: "flex" }}
           padding={2}
           justifyContent="space-between"
         >
@@ -406,7 +408,7 @@ const SourcingOpportunitiesMap = () => {
             ))}
           </Box>
 
-          <Box display="flex" flexDirection="column" p={2}>
+          <Box display="flex" flexDirection="column" p={{ xs: 0, md: 2 }}>
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Typography variant="caption" fontWeight="bold" mb={0.5}>
                 Source :
@@ -426,7 +428,11 @@ const SourcingOpportunitiesMap = () => {
                 </Box>
               ))}
             </Box>
-            <Box sx={{ display: "flex", alignItems: "center", mt: 1 }}>
+            <Box
+              flexWrap={"wrap"}
+              gap={{ xs: 1, md: 1 }}
+              sx={{ display: "flex", alignItems: "center", mt: 1 }}
+            >
               <Typography variant="caption" fontWeight="bold" mb={0.5}>
                 Grade Level:
               </Typography>
@@ -471,7 +477,7 @@ const SourcingOpportunitiesMap = () => {
         alignItems="center"
         mb={2}
       >
-        <Typography variant="h6" fontWeight="bold" sx={{ fontSize: "18px" }}>
+        <Typography variant="h6" fontWeight="bold" sx={{ fontSize: "16px" }}>
           Sourcing Opportunities
         </Typography>
         <ToggleButtonGroup
@@ -495,31 +501,32 @@ const SourcingOpportunitiesMap = () => {
       {view === "heatmap" && (
         <Typography sx={{ fontSize: 14, mb: 1 }}>
           No heat map information is available.
-          <Typography component="span"
+          <Typography
+            component="span"
             style={{
               color: "#800000",
               cursor: "pointer",
               marginLeft: "20px",
               fontWeight: "bold",
-              textDecoration: "underline"
+              textDecoration: "underline",
             }}
           >
             Upload DTN file
           </Typography>
-           <Typography component="span"
-                  
-                    onClick={handledownloadtemplate} 
-                    sx={{
-                      mt: 1,
-                      ml: 1,
-                      fontSize: 12,
-                      color: "text.link",
-                      cursor: "pointer",
-                      textDecoration: "underline",
-                    }}
-                  >
-                    (Download Template)
-                  </Typography>
+          <Typography
+            component="span"
+            onClick={handledownloadtemplate}
+            sx={{
+              mt: 1,
+              ml: 1,
+              fontSize: 12,
+              color: "text.link",
+              cursor: "pointer",
+              textDecoration: "underline",
+            }}
+          >
+            (Download Template)
+          </Typography>
         </Typography>
       )}
 

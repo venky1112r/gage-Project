@@ -190,11 +190,11 @@ const MySourcesTable = () => {
           alignItems="center"
           mb={2}
         >
-          <Typography variant="h6" fontWeight="bold" sx={{ fontSize: "18px" }}>
+          <Typography variant="h6" fontWeight="bold" sx={{ fontSize: "16px" }}>
             My Sources
           </Typography>
 
-          <Box display="flex" alignItems="center" gap={1}>
+             <Box display="flex" alignItems="center" gap={1} flexWrap={'wrap'} justifyContent={'end'}>
             <Box ref={searchRef}>
               {searchOpen ? (
                 <TextField
@@ -366,7 +366,7 @@ const MySourcesTable = () => {
         </Box>
       </Paper>
 
-      <Dialog open={editOpen} onClose={handleClose} maxWidth="sm" fu llWidth>
+      <Dialog open={editOpen} onClose={handleClose} maxWidth="sm" fullWidth>
         <DialogTitle>Edit CI Score level</DialogTitle>
         {selectedRow && (
           <DialogContent>

@@ -75,11 +75,12 @@ const CustomToggleButton = styled(ToggleButton)`
 
 
   return (
-    <Paper elevation={2} sx={{ borderRadius: 4, p: 2 }}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
+    <Paper elevation={2} sx={{ borderRadius: 4, p: 2,height:'100%' }}>
+      <Stack direction="row" justifyContent="space-between" alignItems="center" flexWrap={"wrap"}>
         <Typography variant="subtitle1" fontWeight="bold" gutterBottom sx={{ fontSize: "16px"}}>
           Contracts by CI Score level
         </Typography>
+          <Box display="flex" justifyContent={'end'} flex={1}>
         <ToggleButtonGroup
   value={view}
   exclusive
@@ -110,6 +111,7 @@ const CustomToggleButton = styled(ToggleButton)`
     )}
   </CustomToggleButton>
 </ToggleButtonGroup>
+</Box>
       </Stack>
 
       <Box mt={1}>
