@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 import OperationalScoreCard from "../components/OperationalScoreCard";
 import BushelsByCIScoreCard from "../components/BushelsByCIScoreCard";
 import ContractsByCIScoreCard from "../components/ContractsByCIScoreCard";
 
 const DashboardBottomComponent = ({data}) => {
-   console.log(data);
+ const plantTableData =data?.plantsCi;
+ console.log("plantTableData",plantTableData);
   const levelColors = {
   'Grower': '#8B0000',
   'Retailer': '#A0522D',
@@ -28,8 +29,7 @@ const deliveredData = (data?.contractsCi?.contract_ci_score_level_delivered || [
     ciscore: item.ci_score || 0,
     color: levelColors[item.nameidtype] || '#ccc',
   }));
-
-  // console.log(deliveredData , "deliveredData");
+ 
   return (
     <Box sx={{ p: { xs: 2, sm: 2 }, mt: 0 }}>
       <Grid container spacing={2}>
@@ -47,7 +47,7 @@ const deliveredData = (data?.contractsCi?.contract_ci_score_level_delivered || [
         </Grid>
         <Grid item xs={12} md={7}>
           {/* <Box sx={{backgroundColor:"red" , height:"100%"}}>Right</Box> */}
-          <ContractsByCIScoreCard deliveredData={deliveredData} pendingData={pendingData}/>
+          <ContractsByCIScoreCard deliveredData={deliveredData} pendingData={pendingData} plantTableData={plantTableData}/>
         </Grid>
       </Grid>
     </Box>

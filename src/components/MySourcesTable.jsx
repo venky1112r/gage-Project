@@ -26,7 +26,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import EditIcon from "@mui/icons-material/Edit";
 
-const MySourcesTable = () => {
+const MySourcesTable = ({data}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [sourceFilter, setSourceFilter] = useState("All Sources");
   const [cropFilter, setCropFilter] = useState("Corn");
@@ -35,7 +35,7 @@ const MySourcesTable = () => {
   const [ciScoreGrade, setCIScoreGrade] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
   const searchRef = useRef(null);
-
+console.log("data",data);
   const rows = [
     {
       source: "Brown Country Elevators",
@@ -302,7 +302,7 @@ const MySourcesTable = () => {
               </TableHead>
 
               <TableBody>
-                {filteredRows.map((row, idx) => (
+                {data?.length >0 && data.map((row, idx) => (
                   <TableRow key={idx} hover>
                     <TableCell
                       sx={{ fontSize: { xs: "10px", sm: "10px", md: "12px" } }}
@@ -322,12 +322,12 @@ const MySourcesTable = () => {
                     <TableCell
                       sx={{ fontSize: { xs: "10px", sm: "10px", md: "12px" } }}
                     >
-                      {row.percentTotal}
+                      {row.percent_of_total}
                     </TableCell>
                     <TableCell
                       sx={{ fontSize: { xs: "10px", sm: "10px", md: "12px" } }}
                     >
-                      {row.authContracts}
+                      {row.authContracts||'-'}
                     </TableCell>
                     <TableCell
                       sx={{ fontSize: { xs: "10px", sm: "10px", md: "12px" } }}
@@ -346,7 +346,7 @@ const MySourcesTable = () => {
                             fontSize: { xs: "10px", sm: "10px", md: "12px" },
                           }}
                         >
-                          {row.ciScore}
+                          {row.ci_score_per_MJ}
                         </Typography>
                       </Box>
                     </TableCell>

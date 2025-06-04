@@ -20,7 +20,8 @@ import {
   Typography,
 } from "@mui/material";
 
-const DeliveryTable = () => {
+const DeliveryTable = ({plantTableData}) => {
+  console.log("plantTableData",plantTableData);
   const [rows, setRows] = useState([
     { plant: "Clear Lake Energy Northeast", totalCapacity: "30%", grower: "28.47%", retailer: "27.75%", national: "4.53%", custom: "-", noScoreGrower: "-", noScoreRetailer: "-", total: "60.75%" },
     { plant: "Clear Lake Energy Northwest", totalCapacity: "64%", grower: "2.42%", retailer: "3.22%", national: "4.36%", custom: "1.41%", noScoreGrower: "-", noScoreRetailer: "-", total: "11.41%" },
@@ -43,7 +44,7 @@ const DeliveryTable = () => {
 const handleSave = () => {
   if (!selectedPlant || !newQuantity) return;
 
-  const updatedRows = rows.map((row) => {
+  const updatedRows = plantTableData.map((row) => {
     if (row.plant === selectedPlant) {
       return {
         ...row,
@@ -88,25 +89,27 @@ alert("Capacity added successfully!");
               <TableCell>Delivery % of Total capacity</TableCell>
               <TableCell>Grower</TableCell>
               <TableCell>Retailer</TableCell>
-              <TableCell>National</TableCell>
-              <TableCell>Custom</TableCell>
+              {/* <TableCell>National</TableCell>
+              <TableCell>Custom</TableCell> */}
+              <TableCell>Others</TableCell>
               <TableCell>No Score Grower</TableCell>
               <TableCell>No Score Retailer</TableCell>
               <TableCell>Total</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, idx) => (
+            {plantTableData?.length >0 && plantTableData.map((row, idx) => (
               <TableRow key={idx}>
-                <TableCell sx={{ fontWeight: "bold" }}>{row.plant}</TableCell>
-                <TableCell>{row.totalCapacity}</TableCell>
-                <TableCell>{row.grower}</TableCell>
-                <TableCell>{row.retailer}</TableCell>
-                <TableCell>{row.national}</TableCell>
-                <TableCell>{row.custom}</TableCell>
-                <TableCell>{row.noScoreGrower}</TableCell>
-                <TableCell>{row.noScoreRetailer}</TableCell>
-                <TableCell>{row.total}</TableCell>
+                <TableCell sx={{ fontWeight: "bold" }}>{row.plant_name ||'-'}</TableCell>
+                <TableCell>{row.totalCapacity ||'-'}</TableCell>
+                <TableCell>{row.grower_percentage ||'-'}</TableCell>
+                <TableCell>{row.retailer_percentage ||'-'}</TableCell>
+                {/* <TableCell>{row.national}</TableCell>
+                <TableCell>{row.custom}</TableCell> */}
+                <TableCell>{row.other_percentage ||'-'}</TableCell>
+                <TableCell>{row.no_score_grower_percentage ||'-'}</TableCell>
+                <TableCell>{row.no_score_retailer_percentage ||'-'}</TableCell>
+                <TableCell>{row.total || "-"}</TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -129,7 +132,7 @@ alert("Capacity added successfully!");
               label="Select Plant"
               onChange={(e) => setSelectedPlant(e.target.value)}
             >
-              {rows
+              {plantTableData?.length >0 && plantTableData
                 .filter((row) => row.plant !== "Total by Grade Level")
                 .map((row, idx) => (
                   <MenuItem key={idx} value={row.plant}>

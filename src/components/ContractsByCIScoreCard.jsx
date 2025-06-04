@@ -22,7 +22,9 @@ import styled from '@emotion/styled';
 //   { grade: "No Score Retailer", bushels: 1224,pending: 296, ciScore: 20 },
 // ];
 
-const ContractsByCIScoreCard = ( {deliveredData, pendingData}) => {
+const ContractsByCIScoreCard = ( {deliveredData, pendingData, plantTableData}) => {
+  
+  console.log("plantTableData 1",plantTableData);
 //   const ciScores = {
 //   "Grower": 30,
 //   "Retailer": 26,
@@ -121,7 +123,7 @@ const CustomToggleButton = styled(ToggleButton)`
             flexItem
             sx={{ borderColor: "#D3D3D3" }}
           />
-        <DeliveryTable />
+        <DeliveryTable  plantTableData={plantTableData}/>
       </Box>
     </Paper>
   );

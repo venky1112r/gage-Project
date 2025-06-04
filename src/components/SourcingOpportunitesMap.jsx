@@ -99,11 +99,11 @@ const stateAbbr = {
   56: "WY",
 };
 
-const SourcingOpportunitiesMap = () => {
+const SourcingOpportunitiesMap = ({data}) => {
   const svgRef = useRef();
   const [view, setView] = useState("heatmap");
   const [zoomLevel, setZoomLevel] = useState(1);
-
+console.log("data",data);
   useEffect(() => {
     const width = 600;
     const height = 400;
@@ -166,11 +166,11 @@ const SourcingOpportunitiesMap = () => {
           .append("path")
           .attr("fill", (d) => {
             if (view === "heatmap") return "#eee";
-            const stateSources = sources.filter(
+            const stateSources = data.filter(
               (s) =>
-                projection([s.lon, s.lat]) && d3.geoContains(d, [s.lon, s.lat])
+                projection([s.longitude, s.latitude]) && d3.geoContains(d, [s.longitude, s.latitude])
             );
-            const avgCI = d3.mean(stateSources, (s) => s.ciScore) || 0;
+            const avgCI = d3.mean(stateSources, (s) => s.ci_score) || 0;
             return ciScale(avgCI);
           })
           .attr("stroke", "#fff")
@@ -191,12 +191,12 @@ const SourcingOpportunitiesMap = () => {
 
         if (view === "mysources") {
           g.selectAll("g.pin")
-            .data(sources)
+            .data(data)
             .enter()
             .append("g")
             .attr("class", "pin")
             .attr("transform", (d) => {
-              const coords = projection([d.lon, d.lat]);
+              const coords = projection([d.longitude, d.latitude]);
               return coords ? `translate(${coords[0]}, ${coords[1]})` : null;
             })
             .each(function (d) {

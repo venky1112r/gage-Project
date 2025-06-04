@@ -12,7 +12,7 @@ const ContractsChart = ({ data, view }) => {
     const observer = new ResizeObserver(([entry]) => {
       const width = entry.contentRect.width;
       const isMobile = width < 500;
-      const height = isMobile ? width * 0.8 : width * 0.5;
+      const height = isMobile ? width * 0.8 : width * 0.3;
       setSize({ width, height });
     });
 

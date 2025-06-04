@@ -20,14 +20,17 @@ const DashboardPage = () => {
    console.log("Plant ID:", plantid);
 
   useEffect(() => {
-    if (!summaryMetrics && !contractsCi && !plantsCi) {
+    if (  !plantsCi) {loadPlantsCi();}
       // loadDashboardData();
-      loadSummaryMetrics();
-      loadContractsCi();
-      loadPlantsCi();
-    }
-    setDashboardData({summaryMetrics,contractsCi,plantsCi});
-  }, [summaryMetrics,contractsCi, plantsCi]);
+      if(!summaryMetrics){
+        loadSummaryMetrics();
+      }
+      if(!contractsCi){
+        loadContractsCi();
+      }
+      console.log(summaryMetrics,contractsCi, plantsCi);
+     setDashboardData({summaryMetrics,contractsCi,plantsCi});
+  }, [summaryMetrics, contractsCi, plantsCi]);
   
 console.log("sun=mmary",summaryMetrics,"contract ",contractsCi,"plant ",plantsCi);
 console.log("dash", dashboardData);
