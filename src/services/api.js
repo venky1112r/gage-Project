@@ -48,6 +48,36 @@ export async function fetchDashboardData() {
   }
   return response.json();
 }
+// Dashboard API
+export async function fetchDashboardSummaryMetrics() {
+  const response = await fetch(`${API_BASE}/dashboard/summary-metrics`, {
+    method: "GET",
+    credentials: "include", // include cookies for auth
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to load dashboard data");
+  }
+  return response.json();
+}
+// Dashboard API
+export async function fetchDashboardContractsCi() {
+  const response = await fetch(`${API_BASE}/api/dashboard-metrics`, {
+    method: "GET",
+    credentials: "include", // include cookies for auth
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to load dashboard data");
+  }
+  return response.json();
+}
 
 // Users List API (optional example)
 export async function fetchUsers() {

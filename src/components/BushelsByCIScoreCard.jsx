@@ -102,7 +102,7 @@ const BushelsByCIScoreCard = ({ deliveredData, pendingData }) => {
 
     // Center text
     const total = chartData.reduce((sum, d) => sum + d.value, 0);
-    let centerText = "100%"; // Set default to 100%
+     let centerText = (total === 0 || total === undefined) ?"0%":"100%"; // Set default to 100%
 
     if (selectedIndex !== null) {
       const selected = chartData[selectedIndex];

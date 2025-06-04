@@ -132,7 +132,7 @@ import {
                 variant="contained"
                 color="success"
                 onClick={handleGenarateReport}
-                sx={{ height: "40px", width: "40%" }}
+                sx={{ height: "40px", width: "45%", padding: {xs: "6px",md: "10px",lg :"12px"  } }}
               >
                 Generate Report
               </Button>
