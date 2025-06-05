@@ -22,6 +22,7 @@ import {
   InputLabel,
   Button,
   IconButton,
+   TablePagination,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import EditIcon from "@mui/icons-material/Edit";
@@ -36,107 +37,109 @@ const MySourcesTable = ({data}) => {
   const [searchOpen, setSearchOpen] = useState(false);
   const searchRef = useRef(null);
 console.log("data",data);
-  const rows = [
-    {
-      source: "Brown Country Elevators",
-      type: "G",
-      bushels: "7,234",
-      percentTotal: "23.1%",
-      authContracts: "98%",
-      ciScore: 13.2,
-      color: "#DC6B19",
-    },
-    {
-      source: "Randal",
-      type: "G",
-      bushels: "7,012",
-      percentTotal: "13.1%",
-      authContracts: "98%",
-      ciScore: 20.1,
-      color: "#7D8F69",
-    },
-    {
-      source: "Hamilton",
-      type: "R",
-      bushels: "7,234",
-      percentTotal: "11.9%",
-      authContracts: "98%",
-      ciScore: 20.1,
-      color: "#7D8F69",
-    },
-    {
-      source: "Adams",
-      type: "R",
-      bushels: "7,234",
-      percentTotal: "10.3%",
-      authContracts: "98%",
-      ciScore: 14.9,
-      color: "#DC6B19",
-    },
-    {
-      source: "Hart LLC",
-      type: "R",
-      bushels: "6,234",
-      percentTotal: "9.1%",
-      authContracts: "98%",
-      ciScore: 11.9,
-      color: "#F4C430",
-    },
-    {
-      source: "Rapid Fall Elevators",
-      type: "G",
-      bushels: "6,012",
-      percentTotal: "8.1%",
-      authContracts: "98%",
-      ciScore: 20.1,
-      color: "#7D8F69",
-    },
-    {
-      source: "Rapid Fall Elevators",
-      type: "G",
-      bushels: "6,012",
-      percentTotal: "7.1%",
-      authContracts: "98%",
-      ciScore: 20.1,
-      color: "#7D8F69",
-    },
-    {
-      source: "Rapid Fall Elevators",
-      type: "R",
-      bushels: "6,012",
-      percentTotal: "5.1%",
-      authContracts: "98%",
-      ciScore: 20.1,
-      color: "#7D8F69",
-    },
-    {
-      source: "Rapid Fall Elevators",
-      type: "G",
-      bushels: "6,012",
-      percentTotal: "23.1%",
-      authContracts: "98%",
-      ciScore: 20.1,
-      color: "#7D8F69",
-    },
-    {
-      source: "Rapid Fall Elevators",
-      type: "G",
-      bushels: "6,012",
-      percentTotal: "23.1%",
-      authContracts: "98%",
-      ciScore: 20.1,
-      color: "#7D8F69",
-    },
-    {
-      source: "Rapid Fall Elevators",
-      type: "G",
-      bushels: "6,012",
-      percentTotal: "23.1%",
-      authContracts: "98%",
-      ciScore: 20.1,
-      color: "#7D8F69",
-    },
-  ];
+ const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
+  // const rows = [
+  //   {
+  //     source: "Brown Country Elevators",
+  //     type: "G",
+  //     bushels: "7,234",
+  //     percentTotal: "23.1%",
+  //     authContracts: "98%",
+  //     ciScore: 13.2,
+  //     color: "#DC6B19",
+  //   },
+  //   {
+  //     source: "Randal",
+  //     type: "G",
+  //     bushels: "7,012",
+  //     percentTotal: "13.1%",
+  //     authContracts: "98%",
+  //     ciScore: 20.1,
+  //     color: "#7D8F69",
+  //   },
+  //   {
+  //     source: "Hamilton",
+  //     type: "R",
+  //     bushels: "7,234",
+  //     percentTotal: "11.9%",
+  //     authContracts: "98%",
+  //     ciScore: 20.1,
+  //     color: "#7D8F69",
+  //   },
+  //   {
+  //     source: "Adams",
+  //     type: "R",
+  //     bushels: "7,234",
+  //     percentTotal: "10.3%",
+  //     authContracts: "98%",
+  //     ciScore: 14.9,
+  //     color: "#DC6B19",
+  //   },
+  //   {
+  //     source: "Hart LLC",
+  //     type: "R",
+  //     bushels: "6,234",
+  //     percentTotal: "9.1%",
+  //     authContracts: "98%",
+  //     ciScore: 11.9,
+  //     color: "#F4C430",
+  //   },
+  //   {
+  //     source: "Rapid Fall Elevators",
+  //     type: "G",
+  //     bushels: "6,012",
+  //     percentTotal: "8.1%",
+  //     authContracts: "98%",
+  //     ciScore: 20.1,
+  //     color: "#7D8F69",
+  //   },
+  //   {
+  //     source: "Rapid Fall Elevators",
+  //     type: "G",
+  //     bushels: "6,012",
+  //     percentTotal: "7.1%",
+  //     authContracts: "98%",
+  //     ciScore: 20.1,
+  //     color: "#7D8F69",
+  //   },
+  //   {
+  //     source: "Rapid Fall Elevators",
+  //     type: "R",
+  //     bushels: "6,012",
+  //     percentTotal: "5.1%",
+  //     authContracts: "98%",
+  //     ciScore: 20.1,
+  //     color: "#7D8F69",
+  //   },
+  //   {
+  //     source: "Rapid Fall Elevators",
+  //     type: "G",
+  //     bushels: "6,012",
+  //     percentTotal: "23.1%",
+  //     authContracts: "98%",
+  //     ciScore: 20.1,
+  //     color: "#7D8F69",
+  //   },
+  //   {
+  //     source: "Rapid Fall Elevators",
+  //     type: "G",
+  //     bushels: "6,012",
+  //     percentTotal: "23.1%",
+  //     authContracts: "98%",
+  //     ciScore: 20.1,
+  //     color: "#7D8F69",
+  //   },
+  //   {
+  //     source: "Rapid Fall Elevators",
+  //     type: "G",
+  //     bushels: "6,012",
+  //     percentTotal: "23.1%",
+  //     authContracts: "98%",
+  //     ciScore: 20.1,
+  //     color: "#7D8F69",
+  //   },
+  // ];
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -171,8 +174,16 @@ console.log("data",data);
   const handleSave = () => {
     handleClose();
   };
+ const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
 
-  const filteredRows = rows.filter((row) => {
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const filteredRows = (data || []).filter((row) => {
     const matchesSearch = row.source
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
@@ -180,6 +191,19 @@ console.log("data",data);
       sourceFilter === "All Sources" || row.source === sourceFilter;
     return matchesSearch && matchesSource;
   });
+
+  const paginatedRows = filteredRows.slice(
+    page * rowsPerPage,
+    page * rowsPerPage + rowsPerPage
+  );
+  // const filteredRows = data.filter((row) => {
+  //   const matchesSearch = row.source
+  //     .toLowerCase()
+  //     .includes(searchTerm.toLowerCase());
+  //   const matchesSource =
+  //     sourceFilter === "All Sources" || row.source === sourceFilter;
+  //   return matchesSearch && matchesSource;
+  // });
 
   return (
     <>
@@ -239,7 +263,7 @@ console.log("data",data);
               }}
             >
               <MenuItem value="All Sources">All Sources</MenuItem>
-              {[...new Set(rows.map((r) => r.source))].map((source) => (
+    {[...new Set((data || []).map((r) => r.source))].map((source) => (
                 <MenuItem key={source} value={source}>
                   {source}
                 </MenuItem>
@@ -302,7 +326,7 @@ console.log("data",data);
               </TableHead>
 
               <TableBody>
-                {data?.length >0 && data.map((row, idx) => (
+                {paginatedRows.map((row, idx) => (
                   <TableRow key={idx} hover>
                     <TableCell
                       sx={{ fontSize: { xs: "10px", sm: "10px", md: "12px" } }}
@@ -363,6 +387,15 @@ console.log("data",data);
               </TableBody>
             </Table>
           </TableContainer>
+          <TablePagination
+            component="div"
+            count={filteredRows.length}
+            page={page}
+            onPageChange={handleChangePage}
+            rowsPerPage={rowsPerPage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+            rowsPerPageOptions={[ 10, 15, 20 ]}
+          />
         </Box>
       </Paper>
 
@@ -388,7 +421,7 @@ console.log("data",data);
                 />
               </Grid>
 
-              <Grid container spacing={4} sx={{ pl: 3 }}>
+              <Grid container spacing={4} sx={{ pl: 3,pt:1 }}>
                 <Grid item xs={12} md={3} sx={{ mt: 1 }}>
                   <Typography noWrap>
                     <strong>Type:</strong> {selectedRow.type}

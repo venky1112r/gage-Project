@@ -14,6 +14,7 @@ import {
   TablePagination,
   Grid,
   InputAdornment,
+   CircularProgress,
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { useDashboard } from "../context/DashboardContext";
@@ -21,30 +22,40 @@ import { saveManualInput } from "../services/api.js";
 
 const ManualInputsComponent = () => {
   const { manualInputs, loadManualInputs } = useDashboard();
+  const [loading, setLoading] = useState(false);
   console.log("manualInputs", manualInputs);
-  useEffect(() => {
-    const loadData = async () => {
-      if (!manualInputs || manualInputs.length === 0) {
-        await loadManualInputs();
-      } else {
-        const formatted = manualInputs.map((row) => ({
-          ...row,
-          createdate: row.createdate
-            ? new Date(row.createdate).toISOString().split("T")[0]
-            : "",
-          updateddate: row.updateddate
-            ? new Date(row.updateddate).toISOString().split("T")[0]
-            : "",
-        }));
-        console.log("Formatted rows", formatted);
 
-        setRows(formatted);
-        // setRows(manualInputs);
+
+  // ✅ Load manual input data on component mount
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        await loadManualInputs(); // Loads and updates context
+      } catch (error) {
+        console.error("Error loading manual inputs:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
-    loadData();
-  }, [manualInputs, loadManualInputs]);
+    fetchData();
+  }, []);
+   // ✅ Update local state when manualInputs from context is ready
+  useEffect(() => {
+    if (manualInputs && manualInputs.length > 0) {
+      const formatted = manualInputs.map((row) => ({
+        ...row,
+        createdate: row.createdate
+          ? new Date(row.createdate).toISOString().split("T")[0]
+          : "",
+        updateddate: row.updateddate
+          ? new Date(row.updateddate).toISOString().split("T")[0]
+          : "",
+      }));
+      setRows(formatted);
+    }
+  }, [manualInputs]);
 
   const location = useLocation();
   const email = location.state?.email || "guest@example.com"; // ✅ use email for updatedby
@@ -397,24 +408,40 @@ const ManualInputsComponent = () => {
             </TableRow>
           </TableHead>
           <TableBody sx={{ "& td": { textAlign: "center" } }}>
-            {rows
-              .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              .map((row, idx) => (
-                <TableRow key={idx}>
-                  <TableCell>{page * rowsPerPage + idx + 1}</TableCell>
-                  <TableCell>{row.createdate}</TableCell>
-                  <TableCell>{row.updateddate}</TableCell>
-                  <TableCell>{row.fossilgasused}</TableCell>
-                  <TableCell>{row.coalusage}</TableCell>
-                  <TableCell>{row.gridelectricusage}</TableCell>
-                  <TableCell>{row.renewablelectricusage}</TableCell>
-                  <TableCell>{row.naturalgasrenewable45z}</TableCell>
-                  <TableCell>{row.totalbushelsprocessed}</TableCell>
-                  <TableCell>{row.totalethanolproduced}</TableCell>
-                  <TableCell>{row.updatedon}</TableCell>
-                  <TableCell>{row.updatedby}</TableCell>
+                   {loading ? (
+              <TableRow>
+                <TableCell colSpan={12} align="center">
+                  <CircularProgress />
+                </TableCell>
+              </TableRow>
+            ) : (
+              rows.length > 0 ? (
+                rows
+                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((row, idx) => (
+                    <TableRow key={idx}>
+                      <TableCell>{page * rowsPerPage + idx + 1}</TableCell>
+                      <TableCell>{row.createdate}</TableCell>
+                      <TableCell>{row.updateddate}</TableCell>
+                      <TableCell>{row.fossilgasused}</TableCell>
+                      <TableCell>{row.coalusage}</TableCell>
+                      <TableCell>{row.gridelectricusage}</TableCell>
+                      <TableCell>{row.renewablelectricusage}</TableCell>
+                      <TableCell>{row.naturalgasrenewable45z}</TableCell>
+                      <TableCell>{row.totalbushelsprocessed}</TableCell>
+                      <TableCell>{row.totalethanolproduced}</TableCell>
+                      <TableCell>{row.updatedon}</TableCell>
+                      <TableCell>{row.updatedby}</TableCell>
+                    </TableRow>
+                  ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={12} align="center">
+                    No data available
+                  </TableCell>
                 </TableRow>
-              ))}
+              )
+            )}
           </TableBody>
         </Table>
       </TableContainer>
