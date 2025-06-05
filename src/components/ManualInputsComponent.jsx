@@ -15,6 +15,7 @@ import {
   Grid,
   InputAdornment,
    CircularProgress,
+   
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { useDashboard } from "../context/DashboardContext";
@@ -457,7 +458,7 @@ const ManualInputsComponent = () => {
           `${from}-${to} of ${count} row${count !== 1 ? 's' : ''}`
         }
       /> */}
-
+<Box sx={{ width: '100%', overflowX: 'hidden' }}>
       <TablePagination
         component="div"
         count={rows.length}
@@ -472,7 +473,22 @@ const ManualInputsComponent = () => {
             rows.length !== 1 ? "s" : ""
           }`;
         }}
+         sx={{
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    display: 'flex',
+    gap: 1,
+    fontSize: { xs: "12px", sm: "14px" },
+    '.MuiTablePagination-toolbar': {
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+    },
+    '.MuiTablePagination-selectLabel, .MuiTablePagination-displayedRows': {
+      margin: { xs: '4px 0', sm: '0' },
+    },
+  }}
       />
+      </Box>
       <Box mt={4}>
         <Typography variant="h6" sx={{ mt: 2 }}>
           Operational Net CI Score

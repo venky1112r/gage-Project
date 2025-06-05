@@ -395,6 +395,20 @@ console.log("data",data);
             rowsPerPage={rowsPerPage}
             onRowsPerPageChange={handleChangeRowsPerPage}
             rowsPerPageOptions={[ 10, 15, 20 ]}
+             sx={{
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    display: 'flex',
+    gap: 1,
+    fontSize: { xs: "12px", sm: "14px" },
+    '.MuiTablePagination-toolbar': {
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+    },
+    '.MuiTablePagination-selectLabel, .MuiTablePagination-displayedRows': {
+      margin: { xs: '4px 0', sm: '0' },
+    },
+  }}
           />
         </Box>
       </Paper>

@@ -99,11 +99,11 @@ const stateAbbr = {
   56: "WY",
 };
 
-const SourcingOpportunitiesMap = ({data}) => {
+const SourcingOpportunitiesMap = ({ data }) => {
   const svgRef = useRef();
   const [view, setView] = useState("heatmap");
   const [zoomLevel, setZoomLevel] = useState(1);
-console.log("data",data);
+  console.log("data", data);
   useEffect(() => {
     const width = 600;
     const height = 400;
@@ -166,9 +166,10 @@ console.log("data",data);
           .append("path")
           .attr("fill", (d) => {
             if (view === "heatmap") return "#eee";
-            const stateSources = data.filter(
+            const stateSources = data.length >0 && data.filter(
               (s) =>
-                projection([s.longitude, s.latitude]) && d3.geoContains(d, [s.longitude, s.latitude])
+                projection([s.longitude, s.latitude]) &&
+                d3.geoContains(d, [s.longitude, s.latitude])
             );
             const avgCI = d3.mean(stateSources, (s) => s.ci_score) || 0;
             return ciScale(avgCI);
@@ -185,7 +186,7 @@ console.log("data",data);
           .attr("y", (d) => path.centroid(d)[1])
           .attr("text-anchor", "middle")
           .attr("dy", "0.35em")
-          .attr("font-size", "10px")
+          .attr("font-size", "6px")
           .attr("fill", "#333")
           .style("pointer-events", "none");
 

@@ -210,6 +210,20 @@ const paginatedRows = filteredRows.slice(
   rowsPerPage={rowsPerPage}
   onRowsPerPageChange={handleChangeRowsPerPage}
   rowsPerPageOptions={[5, 10, 25]}
+   sx={{
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    display: 'flex',
+    gap: 1,
+    fontSize: { xs: "12px", sm: "14px" },
+    '.MuiTablePagination-toolbar': {
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+    },
+    '.MuiTablePagination-selectLabel, .MuiTablePagination-displayedRows': {
+      margin: { xs: '4px 0', sm: '0' },
+    },
+  }}
 />
 
       <Box mt={4}>
